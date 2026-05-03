@@ -1,0 +1,575 @@
+✦ ✦ ✦
+VELVET VOWS
+Digital Wedding Invitation Platform
+────────────────────────────────────────
+Full Product Requirements & Design Documentation
+Version 1.0  ✦  April 2026
+✦ ✦ ✦
+1. Product Overview
+Velvet Vows is an ultra-premium digital wedding invitation platform that empowers couples to craft, personalise, and share stunning digital invitations — with zero technical expertise required. The product sits at the intersection of elegance, simplicity, and modern web technology.
+1.1 Vision Statement
+⬥ Core Vision
+To become the most beautiful and effortless way for couples to announce their love story — delivering the luxury feel of a physical invitation through the immediacy and reach of a digital experience.
+1.2 Mission
+Velvet Vows democratises premium wedding stationery. Where a printed luxury invitation suite may cost thousands, Velvet Vows delivers equivalent aesthetic prestige — shareable in seconds, accessible on any device, memorable forever.
+1.3 Product Positioning
+Dimension
+Velvet Vows Stance
+Market Category
+Premium SaaS — Digital Wedding Invitations
+Primary Users
+Engaged couples planning their wedding
+Core Value
+Luxury design meets instant digital sharing
+Differentiator
+Ultra-premium golden aesthetic, zero login friction, instant QR + shareable link
+Monetisation Path
+Freemium (1 free template) → Paid plans for premium templates + features
+Launch MVP
+3 invitation templates, Google login, QR code, shareable link
+Validity
+Invitation Valid for 6 Months
+2. Target Users & Personas
+2.1 Primary Persona — The Couple
+Age: 24–38  |  Tech-savvy: Moderate to high  |  Budget-conscious but willing to pay for quality
+Wants an invitation that feels as special as a printed one
+Needs to reach guests quickly — many are geographically dispersed
+Prefers not to manage RSVPs through WhatsApp manually
+Appreciates beauty and brand aesthetics
+2.2 Secondary Persona — The Wedding Planner
+Age: 28–50  |  Creates invitations on behalf of multiple clients  |  Values speed, variety of templates
+Needs to create multiple invitations efficiently
+Wants professional output to show clients
+Likely to upgrade to paid plan for premium templates
+2.3 Pain Points Addressed
+Pain Point
+How Velvet Vows Solves It
+Printing takes too long and is expensive
+Instant digital creation — ready in under 5 minutes
+WhatsApp invites look unprofessional
+Beautifully designed, brandable digital invitation card
+Can't reach all guests at once
+Shareable link works on any platform — email, WhatsApp, social
+QR codes are hard to generate
+Auto-generated QR code embedded in every invitation
+Login friction stops casual users
+Google OAuth — one click, no forms, no passwords
+3. User Journey & Flow
+3.1 End-to-End User Flow
+Landing Page — User arrives at Velvet Vows homepage
+Sees hero section showcasing the ultra-premium golden aesthetic
+Prominent 'Create Your Invitation' CTA button
+Google Authentication — One-click sign in
+Google OAuth 2.0 popup/redirect
+Session stored in browser (HTTP-only cookie)
+First-time users proceed to template selection
+Returning users see their saved invitations
+Invitation Form — Enter wedding details
+Bride & Groom names, Wedding date & time
+Venue name & address, RSVP deadline & contact
+Optional: Dress code, additional message, couple's photo upload
+Template Selection — Choose from curated designs
+Side-by-side template preview with live data
+3 templates at launch (expandable)
+Live Preview — See the exact invitation
+Full-screen render of the chosen template with real data
+Can switch templates or edit details from this screen
+Show: 
+“Preview only — payment required to publish”
+Proceed to Payment
+Razorpay checkout opens
+User completes payment
+Publish & Share — Generate the public link and QR code
+Unique public URL: velvetvows.com/invite/[unique-id]
+QR code downloadable as PNG or SVG
+One-click sharing via WhatsApp, Email, or Copy Link
+4. Feature Specification
+4.1 Core MVP Features
+Feature
+Description
+Priority
+Google OAuth Login
+One-click sign-in via Google. Session managed server-side.
+P0 — Critical
+Invitation Form
+Structured form to collect all wedding details.
+P0 — Critical
+Template Gallery
+3 premium golden-themed templates at launch.
+P0 — Critical
+Live Preview
+Real-time invitation render with user data.
+P0 — Critical
+Public Shareable Link
+Unique URL for each invitation, publicly accessible.
+P0 — Critical
+QR Code Generation
+Auto-generated QR linking to the invitation URL.
+P0 — Critical
+Session Management
+Stateless sessions via secure cookies (no persistent DB login required).
+P0 — Critical
+Mobile Responsive
+All pages and invitation views fully responsive.
+P1 — High
+Copy to Clipboard
+One-click copy of shareable link.
+P1 — High
+WhatsApp Share Button
+Pre-filled WhatsApp share with invitation link.
+P1 — High
+Edit After Creation
+Return to edit invitation details (session-based).
+P2 — Medium
+Invitation Analytics
+View count on the public invitation page.
+P2 — Medium
+Multiple Templates
+Expand to 6+ templates in v1.1.
+P3 — Later
+4.2 Invitation Form Fields
+Field
+Details
+Bride's Full Name
+Required. Text input.
+Groom's Full Name
+Required. Text input.
+Wedding Date
+Required. Date picker.
+Wedding Time
+Required. Time picker (AM/PM).
+Venue Name
+Required. Text input.
+Venue Address
+Required. Textarea (2 lines).
+RSVP Deadline
+Optional. Date picker.
+RSVP Contact (Phone/Email)
+Optional. Text input.
+Dress Code
+Optional. Dropdown: Formal, Semi-Formal, Traditional, Casual.
+Personal Message
+Optional. Textarea, max 200 characters.
+Couple's Photo
+Optional. Image upload (JPG/PNG, max 5MB).
+Reception Time / After-party
+Optional. Time + short text.
+5. Invitation Templates — Design Specification
+All three MVP templates share the ultra-premium golden colour palette and are fully responsive. Each carries a distinct aesthetic personality to serve different wedding styles.
+Template 1 — 'The Royal Scroll'
+⬥ Aesthetic Direction
+Classic opulence. Heavy Baroque ornamental borders, serif headings in deep gold, parchment-cream background. This template evokes a hand-engraved royal proclamation. Ideal for traditional and grand weddings.
+Design Element
+Specification
+Background
+Parchment cream (#FDF8F0) with subtle grain texture overlay
+Border Treatment
+Multi-layer ornamental gold border with fleur-de-lis corners
+Primary Font
+Cormorant Garamond — Extra Bold for names
+Secondary Font
+EB Garamond — Regular for details
+Decorative Dividers
+Gold filigree ornamental dividers between sections
+Couple's Photo
+Optional oval portrait frame with gold border, top-centre
+Colour Palette
+Deep Gold (#B8860B), Cream (#FDF8F0), Ivory (#FFFFF0), Black (#1A1A1A)
+Layout
+Single-column, vertically stacked, A5 portrait proportions
+Special Elements
+Wax seal graphic at bottom, ribbon motifs at top
+Template 2 — 'Golden Minimalist'
+⬥ Aesthetic Direction
+Contemporary luxury. Clean white space, thin gold lines, elegant sans-serif typography. This template feels like a luxury fashion brand's invite — confident, restrained, exquisite. Ideal for modern, cosmopolitan weddings.
+Design Element
+Specification
+Background
+Pure white (#FFFFFF) with hairline gold frame
+Border Treatment
+Single thin gold line border, generous inner padding
+Primary Font
+Playfair Display — Black Italic for names
+Secondary Font
+Lato — Light for details and dates
+Decorative Dividers
+Thin gold horizontal rules, centred diamond ornament
+Couple's Photo
+Optional full-bleed banner at top (landscape crop)
+Colour Palette
+Gold (#D4AF37), White (#FFFFFF), Near-black (#0D0D0D), Rose Gold accent (#C8A882)
+Layout
+Two-section layout: hero name area + details grid
+Special Elements
+Monogram initials circle in gold at centre
+Template 3 — 'Garden Celestial'
+⬥ Aesthetic Direction
+Romantic ethereal. Deep midnight navy or forest green background, gold botanical illustrations, warm gold text. This template feels like an enchanted evening under the stars. Ideal for destination and garden weddings.
+Design Element
+Specification
+Background
+Deep navy (#0A1628) or emerald (#0D2818) — user toggle
+Border Treatment
+Scattered gold botanical leaf and floral illustrations in corners
+Primary Font
+Great Vibes — Script for couple names
+Secondary Font
+Cinzel — Uppercase for dates and venue
+Decorative Dividers
+Gold leaf botanical clusters
+Couple's Photo
+Optional circular frame, bottom third
+Colour Palette
+Warm Gold (#E8C55A), Navy (#0A1628) / Emerald (#0D2818), White (#F5F5F5)
+Layout
+Full-bleed dark background, content centred with wide margins
+Special Elements
+Starfield particle effect (CSS), crescent moon motif
+6. Technical Architecture
+6.1 Technology Stack
+Layer
+Technology
+Frontend Framework
+HTML
+Styling
+Bootstrap
+Backend Framework
+Laravel (PHP)
+Authentication
+Google OAuth (Laravel Socialite) 
+Session Management
+Laravel Sessions (HTTP-only cookies, server-side)
+Database
+MySql
+ — stores invitation data
+File Storage
+Laravel Storage (Local / AWS S3 for production)
+QR Code Generation
+Simple QrCode (Laravel package) or qrcode.js
+Payment Gateway
+Razorpay (Checkout + Webhooks for verification)
+Public URL Routing
+Laravel Routes: 
+/invite/{slug}
+Slug Generation
+UUID / Laravel Str::random() (URL-safe unique IDs)
+Deployment
+Hostinger
+Analytics
+Custom DB-based view counter (optional Google Analytics)
+Email (Optional v1.1)
+Laravel Mail (SMTP) or SendGrid
+6.2 Database Schema
+Table: users
+Column
+Type & Notes
+id
+UUID, Primary Key, auto-generated
+google_id
+TEXT, unique — from Google OAuth
+email
+TEXT, unique
+name
+TEXT
+avatar_url
+TEXT — Google profile picture URL
+created_at
+TIMESTAMP, default now()
+Table: invitations
+Column
+Type & Notes
+id
+UUID, Primary Key
+user_id
+UUID, Foreign Key → users.id
+slug
+TEXT, unique — public URL identifier (e.g. 'rahul-priya-2026')
+bride_name
+TEXT, not null
+groom_name
+TEXT, not null
+wedding_date
+DATE, not null
+wedding_time
+TIME, not null
+venue_name
+TEXT, not null
+venue_address
+TEXT, not null
+rsvp_deadline
+DATE, nullable
+rsvp_contact
+TEXT, nullable
+dress_code
+TEXT, nullable
+personal_message
+TEXT, nullable, max 200 chars
+photo_url
+TEXT, nullable — Storage URL
+template_id
+TEXT — 'royal-scroll' | 'golden-minimalist' | 'garden-celestial'
+view_count
+INTEGER, default 0
+is_published
+BOOLEAN, default false
+created_at
+TIMESTAMP, default now()
+updated_at
+TIMESTAMP, auto-updated
+Valid upto
+TIMESTAMP, 6 month from created
+6.3 API Routes (
+Laravel
+)
+Route
+Method
+Description
+auth/google/redirect
+GET
+Redirect user to Google OAuth consent screen
+/auth/google/callback
+GET
+Handle Google OAuth response and login user
+/api/invitations
+POST
+Create a new invitation (authenticated)
+/api/invitations/{id}
+PUT
+Update an existing invitation (owner only)
+/api/invitations/{id}
+GET
+Fetch invitation data (authenticated)
+/api/upload
+POST
+Upload couple photo (stored via Laravel Storage)
+/invite/{slug}
+GET
+Public invitation page (no authentication required)
+6.4 Payment (Razorpay) Routes
+Route
+Method
+Description
+/api/payment/create-order
+POST
+Create Razorpay order for selected theme
+/api/payment/verify
+POST
+Verify Razorpay payment signature
+/api/payment/webhook
+POST
+Handle Razorpay webhook events (server-to-server)
+6.
+5
+ Authentication & Session Flow
+User clicks 'Sign in with Google' button
+Application redirects to Google OAuth consent screen using 
+Laravel Socialite
+User approves login → redirected to 
+/auth/google/callback
+Laravel fetches user data (name, email, Google ID)
+System checks:
+If user exists → login
+If new → create user in MySQL
+Session ID stored in 
+HTTP-only cookie
+User redirected to dashboard / create page
+Protected routes secured using 
+Laravel auth middleware
+Session expires after 
+30 days
+ (configurable)
+7. UI/UX Design System
+7.1 Colour Palette
+Token
+Value & Usage
+gold-primary
+#D4AF37 — Main gold, CTA buttons, highlights
+gold-dark
+#B8860B — Deep gold, headings, borders
+gold-light
+#F5E6A3 — Pale gold, hover states, backgrounds
+cream-base
+#FDF8F0 — Page backgrounds, cards
+black-rich
+#1A1A1A — Body text, dark elements
+gray-warm
+#8B7355 — Secondary text, labels
+white-pure
+#FFFFFF — Cards, template backgrounds
+navy-deep
+#0A1628 — Template 3 background
+emerald-deep
+#0D2818 — Template 3 alternate background
+rose-gold
+#C8A882 — Accent, Template 2
+7.2 Typography Scale
+Role
+Font & Size
+Site Display (Logo/Hero)
+Cormorant Garamond 700 — 64–96px
+Page Headings (H1)
+Cormorant Garamond 600 — 40–48px
+Section Headings (H2)
+Playfair Display 600 — 28–36px
+Card Titles (H3)
+Playfair Display 500 — 22–26px
+Body Text
+Lato 400 — 16–18px
+Labels & Captions
+Lato 300 — 12–14px
+Invitation Names
+Cormorant Garamond / Great Vibes — varies by template
+Invitation Details
+EB Garamond / Cinzel — varies by template
+7.3 Component Library
+GoldButton — Primary CTA, solid gold background, cream text, hover shimmer
+OutlineButton — Secondary action, gold border, transparent background
+FormInput — Cream background, gold focus ring, floating label
+TemplateCard — Preview thumbnail, hover scale, gold selection border
+InvitationCanvas — Full render area for the invitation preview
+QRDisplay — QR code with download button and copy-link button
+SharePanel — WhatsApp, Email, Copy Link buttons with icons
+PhotoUpload — Drag-and-drop zone with gold dashed border
+8. Page Inventory & Wireframe Descriptions
+Page 1: Landing Page (/)
+Hero Section: Full-viewport, dark or cream background, large 'Velvet Vows' logotype in gold, tagline, and 'Create Your Invitation' CTA button
+How It Works: 3-step illustrated flow — Sign In → Fill Details → Pay & Share
+Template Showcase: Scrolling preview of all 3 templates with names
+Testimonials: 3 quote cards in golden style
+Footer: Links, branding, copyright
+Page 2: Invitation Builder (/create)
+Step Indicator: 3-step progress bar (Details → Template → Preview)
+Step 1 — Details Form: All wedding fields, photo upload
+Step 2 — Template Selection: Grid of 3 template cards with live preview
+Step 3 — Preview & Publish: Full invitation render, Publish button
+CTA: 
+Proceed to Payment
+Page 3: Payment Page (/payment)
+Selected Template Summary (name + price)
+Invitation Preview Thumbnail
+Total Amount Display - “Pay Now” button (Razorpay Checkout) 
+Razorpay popup for payment
+On Success:
+Show 
+Payment Successful 
+screen
+Redirect to Share Dashboard
+On Failure:
+Show 
+Retry Payment option
+Page 
+4
+: Public Invitation (/invite/[slug])
+Full-screen beautiful invitation render (chosen template)
+No Velvet Vows branding visible (clean for guests)
+Small 'Created with Velvet Vows' watermark at bottom (branding)
+View counter updates silently on page load
+⚠️ Only accessible if 
+payment completed & not expired (6 months)
+Page 
+5
+: Share Dashboard (/dashboard)
+Shows the published invitation preview (thumbnail)
+Shareable link with copy button
+QR code with download options (PNG, SVG)
+Share buttons: WhatsApp, Email, Copy Link
+View count display
+Edit Invitation button
+Payment status: 
+Paid / Expired
+9. Security & Privacy
+Google OAuth only — no passwords stored by Velvet Vows
+Session tokens stored in HTTP-only, Secure, SameSite=Strict cookies
+All API routes protected by 
+Laravel auth middleware
+Invitation ownership enforced — users can only edit their own invitations
+Public invitation pages are intentionally unauthenticated (by design)
+Payment security:
+Razorpay used for secure transactions
+Payment verification via 
+signature validation + webhooks
+No sensitive payment data stored on server
+Photo uploads validated server-side (file type, size, MIME)
+Rate limiting on public view counter endpoint (IP-based, 1 req/10s)
+HTTPS enforced via Vercel's automatic SSL
+GDPR note: User data limited to name, email from Google; deletable on request
+10. Launch Roadmap
+Milestone
+Timeline & Scope
+Sprint 1 — Foundation
+Week 1–2: Project setup, Laravel setup, MySQL schema, Google OAuth (Laravel Socialite), basic authentications.
+Sprint 2 — Core Builder
+Week 3–4: Invitation form, validation, database integration, photo upload (Laravel Storage)
+Sprint 3 — Templates
+Week 5–6: All 3 template designs, live preview, template switching
+Sprint 4 — Sharing
+Week 7: Public URL routing, QR generation, share panel
+Sprint 5 — Polish
+Week 8: Animations, mobile responsiveness, landing page, error states
+Beta Launch
+Week 9: Invite-only beta with 20–50 real couples
+Public Launch (v1.0)
+Week 10–11: Full public release, 
+Hostinger
+ production deploy
+v1.1 — Growth
+Week 12+: Analytics dashboard, 3 more templates, email sharing
+11. Success Metrics (KPIs)
+Metric
+Target (3 months post-launch)
+Monthly Active Creators
+500 couples creating invitations
+Invitations Published
+5
+00 published invitations
+Total Guest Views
+50,000 invitation page views
+Google Auth Conversion
+>80% of landing page visitors who click CTA complete Google login
+Invitation Completion Rate
+>70% of users who start the form publish their invitation
+Avg. Time to Publish
+< 5 minutes from login to published invitation
+QR Code Download Rate
+>60% of published invitations have QR downloaded
+WhatsApp Share Rate
+>40% of users share via WhatsApp button
+Return User Rate
+>25% of users return to edit or view their invitation
+NPS Score
+> 70 (Wedding SaaS benchmark)
+12. Future Features (Post-MVP)
+RSVP Management — Guests can RSVP via the invitation page; responses tracked in dashboard
+Custom Domain — Couples can publish at their own domain (e.g. rahul-priya.com)
+PDF Download — Export invitation as a print-ready PDF
+Music / Ambiance — Background music option on the invitation page
+Animation Mode — Full CSS/JS animated invitation experience
+Multiple Invitations — Create separate invites for different events (Mehndi, Reception, etc.)
+Guest List Management — Upload guest list CSV, send personalised links
+White Label — Wedding planners get their own branded subdomain
+Premium Templates Marketplace — Buy additional designer templates
+Language Support — Hindi, Tamil, Malayalam, Arabic
+ 
+invitations
+13. Glossary
+Term
+Definition
+Slug
+A short, URL-safe unique identifier for each invitation (e.g. 'rahul-priya-2026')
+Session
+A server-side record linking a browser to an authenticated user, stored via HTTP-only cookie
+OAuth 2.0
+Open standard for access delegation — used here so users can sign in with Google without sharing their password with Velvet Vows
+QR Code
+Quick Response code — a machine-readable 2D barcode that encodes the invitation URL
+Nanoid
+A tiny, secure URL-friendly unique string ID generator used to create invitation slugs
+SSR
+Server-Side Rendering — feature that renders pages on the server for performance and SEO
+CTA
+Call To Action — A button or element prompting a user to take a specific action
+RSVP
+Répondez s'il vous plaît — a request for a response to a wedding invitation
+✦ ✦ ✦
+Velvet Vows — Where Love Meets Legacy
+End of Document  ✦  Version 1.0  ✦  April 2026
