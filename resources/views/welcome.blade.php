@@ -35,6 +35,11 @@
             --font-body: 'Lato', sans-serif;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             background-color: var(--cream-base);
             color: var(--black-rich);
@@ -55,33 +60,6 @@
         h6 {
             font-family: var(--font-heading);
             font-weight: 600;
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: transparent;
-            padding: 1.5rem 0;
-            transition: background-color 0.3s ease;
-            position: absolute;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .navbar-brand {
-            font-family: var(--font-hero);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--gold-primary) !important;
-            letter-spacing: 2px;
-        }
-
-        .nav-link {
-            font-family: var(--font-body);
-            color: var(--white-pure) !important;
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
         }
 
         /* Buttons */
@@ -313,40 +291,154 @@
         .footer {
             background-color: var(--black-rich);
             color: var(--white-pure);
-            padding: 4rem 0 2rem;
-            text-align: center;
+            padding: 0;
         }
 
-        .footer-logo {
-            font-family: var(--font-hero);
-            font-size: 2.5rem;
+        .footer-main {
+            padding-top: 5rem;
+            padding-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray-warm);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-heading {
+            font-family: var(--font-heading);
             color: var(--gold-primary);
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
         }
 
-        .footer-links a {
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--gold-primary);
+        }
+
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links-list li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links-list a {
             color: var(--gray-warm);
             text-decoration: none;
-            margin: 0 1rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .footer-links-list a:hover {
+            color: var(--gold-primary);
+            padding-left: 5px;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 0.6rem;
+        }
+
+        .footer-social a:hover {
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            transform: translateY(-3px);
+        }
+
+        .footer-contact-item {
+            color: var(--gray-warm);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--gold-primary);
+            margin-right: 0.5rem;
+            width: 16px;
+        }
+
+        .footer-contact-item a {
+            color: var(--gray-warm);
+            text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .footer-links a:hover {
+        .footer-contact-item a:hover {
+            color: var(--gold-primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.5rem 0;
+        }
+
+        .footer-bottom p,
+        .footer-bottom a {
+            color: var(--gray-warm);
+            font-size: 0.8rem;
+            font-family: var(--font-body);
+            margin: 0;
+        }
+
+        .footer-bottom a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
             color: var(--gold-primary);
         }
 
         .copyright {
-            margin-top: 3rem;
+            margin-top: 0;
             color: var(--gray-warm);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 2rem;
+            font-size: 0.8rem;
         }
 
         @keyframes fadeUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
             }
         }
 
@@ -360,6 +452,44 @@
         .gold-border-decor-inner {
             border: 1px solid var(--gold-primary);
             padding: 40px;
+        }
+        /* Responsive Fixes */
+        @media (max-width: 991px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .stats-col-middle {
+                border-left: none !important;
+                border-right: none !important;
+                border-top: 1px solid rgba(212, 175, 55, 0.2);
+                border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+                margin: 1rem 0;
+                padding: 1.5rem 0 !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            .hero-tagline {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            .gold-border-decor-inner {
+                padding: 25px;
+            }
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 100px 0 60px;
+            }
         }
     </style>
     <!-- Navbar -->
@@ -464,67 +594,7 @@
 
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">VELVET VOWS</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="bi bi-list"></i>
-            </button>
-
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#hero">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#how-it-works">Process</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#templates">Designs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pricing">Pricing</a>
-                    </li>
-                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                        <a href="/register" class="btn btn-gold py-2 px-4">Start Free</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const nav = document.querySelector('.navbar');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const menuCollapse = document.getElementById('mainNav');
-            const bsCollapse = new bootstrap.Collapse(menuCollapse, { toggle: false });
-
-            // 1. Sticky Effect on Scroll
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
-                }
-            });
-
-            // 2. Close-on-Click for Mobile
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth < 992) {
-                        bsCollapse.hide();
-                    }
-
-                    // 3. Simple Active Highlighting logic
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                });
-            });
-        });
-    </script>
+    @include('partials.header')
 
     <!-- Hero Section -->
     <section id="hero" class="hero">
@@ -564,8 +634,7 @@
                         style="color:var(--cream-base);font-family:var(--font-body);margin:0;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">
                         Invitations Sent</p>
                 </div>
-                <div class="col-md-4 py-2"
-                    style="border-left:1px solid rgba(212,175,55,0.3);border-right:1px solid rgba(212,175,55,0.3);">
+                <div class="col-md-4 py-2 stats-col-middle">
                     <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.5rem;margin:0;">98%
                     </h3>
                     <p
@@ -623,30 +692,57 @@
     <section id="live-preview" style="padding:6rem 0;background:linear-gradient(135deg,#fdf8f0 0%,#f7eedc 100%);">
         <div class="container">
             <h2 class="section-title">See Your Invitation Come to Life</h2>
-            <p class="text-center" style="color:var(--gray-warm);max-width:580px;margin:0 auto 3rem;font-size:1.05rem;font-family:var(--font-body);">Type your names below and watch the magic happen in real time.</p>
+            <p class="text-center"
+                style="color:var(--gray-warm);max-width:580px;margin:0 auto 3rem;font-size:1.05rem;font-family:var(--font-body);">
+                Type your names below and watch the magic happen in real time.</p>
             <div class="row align-items-center g-5">
                 <div class="col-lg-5">
-                    <div style="background:var(--white-pure);padding:2.5rem;border:1px solid rgba(212,175,55,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.06);">
-                        <label style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner One</label>
-                        <input id="previewName1" type="text" value="Priya" style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
-                        <label style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner Two</label>
-                        <input id="previewName2" type="text" value="Rahul" style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
-                        <label style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Wedding Date</label>
-                        <input id="previewDate" type="text" value="December 25, 2026" style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
+                    <div
+                        style="background:var(--white-pure);padding:2.5rem;border:1px solid rgba(212,175,55,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.06);">
+                        <label
+                            style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner
+                            One</label>
+                        <input id="previewName1" type="text" value="Priya"
+                            style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
+                        <label
+                            style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner
+                            Two</label>
+                        <input id="previewName2" type="text" value="Rahul"
+                            style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
+                        <label
+                            style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Wedding
+                            Date</label>
+                        <input id="previewDate" type="text" value="December 25, 2026"
+                            style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
                         <a href="/register" class="btn btn-gold w-100 mt-4">Create Mine Now</a>
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div style="background:linear-gradient(145deg,#0A1628 0%,#1a2d4a 100%);border:2px solid var(--gold-primary);padding:3.5rem 2.5rem;text-align:center;position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;">
-                        <div style="position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:1px solid rgba(212,175,55,0.35);pointer-events:none;"></div>
+                    <div
+                        style="background:linear-gradient(145deg,#0A1628 0%,#1a2d4a 100%);border:2px solid var(--gold-primary);padding:3.5rem 2.5rem;text-align:center;position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;">
+                        <div
+                            style="position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:1px solid rgba(212,175,55,0.35);pointer-events:none;">
+                        </div>
                         <div style="position:relative;z-index:1;width:100%;">
-                            <p style="font-family:var(--font-heading);color:var(--gold-light);font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:1.2rem;">Together with their families</p>
-                            <h3 id="displayName1" style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">Priya</h3>
-                            <p style="font-family:var(--font-heading);color:var(--cream-base);font-size:1.8rem;margin:0.3rem 0;font-style:italic;">&amp;</p>
-                            <h3 id="displayName2" style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">Rahul</h3>
+                            <p
+                                style="font-family:var(--font-heading);color:var(--gold-light);font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:1.2rem;">
+                                Together with their families</p>
+                            <h3 id="displayName1"
+                                style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">
+                                Priya</h3>
+                            <p
+                                style="font-family:var(--font-heading);color:var(--cream-base);font-size:1.8rem;margin:0.3rem 0;font-style:italic;">
+                                &amp;</p>
+                            <h3 id="displayName2"
+                                style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">
+                                Rahul</h3>
                             <div style="width:50px;height:1px;background:var(--gold-primary);margin:1.5rem auto;"></div>
-                            <p style="font-family:var(--font-heading);color:var(--cream-base);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;">request the honour of your presence</p>
-                            <p id="displayDate" style="font-family:var(--font-hero);color:var(--gold-light);font-size:1.5rem;margin:0;transition:all 0.2s;">December 25, 2026</p>
+                            <p
+                                style="font-family:var(--font-heading);color:var(--cream-base);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;">
+                                request the honour of your presence</p>
+                            <p id="displayDate"
+                                style="font-family:var(--font-hero);color:var(--gold-light);font-size:1.5rem;margin:0;transition:all 0.2s;">
+                                December 25, 2026</p>
                         </div>
                     </div>
                 </div>
@@ -654,52 +750,62 @@
         </div>
     </section>
     <script>
-        ['previewName1','previewName2','previewDate'].forEach(id => {
+        ['previewName1', 'previewName2', 'previewDate'].forEach(id => {
             document.getElementById(id).addEventListener('input', e => {
-                const map = {previewName1:'displayName1',previewName2:'displayName2',previewDate:'displayDate'};
+                const map = { previewName1: 'displayName1', previewName2: 'displayName2', previewDate: 'displayDate' };
                 document.getElementById(map[id]).textContent = e.target.value || '—';
             });
         });
     </script>
 
     <!-- Template Showcase -->
-    <section id="templates" class="templates">
+    <section id="templates" style="padding:6rem 0;background:var(--cream-base);">
         <div class="container">
             <h2 class="section-title">Curated Aesthetics</h2>
             <div class="row g-4 mt-2">
-                <div class="col-md-4">
+                <div class="col-md-3 col-sm-6">
                     <div class="template-card">
                         <img src="https://images.unsplash.com/photo-1544926526-cb1723a1aee7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="The Royal Scroll" class="template-img">
                         <div class="template-overlay">
                             <h3 class="template-name">The Royal Scroll</h3>
-                            <p class="mb-0">Classic Opulence</p>
+                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Classic Opulence</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 col-sm-6">
                     <div class="template-card">
                         <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Golden Minimalist" class="template-img">
                         <div class="template-overlay">
                             <h3 class="template-name">Golden Minimalist</h3>
-                            <p class="mb-0">Contemporary Luxury</p>
+                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Contemporary Luxury</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 col-sm-6">
                     <div class="template-card">
                         <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Garden Celestial" class="template-img">
                         <div class="template-overlay">
                             <h3 class="template-name">Garden Celestial</h3>
-                            <p class="mb-0">Romantic Ethereal</p>
+                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Romantic Ethereal</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="template-card">
+                        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Midnight Jasmine" class="template-img">
+                        <div class="template-overlay">
+                            <h3 class="template-name">Midnight Jasmine</h3>
+                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Modern Mystique</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-5">
-                <a href="/create" class="btn btn-outline-gold">Explore All Designs</a>
+                <a href="/register" class="btn btn-gold px-5">Start With a Template</a>
             </div>
         </div>
     </section>
@@ -712,66 +818,254 @@
                 <div class="col-md-4">
                     <div class="testimonial-card">
                         <i class="bi bi-quote quote-icon"></i>
+                        <div style="color:#D4AF37;font-size:1.1rem;margin-bottom:1rem;">★★★★★</div>
                         <p class="testimonial-text">"We wanted our digital invites to feel as special as physical ones.
                             Velvet Vows delivered beyond our expectations. The Golden Minimalist theme was perfect."</p>
-                        <p class="testimonial-author">Priya & Rahul</p>
+                        <div
+                            style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;">
+                            <div
+                                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8860B);display:flex;align-items:center;justify-content:center;font-family:var(--font-hero);color:#fff;font-size:1rem;flex-shrink:0;">
+                                P</div>
+                            <p class="testimonial-author mb-0">Priya &amp; Rahul · Mumbai</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="testimonial-card">
                         <i class="bi bi-quote quote-icon"></i>
+                        <div style="color:#D4AF37;font-size:1.1rem;margin-bottom:1rem;">★★★★★</div>
                         <p class="testimonial-text">"Created and sent to 300 guests in under 10 minutes. The WhatsApp
                             integration is flawless, and the design received so many compliments!"</p>
-                        <p class="testimonial-author">Sarah & James</p>
+                        <div
+                            style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;">
+                            <div
+                                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8860B);display:flex;align-items:center;justify-content:center;font-family:var(--font-hero);color:#fff;font-size:1rem;flex-shrink:0;">
+                                S</div>
+                            <p class="testimonial-author mb-0">Sarah &amp; James · London</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="testimonial-card">
                         <i class="bi bi-quote quote-icon"></i>
+                        <div style="color:#D4AF37;font-size:1.1rem;margin-bottom:1rem;">★★★★★</div>
                         <p class="testimonial-text">"The Royal Scroll template perfectly captured the traditional yet
                             grand feel we wanted. It's truly a premium experience with zero stress."</p>
-                        <p class="testimonial-author">Aisha & Kabir</p>
+                        <div
+                            style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;">
+                            <div
+                                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8860B);display:flex;align-items:center;justify-content:center;font-family:var(--font-hero);color:#fff;font-size:1rem;flex-shrink:0;">
+                                A</div>
+                            <p class="testimonial-author mb-0">Aisha &amp; Kabir · Dubai</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- Pricing -->
+    <section id="pricing" style="padding:6rem 0;background:var(--navy-deep);">
         <div class="container">
-            <div class="footer-logo">Velvet Vows</div>
-            <p
-                style="color: var(--gold-primary); font-family: var(--font-heading); font-style: italic; margin-bottom: 2rem;">
-                Where Love Meets Legacy</p>
-
-            <div class="footer-links">
-                <a href="#">About Us</a>
-                <a href="#">Templates</a>
-                <a href="#">Pricing</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-
-            <div class="copyright">
-                &copy; {{ date('Y') }} Velvet Vows. All rights reserved.
+            <h2 class="section-title" style="color:var(--gold-primary);">Simple, Transparent Pricing</h2>
+            <p class="text-center"
+                style="color:rgba(253,248,240,0.7);max-width:500px;margin:0 auto 3rem;font-family:var(--font-body);">
+                Start for free. Upgrade only when you need more.</p>
+            <div class="row justify-content-center g-4">
+                <!-- Free -->
+                <div class="col-md-4">
+                    <div
+                        style="background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);padding:2.5rem;text-align:center;height:100%;transition:transform 0.3s ease;">
+                        <p
+                            style="font-family:var(--font-body);color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;font-size:0.8rem;margin-bottom:1rem;">
+                            Free Forever</p>
+                        <h3 style="font-family:var(--font-hero);color:var(--white-pure);font-size:3.5rem;margin:0;">₹0
+                        </h3>
+                        <p style="color:rgba(253,248,240,0.5);font-size:0.85rem;margin-bottom:2rem;">No credit card
+                            needed</p>
+                        <ul style="list-style:none;padding:0;text-align:left;margin-bottom:2rem;">
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>1
+                                Digital Invitation
+                            </li>
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>3
+                                Premium Templates
+                            </li>
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2"
+                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Unique Shareable Link
+                            </li>
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2"
+                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>WhatsApp Share
+                            </li>
+                        </ul>
+                        <a href="/register" class="btn btn-outline-gold w-100">Get Started Free</a>
+                    </div>
+                </div>
+                <!-- Premium -->
+                <div class="col-md-4">
+                    <div
+                        style="background:linear-gradient(145deg,rgba(212,175,55,0.15),rgba(212,175,55,0.05));border:2px solid var(--gold-primary);padding:2.5rem;text-align:center;height:100%;position:relative;transform:scale(1.03);">
+                        <div
+                            style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold-primary);color:var(--navy-deep);font-size:0.7rem;font-weight:700;letter-spacing:2px;padding:0.3rem 1.2rem;text-transform:uppercase;font-family:var(--font-body);">
+                            Most Popular</div>
+                        <p
+                            style="font-family:var(--font-body);color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;font-size:0.8rem;margin-bottom:1rem;">
+                            Premium</p>
+                        <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:3.5rem;margin:0;">
+                            ₹999</h3>
+                        <p style="color:rgba(253,248,240,0.5);font-size:0.85rem;margin-bottom:2rem;">One-time per
+                            wedding</p>
+                        <ul style="list-style:none;padding:0;text-align:left;margin-bottom:2rem;">
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2"
+                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Unlimited Invitations
+                            </li>
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>All
+                                20+ Templates
+                            </li>
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>RSVP
+                                Tracking
+                            </li>
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2"
+                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Custom Domain
+                            </li>
+                            <li
+                                style="color:var(--cream-base);padding:0.5rem 0;font-family:var(--font-body);font-size:0.95rem;">
+                                <i class="bi bi-check2"
+                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Priority Support
+                            </li>
+                        </ul>
+                        <a href="/register" class="btn btn-gold w-100">Start Premium</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" style="padding:6rem 0;background:var(--cream-base);">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8">
+                    <div class="accordion" id="faqAccordion">
+                        <div style="border:1px solid rgba(212,175,55,0.3);margin-bottom:0.75rem;">
+                            <button
+                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
+                                data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Can guests RSVP through the invitation? <i class="bi bi-plus-lg"
+                                    style="color:var(--gold-primary);"></i>
+                            </button>
+                            <div id="faq1" class="collapse" data-bs-parent="#faqAccordion">
+                                <p
+                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
+                                    Yes! Premium invitations include a built-in RSVP feature. Guests can confirm
+                                    attendance directly from the invitation link, and you receive real-time
+                                    notifications.</p>
+                            </div>
+                        </div>
+                        <div style="border:1px solid rgba(212,175,55,0.3);margin-bottom:0.75rem;">
+                            <button
+                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
+                                data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Does it work on mobile? <i class="bi bi-plus-lg" style="color:var(--gold-primary);"></i>
+                            </button>
+                            <div id="faq2" class="collapse" data-bs-parent="#faqAccordion">
+                                <p
+                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
+                                    Absolutely. Every Velvet Vows invitation is fully responsive and looks stunning on
+                                    any device — mobile, tablet, or desktop. Most guests will open it on WhatsApp on
+                                    their phone.</p>
+                            </div>
+                        </div>
+                        <div style="border:1px solid rgba(212,175,55,0.3);margin-bottom:0.75rem;">
+                            <button
+                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
+                                data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Is it really free to start? <i class="bi bi-plus-lg"
+                                    style="color:var(--gold-primary);"></i>
+                            </button>
+                            <div id="faq3" class="collapse" data-bs-parent="#faqAccordion">
+                                <p
+                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
+                                    Yes, completely. No credit card required. The free plan lets you create one
+                                    invitation with 3 beautiful templates and share it with unlimited guests via
+                                    WhatsApp or link.</p>
+                            </div>
+                        </div>
+                        <div style="border:1px solid rgba(212,175,55,0.3);">
+                            <button
+                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
+                                data-bs-toggle="collapse" data-bs-target="#faq4">
+                                How do I share my invitation? <i class="bi bi-plus-lg"
+                                    style="color:var(--gold-primary);"></i>
+                            </button>
+                            <div id="faq4" class="collapse" data-bs-parent="#faqAccordion">
+                                <p
+                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
+                                    After publishing, you get a unique URL and a QR code. Share either via WhatsApp,
+                                    Email, Instagram stories, or print the QR code on your physical stationery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Banner -->
+    <section
+        style="padding:5rem 0;background:linear-gradient(135deg,#0A1628 0%,#1a2d4a 60%,#0A1628 100%);text-align:center;position:relative;overflow:hidden;">
+        <div
+            style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22none%22 stroke=%22rgba(212,175,55,0.05)%22 stroke-width=%221%22/></svg>') center/cover;">
+        </div>
+        <div class="container" style="position:relative;z-index:1;">
+            <p
+                style="font-family:var(--font-heading);color:var(--gold-light);letter-spacing:3px;text-transform:uppercase;font-size:0.85rem;margin-bottom:1rem;">
+                Your love story deserves a beautiful beginning</p>
+            <h2 style="font-family:var(--font-hero);color:var(--white-pure);font-size:3rem;margin-bottom:1rem;">Ready to
+                Create Something Unforgettable?</h2>
+            <p
+                style="font-family:var(--font-body);color:rgba(253,248,240,0.7);max-width:520px;margin:0 auto 2.5rem;font-size:1.05rem;line-height:1.7;">
+                Join 10,000+ couples who trusted Velvet Vows to announce their most important day. Start free in under 2
+                minutes.</p>
+            <a href="/register" class="btn btn-gold btn-lg px-5 me-3">Get Started Free</a>
+            <a href="#live-preview" class="btn btn-outline-gold btn-lg px-5">See a Demo</a>
+        </div>
+    </section>
+
+    @include('partials.footer')
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Simple navbar background change on scroll
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 50) {
-                document.querySelector('.navbar').style.backgroundColor = 'rgba(10, 22, 40, 0.95)';
-                document.querySelector('.navbar').style.padding = '1rem 0';
-            } else {
-                document.querySelector('.navbar').style.backgroundColor = 'transparent';
-                document.querySelector('.navbar').style.padding = '1.5rem 0';
-            }
+        // Scroll-spy: highlight active nav link based on section in view
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-link[href^="#"]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.scrollY >= section.offsetTop - 120) current = section.getAttribute('id');
+            });
+            navItems.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
         });
     </script>
 </body>
