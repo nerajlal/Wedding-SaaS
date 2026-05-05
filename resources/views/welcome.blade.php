@@ -362,10 +362,6 @@
             padding: 40px;
         }
     </style>
-</head>
-
-<body>
-
     <!-- Navbar -->
     <style>
         /* 1. STICKY & DIMENSIONS */
@@ -461,6 +457,11 @@
             font-size: 2rem;
         }
     </style>
+</head>
+
+<body>
+
+
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -526,7 +527,7 @@
     </script>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section id="hero" class="hero">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -535,9 +536,48 @@
                             <h1 class="hero-title">Velvet Vows</h1>
                             <p class="hero-tagline">Where Love Meets Legacy. Digital invitations with the soul of luxury
                                 stationery.</p>
-                            <a href="/create" class="btn btn-gold btn-lg">Create Your Invitation</a>
+                            <div class="hero-ctas"
+                                style="opacity:0;transform:translateY(30px);animation:fadeUp 1s ease forwards 1.1s;">
+                                <a href="/register" class="btn btn-gold btn-lg me-3">Create Your Invitation</a>
+                                <a href="#live-preview" class="btn btn-outline-gold btn-lg">See a Live Example</a>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll indicator -->
+        <a href="#stats" class="scroll-indicator"
+            style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--gold-primary);font-size:2rem;animation:bounce 2s infinite;text-decoration:none;">
+            <i class="bi bi-chevron-double-down"></i>
+        </a>
+    </section>
+
+    <!-- Stats Bar -->
+    <section id="stats" style="background:var(--navy-deep);padding:2rem 0;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 py-2">
+                    <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.5rem;margin:0;">
+                        10,000+</h3>
+                    <p
+                        style="color:var(--cream-base);font-family:var(--font-body);margin:0;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">
+                        Invitations Sent</p>
+                </div>
+                <div class="col-md-4 py-2"
+                    style="border-left:1px solid rgba(212,175,55,0.3);border-right:1px solid rgba(212,175,55,0.3);">
+                    <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.5rem;margin:0;">98%
+                    </h3>
+                    <p
+                        style="color:var(--cream-base);font-family:var(--font-body);margin:0;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">
+                        Couple Satisfaction</p>
+                </div>
+                <div class="col-md-4 py-2">
+                    <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.5rem;margin:0;">Free
+                    </h3>
+                    <p
+                        style="color:var(--cream-base);font-family:var(--font-body);margin:0;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">
+                        To Start Creating</p>
                 </div>
             </div>
         </div>
@@ -573,8 +613,54 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center mt-5">
+                <a href="/register" class="btn btn-gold px-5 py-3">Start Creating — It's Free</a>
+            </div>
         </div>
     </section>
+
+    <!-- Live Invitation Preview -->
+    <section id="live-preview" style="padding:6rem 0;background:linear-gradient(135deg,#fdf8f0 0%,#f7eedc 100%);">
+        <div class="container">
+            <h2 class="section-title">See Your Invitation Come to Life</h2>
+            <p class="text-center" style="color:var(--gray-warm);max-width:580px;margin:0 auto 3rem;font-size:1.05rem;font-family:var(--font-body);">Type your names below and watch the magic happen in real time.</p>
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <div style="background:var(--white-pure);padding:2.5rem;border:1px solid rgba(212,175,55,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.06);">
+                        <label style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner One</label>
+                        <input id="previewName1" type="text" value="Priya" style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
+                        <label style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner Two</label>
+                        <input id="previewName2" type="text" value="Rahul" style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
+                        <label style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Wedding Date</label>
+                        <input id="previewDate" type="text" value="December 25, 2026" style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
+                        <a href="/register" class="btn btn-gold w-100 mt-4">Create Mine Now</a>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div style="background:linear-gradient(145deg,#0A1628 0%,#1a2d4a 100%);border:2px solid var(--gold-primary);padding:3.5rem 2.5rem;text-align:center;position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;">
+                        <div style="position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:1px solid rgba(212,175,55,0.35);pointer-events:none;"></div>
+                        <div style="position:relative;z-index:1;width:100%;">
+                            <p style="font-family:var(--font-heading);color:var(--gold-light);font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:1.2rem;">Together with their families</p>
+                            <h3 id="displayName1" style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">Priya</h3>
+                            <p style="font-family:var(--font-heading);color:var(--cream-base);font-size:1.8rem;margin:0.3rem 0;font-style:italic;">&amp;</p>
+                            <h3 id="displayName2" style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">Rahul</h3>
+                            <div style="width:50px;height:1px;background:var(--gold-primary);margin:1.5rem auto;"></div>
+                            <p style="font-family:var(--font-heading);color:var(--cream-base);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;">request the honour of your presence</p>
+                            <p id="displayDate" style="font-family:var(--font-hero);color:var(--gold-light);font-size:1.5rem;margin:0;transition:all 0.2s;">December 25, 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        ['previewName1','previewName2','previewDate'].forEach(id => {
+            document.getElementById(id).addEventListener('input', e => {
+                const map = {previewName1:'displayName1',previewName2:'displayName2',previewDate:'displayDate'};
+                document.getElementById(map[id]).textContent = e.target.value || '—';
+            });
+        });
+    </script>
 
     <!-- Template Showcase -->
     <section id="templates" class="templates">
