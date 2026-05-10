@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
         rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -20,22 +20,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
+        /* ══════════════════════════════════════════
+           DESIGN TOKENS
+        ══════════════════════════════════════════ */
         :root {
             --gold-primary: #D4AF37;
             --gold-dark: #B8860B;
             --gold-light: #F5E6A3;
+            --gold-pale: #FBF6E8;
             --cream-base: #FDF8F0;
+            --cream-dark: #F5EDD8;
             --black-rich: #1A1A1A;
             --gray-warm: #8B7355;
+            --gray-mid: #B5A48A;
             --white-pure: #FFFFFF;
             --navy-deep: #0A1628;
+            --navy-mid: #0F1F38;
 
             --font-hero: 'Cormorant Garamond', serif;
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lato', sans-serif;
+
+            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        html, body {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html,
+        body {
             overflow-x: hidden;
             width: 100%;
         }
@@ -48,9 +68,8 @@
         }
 
         h1,
-        .hero-title {
+        .font-hero {
             font-family: var(--font-hero);
-            font-weight: 700;
         }
 
         h2,
@@ -59,159 +78,491 @@
         h5,
         h6 {
             font-family: var(--font-heading);
-            font-weight: 600;
         }
 
-        /* Buttons */
+        /* ══════════════════════════════════════════
+           GLOBAL BUTTONS
+        ══════════════════════════════════════════ */
         .btn-gold {
             background-color: var(--gold-primary);
-            color: var(--cream-base);
+            color: var(--black-rich);
             border: none;
-            padding: 0.75rem 2rem;
+            padding: 0.8rem 2.2rem;
             font-family: var(--font-body);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            letter-spacing: 2px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
             border-radius: 0;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-gold:hover {
             background-color: var(--gold-dark);
             color: var(--white-pure);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 28px rgba(212, 175, 55, 0.4);
         }
 
         .btn-outline-gold {
             background-color: transparent;
             color: var(--gold-primary);
             border: 1px solid var(--gold-primary);
-            padding: 0.75rem 2rem;
+            padding: 0.8rem 2.2rem;
             font-family: var(--font-body);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            transition: var(--transition-smooth);
             border-radius: 0;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-outline-gold:hover {
             background-color: var(--gold-primary);
-            color: var(--cream-base);
+            color: var(--black-rich);
         }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(10, 22, 40, 0.7), rgba(10, 22, 40, 0.8)), url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white-pure);
-            position: relative;
+        .btn-outline-ghost {
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 0.8rem 2.2rem;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            border-radius: 0;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .hero-title {
-            font-size: 5rem;
-            margin-bottom: 1rem;
+        .btn-outline-ghost:hover {
+            border-color: var(--gold-primary);
             color: var(--gold-primary);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s ease forwards 0.5s;
+            background: rgba(212, 175, 55, 0.08);
         }
 
-        .hero-tagline {
-            font-size: 1.5rem;
-            font-family: var(--font-heading);
-            font-style: italic;
-            margin-bottom: 3rem;
-            color: var(--cream-base);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s ease forwards 0.8s;
-        }
-
-        .hero .btn-gold {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s ease forwards 1.1s;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 6rem 0;
-            background-color: var(--cream-base);
+        /* ══════════════════════════════════════════
+           SECTION TYPOGRAPHY HELPERS
+        ══════════════════════════════════════════ */
+        .section-eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            display: block;
+            margin-bottom: 0.8rem;
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.8rem);
             color: var(--gold-dark);
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
             position: relative;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 60px;
-            height: 2px;
-            background-color: var(--gold-primary);
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
             margin: 1rem auto 0;
+        }
+
+        .section-title.light {
+            color: var(--gold-primary);
+        }
+
+        .section-title.light::after {
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray-warm);
+            font-size: 1rem;
+            margin-bottom: 3.5rem;
+            font-family: var(--font-heading);
+            font-style: italic;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-subtitle.light {
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        /* ══════════════════════════════════════════
+           HERO
+        ══════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(10, 22, 40, 0.62), rgba(10, 22, 40, 0.82)),
+                url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center / cover no-repeat;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white-pure);
+            position: relative;
+            padding: 7rem 0 5rem;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(transparent, var(--cream-base));
+            pointer-events: none;
+        }
+
+        .hero-frame {
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 5px;
+            display: inline-block;
+        }
+
+        .hero-frame-inner {
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            padding: clamp(1.8rem, 4vw, 3rem) clamp(1.5rem, 5vw, 4rem);
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.3s;
+        }
+
+        .hero-title {
+            font-family: var(--font-hero);
+            font-size: clamp(3.2rem, 8vw, 5.8rem);
+            font-weight: 600;
+            color: var(--white-pure);
+            line-height: 1;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.55s;
+        }
+
+        .hero-title span {
+            color: var(--gold-primary);
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-family: var(--font-heading);
+            font-style: italic;
+            margin-bottom: 2.5rem;
+            color: rgba(255, 255, 255, 0.72);
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.85s;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1.1s;
+        }
+
+        .scroll-caret {
+            position: absolute;
+            bottom: 115px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(212, 175, 55, 0.6);
+            font-size: 1.6rem;
+            animation: bounce 2.2s ease-in-out infinite;
+            text-decoration: none;
+            z-index: 1;
+            transition: color 0.2s;
+        }
+
+        .scroll-caret:hover {
+            color: var(--gold-primary);
+        }
+
+        /* ══════════════════════════════════════════
+           STATS BAR
+        ══════════════════════════════════════════ */
+        .stats-bar {
+            background: var(--navy-deep);
+            padding: 2.8rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.5rem 1rem;
+            border-right: 1px solid rgba(212, 175, 55, 0.12);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-family: var(--font-hero);
+            font-size: 2.6rem;
+            color: var(--gold-primary);
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 0.35rem;
+            font-family: var(--font-body);
+        }
+
+        /* ══════════════════════════════════════════
+           HOW IT WORKS
+        ══════════════════════════════════════════ */
+        .how-it-works {
+            padding: 6rem 0;
+            background-color: var(--cream-base);
         }
 
         .step-card {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 1.8rem;
             background: var(--white-pure);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: transform 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: var(--transition-smooth);
             height: 100%;
+            position: relative;
+            overflow: hidden;
         }
 
         .step-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(180, 140, 60, 0.1);
+            border-color: rgba(212, 175, 55, 0.35);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            font-family: var(--font-hero);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         .step-icon {
-            font-size: 3rem;
+            font-size: 2.2rem;
             color: var(--gold-primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
+            display: block;
         }
 
         .step-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
             color: var(--black-rich);
+            font-weight: 500;
         }
 
         .step-desc {
             color: var(--gray-warm);
-            line-height: 1.6;
+            line-height: 1.75;
+            font-size: 0.92rem;
         }
 
-        /* Templates Showcase */
+        /* ══════════════════════════════════════════
+           LIVE PREVIEW
+        ══════════════════════════════════════════ */
+        .live-preview-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--cream-base) 0%, var(--cream-dark) 100%);
+        }
+
+        .preview-controls {
+            background: var(--white-pure);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 2.2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .preview-label {
+            font-family: var(--font-heading);
+            color: var(--gold-dark);
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.45rem;
+        }
+
+        .preview-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gold-light);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--black-rich);
+            background: var(--cream-base);
+            outline: none;
+            transition: border-color 0.25s;
+            border-radius: 0;
+            margin-bottom: 1.4rem;
+        }
+
+        .preview-input:focus {
+            border-color: var(--gold-primary);
+        }
+
+        .invitation-card {
+            background: linear-gradient(145deg, #FFFDF5, #FFF8E7);
+            border: 2px solid var(--gold-primary);
+            padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem);
+            text-align: center;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            pointer-events: none;
+        }
+
+        .inv-corner {
+            position: absolute;
+            color: var(--gold-primary);
+            font-size: 1rem;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .inv-corner.tl {
+            top: 18px;
+            left: 18px;
+        }
+
+        .inv-corner.tr {
+            top: 18px;
+            right: 18px;
+        }
+
+        .inv-corner.bl {
+            bottom: 18px;
+            left: 18px;
+        }
+
+        .inv-corner.br {
+            bottom: 18px;
+            right: 18px;
+        }
+
+        .inv-overline {
+            font-family: var(--font-heading);
+            color: rgba(10, 22, 40, 0.5);
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .inv-names {
+            font-family: var(--font-hero);
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 600;
+            color: var(--black-rich);
+            line-height: 1.05;
+            transition: all 0.25s ease;
+        }
+
+        .inv-and {
+            font-style: italic;
+            color: var(--gold-primary);
+            font-size: 1.4em;
+            display: block;
+            line-height: 1;
+        }
+
+        .inv-rule {
+            width: 45px;
+            height: 1px;
+            background: var(--gold-primary);
+            margin: 1.2rem auto;
+            opacity: 0.55;
+        }
+
+        .inv-request {
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+            font-family: var(--font-body);
+            margin-bottom: 0.6rem;
+        }
+
+        .inv-date {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            color: var(--gold-dark);
+            font-style: italic;
+            transition: all 0.25s ease;
+        }
+
+        .inv-venue {
+            font-size: 0.82rem;
+            color: var(--gray-warm);
+            margin-top: 0.3rem;
+            font-family: var(--font-body);
+            transition: all 0.25s ease;
+        }
+
+        /* ══════════════════════════════════════════
+           TEMPLATES
+        ══════════════════════════════════════════ */
         .templates {
             padding: 6rem 0;
-            background-color: var(--navy-deep);
-            color: var(--white-pure);
-        }
-
-        .templates .section-title {
-            color: var(--gold-primary);
+            background-color: var(--cream-base);
         }
 
         .template-card {
-            background: var(--white-pure);
             overflow: hidden;
-            border: none;
             position: relative;
             cursor: pointer;
-            height: 450px;
+            height: 420px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
         }
 
         .template-img {
@@ -219,6 +570,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.7s ease;
+            filter: brightness(0.88);
         }
 
         .template-overlay {
@@ -226,204 +578,349 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(10, 22, 40, 0.9));
-            padding: 2rem;
+            background: linear-gradient(transparent, rgba(10, 22, 40, 0.92));
+            padding: 2.2rem 1.5rem 1.8rem;
             text-align: center;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
+        }
+
+        .template-tag {
+            display: inline-block;
+            font-size: 0.62rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            padding: 3px 10px;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-body);
         }
 
         .template-name {
-            color: var(--gold-primary);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            color: var(--white-pure);
+            font-size: 1.5rem;
+            margin: 0;
             font-family: var(--font-heading);
+            font-weight: 500;
+        }
+
+        .template-desc {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.82rem;
+            margin: 0.3rem 0 0;
+            font-family: var(--font-body);
         }
 
         .template-card:hover .template-img {
-            transform: scale(1.05);
+            transform: scale(1.06);
+            filter: brightness(0.7);
         }
 
-        .template-card:hover .template-overlay {
-            transform: translateY(0);
-        }
-
-        /* Testimonials */
+        /* ══════════════════════════════════════════
+           TESTIMONIALS
+        ══════════════════════════════════════════ */
         .testimonials {
             padding: 6rem 0;
-            background-color: var(--cream-base);
+            background: var(--navy-deep);
         }
 
         .testimonial-card {
-            background: var(--white-pure);
-            padding: 3rem 2rem;
-            text-align: center;
-            border: 1px solid var(--gold-light);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 2.5rem 2rem;
+            height: 100%;
             position: relative;
+            transition: var(--transition-smooth);
         }
 
-        .quote-icon {
-            color: var(--gold-light);
-            font-size: 4rem;
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            opacity: 0.3;
+        .testimonial-card:hover {
+            border-color: rgba(212, 175, 55, 0.35);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .stars {
+            color: var(--gold-primary);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
         }
 
         .testimonial-text {
             font-style: italic;
-            font-size: 1.1rem;
-            color: var(--gray-warm);
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-author {
-            font-family: var(--font-heading);
-            color: var(--gold-dark);
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--black-rich);
-            color: var(--white-pure);
-            padding: 0;
-        }
-
-        .footer-main {
-            padding-top: 5rem;
-            padding-bottom: 3rem;
-        }
-
-        .footer-brand p {
-            color: var(--gray-warm);
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-heading {
-            font-family: var(--font-heading);
-            color: var(--gold-primary);
             font-size: 1rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.72);
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-family: var(--font-heading);
         }
 
-        .footer-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 30px;
-            height: 2px;
-            background: var(--gold-primary);
+        .t-author-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
-        .footer-links-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links-list li {
-            margin-bottom: 0.7rem;
-        }
-
-        .footer-links-list a {
-            color: var(--gray-warm);
-            text-decoration: none;
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            transition: color 0.3s ease, padding-left 0.3s ease;
-        }
-
-        .footer-links-list a:hover {
-            color: var(--gold-primary);
-            padding-left: 5px;
-        }
-
-        .footer-social a {
-            width: 38px;
-            height: 38px;
-            border: 1px solid rgba(212, 175, 55, 0.35);
+        .t-avatar {
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            display: inline-flex;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            display: flex;
             align-items: center;
             justify-content: center;
+            font-family: var(--font-hero);
+            font-size: 1rem;
+            color: var(--white-pure);
+            flex-shrink: 0;
+        }
+
+        .t-author-name {
+            font-family: var(--font-heading);
             color: var(--gold-primary);
             font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            margin-right: 0.6rem;
-        }
-
-        .footer-social a:hover {
-            background: var(--gold-primary);
-            color: var(--navy-deep);
-            transform: translateY(-3px);
-        }
-
-        .footer-contact-item {
-            color: var(--gray-warm);
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            margin-bottom: 0.7rem;
-        }
-
-        .footer-contact-item i {
-            color: var(--gold-primary);
-            margin-right: 0.5rem;
-            width: 16px;
-        }
-
-        .footer-contact-item a {
-            color: var(--gray-warm);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-contact-item a:hover {
-            color: var(--gold-primary);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 1.5rem 0;
-        }
-
-        .footer-bottom p,
-        .footer-bottom a {
-            color: var(--gray-warm);
-            font-size: 0.8rem;
-            font-family: var(--font-body);
+            font-weight: 500;
             margin: 0;
         }
 
-        .footer-bottom a {
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .t-author-meta {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin: 0;
         }
 
-        .footer-bottom a:hover {
+        /* ══════════════════════════════════════════
+           PRICING
+        ══════════════════════════════════════════ */
+        .pricing-section {
+            padding: 6rem 0;
+            background: var(--cream-dark);
+        }
+
+        .pricing-card {
+            background: var(--white-pure);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 2.8rem 2rem;
+            text-align: center;
+            height: 100%;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(180, 140, 60, 0.1);
+        }
+
+        .pricing-card.featured {
+            background: var(--navy-deep);
+            border: 2px solid var(--gold-primary);
+            transform: scale(1.03);
+            color: var(--white-pure);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.03) translateY(-5px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 16px;
+            white-space: nowrap;
+            font-family: var(--font-body);
+        }
+
+        .pricing-plan-label {
+            font-family: var(--font-body);
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-amount {
+            font-family: var(--font-hero);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0;
+            color: var(--black-rich);
+        }
+
+        .pricing-card.featured .pricing-amount {
             color: var(--gold-primary);
         }
 
-        .copyright {
-            margin-top: 0;
+        .pricing-period {
             color: var(--gray-warm);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
+            margin: 0.3rem 0 2rem;
         }
 
+        .pricing-card.featured .pricing-period {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .pricing-divider {
+            height: 1px;
+            background: rgba(212, 175, 55, 0.12);
+            margin: 0 0 1.5rem;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-align: left;
+            color: var(--gray-warm);
+            font-size: 0.9rem;
+            padding: 0.45rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-family: var(--font-body);
+        }
+
+        .pricing-card.featured .pricing-feature {
+            color: rgba(255, 255, 255, 0.75);
+            border-bottom-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .pricing-feature:last-of-type {
+            border-bottom: none;
+        }
+
+        .pricing-feature i.bi-check2 {
+            color: var(--gold-primary);
+            flex-shrink: 0;
+        }
+
+        .pricing-feature.off {
+            opacity: 0.32;
+        }
+
+        .pricing-feature.off i {
+            color: var(--gray-mid);
+        }
+
+        /* ══════════════════════════════════════════
+           FAQ
+        ══════════════════════════════════════════ */
+        .faq-section {
+            padding: 6rem 0;
+            background: var(--cream-base);
+        }
+
+        .faq-item {
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            margin-bottom: 0.65rem;
+            background: var(--white-pure);
+            transition: var(--transition-smooth);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(212, 175, 55, 0.45);
+        }
+
+        .faq-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.3rem 1.5rem;
+            text-align: left;
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            color: var(--black-rich);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: color 0.2s;
+        }
+
+        .faq-btn:hover {
+            color: var(--gold-dark);
+        }
+
+        .faq-btn .faq-icon {
+            color: var(--gold-primary);
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-body {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+
+        .faq-body.open {
+            max-height: 300px;
+            padding-bottom: 1.3rem;
+        }
+
+        .faq-body p {
+            padding: 0 1.5rem;
+            color: var(--gray-warm);
+            font-size: 0.93rem;
+            line-height: 1.85;
+            margin: 0;
+            font-family: var(--font-body);
+        }
+
+        /* ══════════════════════════════════════════
+           FINAL CTA
+        ══════════════════════════════════════════ */
+        .final-cta {
+            padding: 6rem 0;
+            background:
+                linear-gradient(rgba(10, 22, 40, 0.88), rgba(10, 22, 40, 0.92)),
+                url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center / cover;
+            text-align: center;
+            color: var(--white-pure);
+        }
+
+        .final-cta-title {
+            font-family: var(--font-hero);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 600;
+            color: var(--white-pure);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .final-cta-sub {
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-footnote {
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 1.2rem;
+        }
+
+        /* ══════════════════════════════════════════
+           ANIMATIONS
+        ══════════════════════════════════════════ */
         @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -442,334 +939,211 @@
             }
         }
 
-        /* Decoration element */
-        .gold-border-decor {
-            border: 2px solid var(--gold-primary);
-            padding: 5px;
-            display: inline-block;
+        /* ══════════════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════════════ */
+        @media (max-width: 991px) {
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
         }
 
-        .gold-border-decor-inner {
-            border: 1px solid var(--gold-primary);
-            padding: 40px;
-        }
-        /* Responsive Fixes */
-        @media (max-width: 991px) {
-            .hero-title {
-                font-size: 3.5rem;
+        @media (max-width: 767px) {
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+                padding: 1rem 0;
             }
-            .hero-tagline {
-                font-size: 1.2rem;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            .stats-col-middle {
-                border-left: none !important;
-                border-right: none !important;
-                border-top: 1px solid rgba(212, 175, 55, 0.2);
-                border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-                margin: 1rem 0;
-                padding: 1.5rem 0 !important;
+
+            .stat-item:last-child {
+                border-bottom: none;
             }
         }
 
         @media (max-width: 576px) {
-            .hero-title {
-                font-size: 2.8rem;
-            }
-            .hero-tagline {
-                font-size: 1rem;
-                margin-bottom: 2rem;
-            }
-            .gold-border-decor-inner {
-                padding: 25px;
-            }
-            .hero {
-                height: auto;
-                min-height: 100vh;
-                padding: 100px 0 60px;
-            }
-        }
-    </style>
-    <!-- Navbar -->
-    <style>
-        /* 1. STICKY & DIMENSIONS */
-        .navbar {
-            padding: 1.2rem 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: fixed;
-            width: 100%;
-            z-index: 1100;
-            /* Start transparent with a hint of dark for readability */
-            background-color: rgba(10, 22, 40, 0.1);
-            backdrop-filter: blur(0px);
-        }
-
-        /* Sticky Behavior Class (Added via JS) */
-        .navbar.scrolled {
-            background-color: rgba(10, 22, 40, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 0.7rem 0;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        /* 2. BRAND LOGO SCALING */
-        .navbar-brand {
-            font-family: var(--font-hero);
-            font-size: 1.8rem;
-            /* Desktop size */
-            font-weight: 700;
-            color: var(--gold-primary) !important;
-            letter-spacing: 2px;
-            transition: font-size 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .navbar-brand {
-                font-size: 1.4rem;
-                /* Smaller on mobile */
+            .hero-frame-inner {
+                padding: 1.8rem 1.2rem;
             }
 
-            .navbar-collapse {
-                background: var(--navy-deep);
-                /* Solid background for mobile menu */
-                margin-top: 1rem;
-                padding: 1rem;
-                border-radius: 8px;
-                border: 1px solid var(--gold-primary);
+            .hero::after {
+                height: 60px;
             }
-        }
-
-        /* 3. ACTIVE LINK HIGHLIGHTING */
-        .nav-link {
-            position: relative;
-            color: var(--white-pure) !important;
-            font-size: 0.8rem;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-        /* The Animated Underline */
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--gold-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .nav-link.active {
-            color: var(--gold-primary) !important;
-        }
-
-        /* 4. CUSTOM HAMBURGER */
-        .navbar-toggler {
-            border: none !important;
-            padding: 0;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
-        .bi-list {
-            color: var(--gold-primary);
-            font-size: 2rem;
         }
     </style>
 </head>
 
 <body>
 
-
-
-    <!-- Navbar -->
+    {{-- ═══ NAVBAR (from partial) ═══ --}}
     @include('partials.header')
 
-    <!-- Hero Section -->
+    {{-- ═══ HERO ═══ --}}
     <section id="hero" class="hero">
-        <div class="container">
+        <div class="container" style="position:relative;z-index:1;">
             <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="gold-border-decor">
-                        <div class="gold-border-decor-inner">
-                            <h1 class="hero-title">Velvet Vows</h1>
-                            <p class="hero-tagline">Where Love Meets Legacy. Digital invitations with the soul of luxury
-                                stationery.</p>
-                            <div class="hero-ctas"
-                                style="opacity:0;transform:translateY(30px);animation:fadeUp 1s ease forwards 1.1s;">
-                                <a href="/register" class="btn btn-gold btn-lg me-3">Create Your Invitation</a>
-                                <a href="#live-preview" class="btn btn-outline-gold btn-lg">See a Live Example</a>
+                <div class="col-lg-9 col-xl-8">
+                    <p class="hero-eyebrow">Digital Wedding Invitations</p>
+                    <div class="hero-frame">
+                        <div class="hero-frame-inner">
+                            <h1 class="hero-title">Velvet <span>&</span> Vows</h1>
+                            <p class="hero-tagline">Where love meets legacy. Digital invitations crafted with the soul
+                                of luxury stationery.</p>
+                            <div class="hero-ctas">
+                                <!-- <a href="{{ url('/register') }}" class="btn btn-gold btn-lg">Create Your Invitation</a> -->
+                                <a href="#live-preview" class="btn btn-outline-ghost btn-lg">See a Live Example</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Scroll indicator -->
-        <a href="#stats" class="scroll-indicator"
-            style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--gold-primary);font-size:2rem;animation:bounce 2s infinite;text-decoration:none;">
+        <a href="#stats" class="scroll-caret">
             <i class="bi bi-chevron-double-down"></i>
         </a>
     </section>
 
-    <!-- Stats Bar -->
-    <section id="stats" style="background:var(--navy-deep);padding:2rem 0;">
+    {{-- ═══ STATS BAR ═══ --}}
+    <section id="stats" class="stats-bar">
         <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4 py-2">
-                    <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.5rem;margin:0;">
-                        10,000+</h3>
-                    <p
-                        style="color:var(--cream-base);font-family:var(--font-body);margin:0;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">
-                        Invitations Sent</p>
+            <div class="row text-center g-0">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Invitations Sent</div>
+                    </div>
                 </div>
-                <div class="col-md-4 py-2 stats-col-middle">
-                    <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.5rem;margin:0;">98%
-                    </h3>
-                    <p
-                        style="color:var(--cream-base);font-family:var(--font-body);margin:0;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">
-                        Couple Satisfaction</p>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Couple Satisfaction</div>
+                    </div>
                 </div>
-                <div class="col-md-4 py-2">
-                    <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.5rem;margin:0;">Free
-                    </h3>
-                    <p
-                        style="color:var(--cream-base);font-family:var(--font-body);margin:0;letter-spacing:1px;text-transform:uppercase;font-size:0.8rem;">
-                        To Start Creating</p>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">Premium Templates</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">Free</div>
+                        <div class="stat-label">To Start Creating</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
+    {{-- ═══ HOW IT WORKS ═══ --}}
     <section id="how-it-works" class="how-it-works">
         <div class="container">
+            <span class="section-eyebrow text-center d-block">Simple Process</span>
             <h2 class="section-title">Effortless Elegance</h2>
-            <div class="row g-4 mt-2">
+            <p class="section-subtitle">From blank page to beautiful invitation in under five minutes.</p>
+            <div class="row g-4">
                 <div class="col-md-4">
                     <div class="step-card">
-                        <i class="bi bi-google step-icon"></i>
-                        <h3 class="step-title">1. One-Click Sign In</h3>
+                        <span class="step-number">01</span>
+                        <i class="bi bi-person-check step-icon"></i>
+                        <h3 class="step-title">One-Click Sign In</h3>
                         <p class="step-desc">No forms, no passwords. Simply authenticate with Google to start crafting
                             your beautiful announcement immediately.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="step-card">
+                        <span class="step-number">02</span>
                         <i class="bi bi-vector-pen step-icon"></i>
-                        <h3 class="step-title">2. Personalise Details</h3>
+                        <h3 class="step-title">Personalise Details</h3>
                         <p class="step-desc">Enter your names, venue, and timings into our seamless builder. Preview
                             real-time changes on your chosen aesthetic.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="step-card">
+                        <span class="step-number">03</span>
                         <i class="bi bi-send-fill step-icon"></i>
-                        <h3 class="step-title">3. Share Instantly</h3>
-                        <p class="step-desc">Publish to receive your unique public URL and QR code. Share via WhatsApp,
-                            Email, or Social Media in seconds.</p>
+                        <h3 class="step-title">Share Instantly</h3>
+                        <p class="step-desc">Publish to receive your unique URL and QR code. Share via WhatsApp, Email,
+                            or Social Media in seconds.</p>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-5">
-                <a href="/register" class="btn btn-gold px-5 py-3">Start Creating — It's Free</a>
+                <!-- <a href="{{ url('/register') }}" class="btn btn-gold px-5 py-3">Start Creating — It's Free</a> -->
             </div>
         </div>
     </section>
 
-    <!-- Live Invitation Preview -->
-    <section id="live-preview" style="padding:6rem 0;background:linear-gradient(135deg,#fdf8f0 0%,#f7eedc 100%);">
+    {{-- ═══ LIVE PREVIEW ═══ --}}
+    <section id="live-preview" class="live-preview-section">
         <div class="container">
+            <span class="section-eyebrow text-center d-block">Interactive Demo</span>
             <h2 class="section-title">See Your Invitation Come to Life</h2>
-            <p class="text-center"
-                style="color:var(--gray-warm);max-width:580px;margin:0 auto 3rem;font-size:1.05rem;font-family:var(--font-body);">
-                Type your names below and watch the magic happen in real time.</p>
+            <p class="section-subtitle">Type your names below and watch the magic happen in real time.</p>
             <div class="row align-items-center g-5">
+                <!-- Controls -->
                 <div class="col-lg-5">
-                    <div
-                        style="background:var(--white-pure);padding:2.5rem;border:1px solid rgba(212,175,55,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.06);">
-                        <label
-                            style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner
-                            One</label>
-                        <input id="previewName1" type="text" value="Priya"
-                            style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
-                        <label
-                            style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Partner
-                            Two</label>
-                        <input id="previewName2" type="text" value="Rahul"
-                            style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;margin-bottom:1.5rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
-                        <label
-                            style="font-family:var(--font-heading);color:var(--gold-dark);font-size:0.9rem;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:0.4rem;">Wedding
-                            Date</label>
-                        <input id="previewDate" type="text" value="December 25, 2026"
-                            style="width:100%;padding:0.8rem 1rem;border:1px solid var(--gold-light);font-family:var(--font-body);font-size:1rem;outline:none;background:var(--cream-base);transition:border 0.2s;">
-                        <a href="/register" class="btn btn-gold w-100 mt-4">Create Mine Now</a>
+                    <div class="preview-controls">
+                        <label class="preview-label">Partner One</label>
+                        <input id="previewName1" type="text" class="preview-input" value="Priya" maxlength="25">
+
+                        <label class="preview-label">Partner Two</label>
+                        <input id="previewName2" type="text" class="preview-input" value="Rahul" maxlength="25">
+
+                        <label class="preview-label">Wedding Date</label>
+                        <input id="previewDate" type="text" class="preview-input" value="December 25, 2026"
+                            maxlength="35">
+
+                        <label class="preview-label">Venue</label>
+                        <input id="previewVenue" type="text" class="preview-input" value="The Grand Ballroom, Mumbai"
+                            maxlength="50" style="margin-bottom:1.8rem;">
+
+                        <a href="{{ url('/register') }}" class="btn btn-gold w-100">Create Mine Now →</a>
                     </div>
                 </div>
+                <!-- Card -->
                 <div class="col-lg-7">
-                    <div
-                        style="background:linear-gradient(145deg,#0A1628 0%,#1a2d4a 100%);border:2px solid var(--gold-primary);padding:3.5rem 2.5rem;text-align:center;position:relative;min-height:380px;display:flex;align-items:center;justify-content:center;">
-                        <div
-                            style="position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:1px solid rgba(212,175,55,0.35);pointer-events:none;">
+                    <div class="invitation-card">
+                        <span class="inv-corner tl">✦</span>
+                        <span class="inv-corner tr">✦</span>
+                        <span class="inv-corner bl">✦</span>
+                        <span class="inv-corner br">✦</span>
+                        <p class="inv-overline">Together with their families</p>
+                        <div class="inv-names">
+                            <span id="displayName1">Priya</span>
+                            <span class="inv-and">&</span>
+                            <span id="displayName2">Rahul</span>
                         </div>
-                        <div style="position:relative;z-index:1;width:100%;">
-                            <p
-                                style="font-family:var(--font-heading);color:var(--gold-light);font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:1.2rem;">
-                                Together with their families</p>
-                            <h3 id="displayName1"
-                                style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">
-                                Priya</h3>
-                            <p
-                                style="font-family:var(--font-heading);color:var(--cream-base);font-size:1.8rem;margin:0.3rem 0;font-style:italic;">
-                                &amp;</p>
-                            <h3 id="displayName2"
-                                style="font-family:var(--font-hero);color:var(--gold-primary);font-size:2.8rem;margin:0;transition:all 0.2s;">
-                                Rahul</h3>
-                            <div style="width:50px;height:1px;background:var(--gold-primary);margin:1.5rem auto;"></div>
-                            <p
-                                style="font-family:var(--font-heading);color:var(--cream-base);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;">
-                                request the honour of your presence</p>
-                            <p id="displayDate"
-                                style="font-family:var(--font-hero);color:var(--gold-light);font-size:1.5rem;margin:0;transition:all 0.2s;">
-                                December 25, 2026</p>
-                        </div>
+                        <div class="inv-rule"></div>
+                        <p class="inv-request">Request the honour of your presence</p>
+                        <p class="inv-date" id="displayDate">December 25, 2026</p>
+                        <p class="inv-venue" id="displayVenue">The Grand Ballroom, Mumbai</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <script>
-        ['previewName1', 'previewName2', 'previewDate'].forEach(id => {
-            document.getElementById(id).addEventListener('input', e => {
-                const map = { previewName1: 'displayName1', previewName2: 'displayName2', previewDate: 'displayDate' };
-                document.getElementById(map[id]).textContent = e.target.value || '—';
-            });
-        });
-    </script>
 
-    <!-- Template Showcase -->
-    <section id="templates" style="padding:6rem 0;background:var(--cream-base);">
+    {{-- ═══ TEMPLATES ═══ --}}
+    <section id="templates" class="templates">
         <div class="container">
-            <h2 class="section-title">Curated Aesthetics</h2>
-            <div class="row g-4 mt-2">
+            <span class="section-eyebrow text-center d-block">Curated Collection</span>
+            <h2 class="section-title">Timeless Aesthetics</h2>
+            <p class="section-subtitle">Every template crafted to feel like heirloom stationery.</p>
+            <div class="row g-3">
                 <div class="col-md-3 col-sm-6">
                     <div class="template-card">
                         <img src="https://images.unsplash.com/photo-1544926526-cb1723a1aee7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="The Royal Scroll" class="template-img">
                         <div class="template-overlay">
+                            <span class="template-tag">Classic</span>
                             <h3 class="template-name">The Royal Scroll</h3>
-                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Classic Opulence</p>
+                            <p class="template-desc">Classic Opulence</p>
                         </div>
                     </div>
                 </div>
@@ -778,8 +1152,9 @@
                         <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Golden Minimalist" class="template-img">
                         <div class="template-overlay">
+                            <span class="template-tag">Contemporary</span>
                             <h3 class="template-name">Golden Minimalist</h3>
-                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Contemporary Luxury</p>
+                            <p class="template-desc">Contemporary Luxury</p>
                         </div>
                     </div>
                 </div>
@@ -788,8 +1163,9 @@
                         <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Garden Celestial" class="template-img">
                         <div class="template-overlay">
+                            <span class="template-tag">Romantic</span>
                             <h3 class="template-name">Garden Celestial</h3>
-                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Romantic Ethereal</p>
+                            <p class="template-desc">Romantic Ethereal</p>
                         </div>
                     </div>
                 </div>
@@ -798,65 +1174,65 @@
                         <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="Midnight Jasmine" class="template-img">
                         <div class="template-overlay">
+                            <span class="template-tag">Mystique</span>
                             <h3 class="template-name">Midnight Jasmine</h3>
-                            <p class="mb-0" style="color:var(--cream-base);font-size:0.85rem;">Modern Mystique</p>
+                            <p class="template-desc">Modern Mystique</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-5">
-                <a href="/register" class="btn btn-gold px-5">Start With a Template</a>
+                <a href="{{ url('/register') }}" class="btn btn-gold px-5">Start With a Template</a>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
+    {{-- ═══ TESTIMONIALS ═══ --}}
     <section class="testimonials">
         <div class="container">
-            <h2 class="section-title">Couples Who Chose Elegance</h2>
-            <div class="row g-4 mt-2">
+            <span class="section-eyebrow text-center d-block" style="color:var(--gold-light);">Love Stories</span>
+            <h2 class="section-title light">Couples Who Chose Elegance</h2>
+            <p class="section-subtitle light">Over 10,000 love stories shared through Velvet Vows.</p>
+            <div class="row g-4">
                 <div class="col-md-4">
                     <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <div style="color:#D4AF37;font-size:1.1rem;margin-bottom:1rem;">★★★★★</div>
+                        <div class="stars">★★★★★</div>
                         <p class="testimonial-text">"We wanted our digital invites to feel as special as physical ones.
                             Velvet Vows delivered beyond our expectations. The Golden Minimalist theme was perfect."</p>
-                        <div
-                            style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;">
-                            <div
-                                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8860B);display:flex;align-items:center;justify-content:center;font-family:var(--font-hero);color:#fff;font-size:1rem;flex-shrink:0;">
-                                P</div>
-                            <p class="testimonial-author mb-0">Priya &amp; Rahul · Mumbai</p>
+                        <div class="t-author-row">
+                            <div class="t-avatar">P</div>
+                            <div>
+                                <p class="t-author-name">Priya &amp; Rahul</p>
+                                <p class="t-author-meta">February 2025 · Mumbai</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <div style="color:#D4AF37;font-size:1.1rem;margin-bottom:1rem;">★★★★★</div>
+                        <div class="stars">★★★★★</div>
                         <p class="testimonial-text">"Created and sent to 300 guests in under 10 minutes. The WhatsApp
-                            integration is flawless, and the design received so many compliments!"</p>
-                        <div
-                            style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;">
-                            <div
-                                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8860B);display:flex;align-items:center;justify-content:center;font-family:var(--font-hero);color:#fff;font-size:1rem;flex-shrink:0;">
-                                S</div>
-                            <p class="testimonial-author mb-0">Sarah &amp; James · London</p>
+                            integration is flawless, and the design received so many compliments from everyone!"</p>
+                        <div class="t-author-row">
+                            <div class="t-avatar">S</div>
+                            <div>
+                                <p class="t-author-name">Sarah &amp; James</p>
+                                <p class="t-author-meta">March 2025 · London</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="testimonial-card">
-                        <i class="bi bi-quote quote-icon"></i>
-                        <div style="color:#D4AF37;font-size:1.1rem;margin-bottom:1rem;">★★★★★</div>
+                        <div class="stars">★★★★★</div>
                         <p class="testimonial-text">"The Royal Scroll template perfectly captured the traditional yet
-                            grand feel we wanted. It's truly a premium experience with zero stress."</p>
-                        <div
-                            style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;">
-                            <div
-                                style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#B8860B);display:flex;align-items:center;justify-content:center;font-family:var(--font-hero);color:#fff;font-size:1rem;flex-shrink:0;">
-                                A</div>
-                            <p class="testimonial-author mb-0">Aisha &amp; Kabir · Dubai</p>
+                            grand feel we wanted. Truly a premium experience with absolutely zero stress."</p>
+                        <div class="t-author-row">
+                            <div class="t-avatar">A</div>
+                            <div>
+                                <p class="t-author-name">Aisha &amp; Kabir</p>
+                                <p class="t-author-meta">November 2024 · Dubai</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -864,162 +1240,130 @@
         </div>
     </section>
 
-    <!-- Pricing -->
-    <section id="pricing" style="padding:6rem 0;background:var(--navy-deep);">
+    {{-- ═══ PRICING ═══ --}}
+    <section id="pricing" class="pricing-section">
         <div class="container">
-            <h2 class="section-title" style="color:var(--gold-primary);">Simple, Transparent Pricing</h2>
-            <p class="text-center"
-                style="color:rgba(253,248,240,0.7);max-width:500px;margin:0 auto 3rem;font-family:var(--font-body);">
-                Start for free. Upgrade only when you need more.</p>
+            <span class="section-eyebrow text-center d-block">No Surprises</span>
+            <h2 class="section-title">Simple, Transparent Pricing</h2>
+            <p class="section-subtitle">Start for free. Upgrade only when you need more.</p>
             <div class="row justify-content-center g-4">
                 <!-- Free -->
-                <div class="col-md-4">
-                    <div
-                        style="background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);padding:2.5rem;text-align:center;height:100%;transition:transform 0.3s ease;">
-                        <p
-                            style="font-family:var(--font-body);color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;font-size:0.8rem;margin-bottom:1rem;">
-                            Free Forever</p>
-                        <h3 style="font-family:var(--font-hero);color:var(--white-pure);font-size:3.5rem;margin:0;">₹0
-                        </h3>
-                        <p style="color:rgba(253,248,240,0.5);font-size:0.85rem;margin-bottom:2rem;">No credit card
-                            needed</p>
-                        <ul style="list-style:none;padding:0;text-align:left;margin-bottom:2rem;">
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>1
-                                Digital Invitation
-                            </li>
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>3
-                                Premium Templates
-                            </li>
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2"
-                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Unique Shareable Link
-                            </li>
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2"
-                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>WhatsApp Share
-                            </li>
-                        </ul>
-                        <a href="/register" class="btn btn-outline-gold w-100">Get Started Free</a>
+                <div class="col-md-5 col-lg-4">
+                    <div class="pricing-card">
+                        <p class="pricing-plan-label">Free Forever</p>
+                        <div class="pricing-amount">₹0</div>
+                        <p class="pricing-period">No credit card needed</p>
+                        <div class="pricing-divider"></div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> 1 Digital Invitation</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> 3 Premium Templates</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> Unique Shareable Link &amp; QR</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> WhatsApp &amp; Email Share</div>
+                        <div class="pricing-feature off"><i class="bi bi-x"></i> RSVP Tracking</div>
+                        <div class="pricing-feature off"><i class="bi bi-x"></i> Custom Domain</div>
+                        <div class="pricing-feature off"><i class="bi bi-x"></i> Remove Watermark</div>
+                        <a href="{{ url('/register') }}" class="btn btn-outline-gold w-100 mt-4">Get Started Free</a>
                     </div>
                 </div>
                 <!-- Premium -->
-                <div class="col-md-4">
-                    <div
-                        style="background:linear-gradient(145deg,rgba(212,175,55,0.15),rgba(212,175,55,0.05));border:2px solid var(--gold-primary);padding:2.5rem;text-align:center;height:100%;position:relative;transform:scale(1.03);">
-                        <div
-                            style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold-primary);color:var(--navy-deep);font-size:0.7rem;font-weight:700;letter-spacing:2px;padding:0.3rem 1.2rem;text-transform:uppercase;font-family:var(--font-body);">
-                            Most Popular</div>
-                        <p
-                            style="font-family:var(--font-body);color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;font-size:0.8rem;margin-bottom:1rem;">
-                            Premium</p>
-                        <h3 style="font-family:var(--font-hero);color:var(--gold-primary);font-size:3.5rem;margin:0;">
-                            ₹999</h3>
-                        <p style="color:rgba(253,248,240,0.5);font-size:0.85rem;margin-bottom:2rem;">One-time per
-                            wedding</p>
-                        <ul style="list-style:none;padding:0;text-align:left;margin-bottom:2rem;">
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2"
-                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Unlimited Invitations
-                            </li>
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>All
-                                20+ Templates
-                            </li>
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2" style="color:var(--gold-primary);margin-right:0.5rem;"></i>RSVP
-                                Tracking
-                            </li>
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.07);font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2"
-                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Custom Domain
-                            </li>
-                            <li
-                                style="color:var(--cream-base);padding:0.5rem 0;font-family:var(--font-body);font-size:0.95rem;">
-                                <i class="bi bi-check2"
-                                    style="color:var(--gold-primary);margin-right:0.5rem;"></i>Priority Support
-                            </li>
-                        </ul>
-                        <a href="/register" class="btn btn-gold w-100">Start Premium</a>
+                <div class="col-md-5 col-lg-4">
+                    <div class="pricing-card featured">
+                        <span class="pricing-badge">Most Popular</span>
+                        <p class="pricing-plan-label">Premium</p>
+                        <div class="pricing-amount">₹999</div>
+                        <p class="pricing-period">One-time per wedding</p>
+                        <div class="pricing-divider"></div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> Unlimited Invitations</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> All 20+ Templates</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> Unique Shareable Link &amp; QR</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> WhatsApp &amp; Email Share</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> RSVP Tracking Dashboard</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> Custom Domain</div>
+                        <div class="pricing-feature"><i class="bi bi-check2"></i> Remove Watermark</div>
+                        <a href="{{ url('/register') }}" class="btn btn-gold w-100 mt-4">Start Premium</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" style="padding:6rem 0;background:var(--cream-base);">
+    {{-- ═══ FAQ ═══ --}}
+    <section id="faq" class="faq-section">
         <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            <div class="row justify-content-center mt-4">
+            <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="accordion" id="faqAccordion">
-                        <div style="border:1px solid rgba(212,175,55,0.3);margin-bottom:0.75rem;">
-                            <button
-                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
-                                data-bs-toggle="collapse" data-bs-target="#faq1">
-                                Can guests RSVP through the invitation? <i class="bi bi-plus-lg"
-                                    style="color:var(--gold-primary);"></i>
-                            </button>
-                            <div id="faq1" class="collapse" data-bs-parent="#faqAccordion">
-                                <p
-                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
-                                    Yes! Premium invitations include a built-in RSVP feature. Guests can confirm
-                                    attendance directly from the invitation link, and you receive real-time
-                                    notifications.</p>
-                            </div>
+                    <span class="section-eyebrow text-center d-block">Got Questions?</span>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Everything you need to know before you begin.</p>
+
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            Can guests RSVP through the invitation?
+                            <i class="bi bi-plus-lg faq-icon"></i>
+                        </button>
+                        <div class="faq-body">
+                            <p>Yes! Premium invitations include a built-in RSVP feature. Guests confirm attendance
+                                directly from the invitation link, and you see all responses in real-time on your
+                                dashboard with instant notifications.</p>
                         </div>
-                        <div style="border:1px solid rgba(212,175,55,0.3);margin-bottom:0.75rem;">
-                            <button
-                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
-                                data-bs-toggle="collapse" data-bs-target="#faq2">
-                                Does it work on mobile? <i class="bi bi-plus-lg" style="color:var(--gold-primary);"></i>
-                            </button>
-                            <div id="faq2" class="collapse" data-bs-parent="#faqAccordion">
-                                <p
-                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
-                                    Absolutely. Every Velvet Vows invitation is fully responsive and looks stunning on
-                                    any device — mobile, tablet, or desktop. Most guests will open it on WhatsApp on
-                                    their phone.</p>
-                            </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            Will it look good on mobile phones?
+                            <i class="bi bi-plus-lg faq-icon"></i>
+                        </button>
+                        <div class="faq-body">
+                            <p>Absolutely. Every invitation is fully responsive and looks stunning on any device. Since
+                                most guests open invitations via WhatsApp on their phone, we design mobile-first on
+                                every template.</p>
                         </div>
-                        <div style="border:1px solid rgba(212,175,55,0.3);margin-bottom:0.75rem;">
-                            <button
-                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
-                                data-bs-toggle="collapse" data-bs-target="#faq3">
-                                Is it really free to start? <i class="bi bi-plus-lg"
-                                    style="color:var(--gold-primary);"></i>
-                            </button>
-                            <div id="faq3" class="collapse" data-bs-parent="#faqAccordion">
-                                <p
-                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
-                                    Yes, completely. No credit card required. The free plan lets you create one
-                                    invitation with 3 beautiful templates and share it with unlimited guests via
-                                    WhatsApp or link.</p>
-                            </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            Is it really free to start? No hidden charges?
+                            <i class="bi bi-plus-lg faq-icon"></i>
+                        </button>
+                        <div class="faq-body">
+                            <p>Yes, completely free. No credit card required. The free plan lets you create one
+                                invitation with 3 beautiful templates and share it with unlimited guests via WhatsApp or
+                                link — forever.</p>
                         </div>
-                        <div style="border:1px solid rgba(212,175,55,0.3);">
-                            <button
-                                style="width:100%;background:var(--white-pure);border:none;padding:1.25rem 1.5rem;text-align:left;font-family:var(--font-heading);font-size:1.05rem;color:var(--black-rich);cursor:pointer;display:flex;justify-content:space-between;align-items:center;"
-                                data-bs-toggle="collapse" data-bs-target="#faq4">
-                                How do I share my invitation? <i class="bi bi-plus-lg"
-                                    style="color:var(--gold-primary);"></i>
-                            </button>
-                            <div id="faq4" class="collapse" data-bs-parent="#faqAccordion">
-                                <p
-                                    style="padding:0 1.5rem 1.25rem;color:var(--gray-warm);font-family:var(--font-body);line-height:1.7;margin:0;">
-                                    After publishing, you get a unique URL and a QR code. Share either via WhatsApp,
-                                    Email, Instagram stories, or print the QR code on your physical stationery.</p>
-                            </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            Can I edit my invitation after publishing?
+                            <i class="bi bi-plus-lg faq-icon"></i>
+                        </button>
+                        <div class="faq-body">
+                            <p>Yes, update your invitation details at any time. The live URL stays the same, so guests
+                                who already received the link will automatically see the latest version when they open
+                                it.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            How do I share it on WhatsApp or Email?
+                            <i class="bi bi-plus-lg faq-icon"></i>
+                        </button>
+                        <div class="faq-body">
+                            <p>After publishing, your dashboard gives you a shareable link, a downloadable QR code, and
+                                a one-click WhatsApp share button. You can also print the QR code on physical
+                                stationery.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-btn" onclick="toggleFaq(this)">
+                            What payment methods are accepted?
+                            <i class="bi bi-plus-lg faq-icon"></i>
+                        </button>
+                        <div class="faq-body">
+                            <p>Payments are processed securely via Razorpay. We accept all major credit/debit cards, UPI
+                                (GPay, PhonePe, Paytm), and net banking. We never store your card details on our
+                                servers.</p>
                         </div>
                     </div>
                 </div>
@@ -1027,47 +1371,80 @@
         </div>
     </section>
 
-    <!-- Final CTA Banner -->
-    <section
-        style="padding:5rem 0;background:linear-gradient(135deg,#0A1628 0%,#1a2d4a 60%,#0A1628 100%);text-align:center;position:relative;overflow:hidden;">
-        <div
-            style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22none%22 stroke=%22rgba(212,175,55,0.05)%22 stroke-width=%221%22/></svg>') center/cover;">
-        </div>
-        <div class="container" style="position:relative;z-index:1;">
-            <p
-                style="font-family:var(--font-heading);color:var(--gold-light);letter-spacing:3px;text-transform:uppercase;font-size:0.85rem;margin-bottom:1rem;">
-                Your love story deserves a beautiful beginning</p>
-            <h2 style="font-family:var(--font-hero);color:var(--white-pure);font-size:3rem;margin-bottom:1rem;">Ready to
-                Create Something Unforgettable?</h2>
-            <p
-                style="font-family:var(--font-body);color:rgba(253,248,240,0.7);max-width:520px;margin:0 auto 2.5rem;font-size:1.05rem;line-height:1.7;">
-                Join 10,000+ couples who trusted Velvet Vows to announce their most important day. Start free in under 2
-                minutes.</p>
-            <a href="/register" class="btn btn-gold btn-lg px-5 me-3">Get Started Free</a>
-            <a href="#live-preview" class="btn btn-outline-gold btn-lg px-5">See a Demo</a>
+    {{-- ═══ FINAL CTA ═══ --}}
+    <section class="final-cta">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 text-center">
+                    <span class="section-eyebrow">Your love story deserves a beautiful beginning</span>
+                    <h2 class="final-cta-title">Ready to Create Something Unforgettable?</h2>
+                    <p class="final-cta-sub">Join 10,000+ couples who trusted Velvet Vows to announce their most
+                        important day. Start free in under 2 minutes.</p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="{{ url('/register') }}" class="btn btn-gold btn-lg px-5">Get Started Free</a>
+                        <a href="#live-preview" class="btn btn-outline-ghost btn-lg px-5">See a Demo</a>
+                    </div>
+                    <p class="cta-footnote">No credit card required &nbsp;·&nbsp; Free plan available forever</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    {{-- ═══ FOOTER (from partial) ═══ --}}
     @include('partials.footer')
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Scroll-spy: highlight active nav link based on section in view
+        // ── Live Invitation Preview ────────────────────
+        const previewMap = {
+            previewName1: 'displayName1',
+            previewName2: 'displayName2',
+            previewDate: 'displayDate',
+            previewVenue: 'displayVenue'
+        };
+        Object.entries(previewMap).forEach(([inputId, displayId]) => {
+            const input = document.getElementById(inputId);
+            const display = document.getElementById(displayId);
+            if (input && display) {
+                input.addEventListener('input', () => {
+                    display.textContent = input.value || '—';
+                });
+            }
+        });
+
+        // ── FAQ Accordion ─────────────────────────────
+        function toggleFaq(btn) {
+            const body = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon');
+            const isOpen = body.classList.contains('open');
+
+            document.querySelectorAll('.faq-body.open').forEach(b => b.classList.remove('open'));
+            document.querySelectorAll('.faq-icon').forEach(i => {
+                i.classList.replace('bi-dash-lg', 'bi-plus-lg');
+            });
+
+            if (!isOpen) {
+                body.classList.add('open');
+                icon.classList.replace('bi-plus-lg', 'bi-dash-lg');
+            }
+        }
+
+        // ── Scroll-spy: active nav link ───────────────
         const sections = document.querySelectorAll('section[id]');
-        const navItems = document.querySelectorAll('.nav-link[href^="#"]');
+        const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
         window.addEventListener('scroll', () => {
             let current = '';
-            sections.forEach(section => {
-                if (window.scrollY >= section.offsetTop - 120) current = section.getAttribute('id');
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 130) current = s.id;
             });
-            navItems.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            navLinks.forEach(l => {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + current);
             });
-        });
+        }, { passive: true });
     </script>
+
 </body>
 
 </html>
