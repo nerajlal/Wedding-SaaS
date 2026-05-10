@@ -19,6 +19,9 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         /* ══════════════════════════════════════════
            DESIGN TOKENS
@@ -42,6 +45,30 @@
             --font-body: 'Lato', sans-serif;
 
             --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Luxury Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--navy-deep);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-dark);
+        }
+
+        /* Custom Selection */
+        ::selection {
+            background: var(--gold-primary);
+            color: var(--navy-deep);
         }
 
         *,
@@ -634,7 +661,100 @@
 
         .testimonial-card:hover {
             border-color: rgba(212, 175, 55, 0.35);
-            background: rgba(255, 255, 255, 0.07);
+        }
+
+        /* ══════════════════════════════════════════
+           EXCLUSIVE COLLECTIONS
+        ══════════════════════════════════════════ */
+        .collections-section {
+            padding: 8rem 0;
+            background: var(--white-pure);
+        }
+
+        .category-card {
+            position: relative;
+            height: 520px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+        }
+
+        .category-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(0.75);
+        }
+
+        .category-card:hover .category-img {
+            transform: scale(1.12);
+            filter: brightness(0.45);
+        }
+
+        .category-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 3rem 2rem;
+            text-align: center;
+            z-index: 2;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .category-card:hover .category-content {
+            transform: translateY(0);
+        }
+
+        .category-title {
+            font-family: var(--font-hero);
+            font-size: 2.4rem;
+            color: var(--white-pure);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .category-subtitle {
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--gold-primary);
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 1.5rem;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--navy-deep);
+            padding: 0.5rem 1.4rem;
+            font-size: 0.62rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 800;
+            z-index: 3;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .active-badge {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--navy-deep);
+            padding: 0.5rem 1.4rem;
+            font-size: 0.62rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 800;
+            z-index: 3;
         }
 
         .stars {
@@ -688,65 +808,6 @@
         }
 
         /* ══════════════════════════════════════════
-           PRICING
-        ══════════════════════════════════════════ */
-        .pricing-section {
-            padding: 6rem 0;
-            background: var(--cream-dark);
-        }
-
-        .pricing-card {
-            background: var(--white-pure);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 2.8rem 2rem;
-            text-align: center;
-            height: 100%;
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 40px rgba(180, 140, 60, 0.1);
-        }
-
-        .pricing-card.featured {
-            background: var(--navy-deep);
-            border: 2px solid var(--gold-primary);
-            transform: scale(1.03);
-            color: var(--white-pure);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.03) translateY(-5px);
-        }
-
-        .pricing-badge {
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gold-primary);
-            color: var(--navy-deep);
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 4px 16px;
-            white-space: nowrap;
-            font-family: var(--font-body);
-        }
-
-        .pricing-plan-label {
-            font-family: var(--font-body);
-            color: var(--gold-primary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-amount {
             font-family: var(--font-hero);
             font-size: 3.5rem;
             font-weight: 700;
@@ -913,6 +974,186 @@
         }
 
         /* ══════════════════════════════════════════
+           NAVBAR
+        ══════════════════════════════════════════ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition-smooth);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 0;
+            background: rgba(10, 22, 40, 0.96);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .navbar-brand {
+            font-family: var(--font-hero);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold-primary) !important;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            font-family: var(--font-body);
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            margin: 0 0.8rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--gold-primary) !important;
+        }
+
+        /* ══════════════════════════════════════════
+           FOOTER
+        ══════════════════════════════════════════ */
+        .footer {
+            background: var(--black-rich);
+            color: var(--white-pure);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-main {
+            padding-top: 5rem;
+            padding-bottom: 3rem;
+        }
+
+        .footer-heading {
+            font-family: var(--font-heading);
+            color: var(--gold-primary);
+            font-size: 1.1rem;
+            margin-bottom: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links-list a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links-list a:hover {
+            color: var(--gold-primary);
+            padding-left: 5px;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-top: 1.2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-social a:hover {
+            background: var(--gold-primary);
+            color: var(--black-rich);
+            border-color: var(--gold-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.88rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--gold-primary);
+        }
+
+        .footer-contact-item a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-contact-item a:hover {
+            color: var(--gold-primary);
+        }
+
+        .footer-bottom {
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.75rem;
+        }
+
+        .footer-bottom a {
+            color: inherit;
+            text-decoration: none;
+            margin-left: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--gold-primary);
+        }
+
+        /* ══════════════════════════════════════════
            ANIMATIONS
         ══════════════════════════════════════════ */
         @keyframes fadeUp {
@@ -986,15 +1227,15 @@
         <div class="container" style="position:relative;z-index:1;">
             <div class="row justify-content-center">
                 <div class="col-lg-9 col-xl-8">
-                    <p class="hero-eyebrow">Digital Wedding Invitations</p>
+                    <p class="hero-eyebrow">Luxury Digital Stationery</p>
                     <div class="hero-frame">
                         <div class="hero-frame-inner">
                             <h1 class="hero-title">Velvet <span>&</span> Vows</h1>
-                            <p class="hero-tagline">Where love meets legacy. Digital invitations crafted with the soul
-                                of luxury stationery.</p>
+                            <p class="hero-tagline">Where high-fashion meets heritage. Exquisite digital invitations
+                                designed for the world's most distinguished events.</p>
                             <div class="hero-ctas">
-                                <!-- <a href="{{ url('/register') }}" class="btn btn-gold btn-lg">Create Your Invitation</a> -->
-                                <a href="#live-preview" class="btn btn-outline-ghost btn-lg">See a Live Example</a>
+                                <a href="{{ url('/register') }}" class="btn btn-gold btn-lg">Begin Your Story</a>
+                                <a href="#live-preview" class="btn btn-outline-ghost btn-lg">View Showcase</a>
                             </div>
                         </div>
                     </div>
@@ -1013,63 +1254,63 @@
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
                         <div class="stat-number">10K+</div>
-                        <div class="stat-label">Invitations Sent</div>
+                        <div class="stat-label">Events Celebrated</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
                         <div class="stat-number">98%</div>
-                        <div class="stat-label">Couple Satisfaction</div>
+                        <div class="stat-label">Global Approval</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
                         <div class="stat-number">20+</div>
-                        <div class="stat-label">Premium Templates</div>
+                        <div class="stat-label">Designer Themes</div>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
-                        <div class="stat-number">Free</div>
-                        <div class="stat-label">To Start Creating</div>
+                        <div class="stat-number">0.1s</div>
+                        <div class="stat-label">Load Time</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- ═══ HOW IT WORKS ═══ --}}
+    {{-- ═══ THE EXPERIENCE ═══ --}}
     <section id="how-it-works" class="how-it-works">
         <div class="container">
-            <span class="section-eyebrow text-center d-block">Simple Process</span>
-            <h2 class="section-title">Effortless Elegance</h2>
-            <p class="section-subtitle">From blank page to beautiful invitation in under five minutes.</p>
+            <span class="section-eyebrow text-center d-block">The Experience</span>
+            <h2 class="section-title">Effortless Artistry</h2>
+            <p class="section-subtitle">A seamless journey from inspiration to invitation.</p>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="step-card">
                         <span class="step-number">01</span>
-                        <i class="bi bi-person-check step-icon"></i>
-                        <h3 class="step-title">One-Click Sign In</h3>
-                        <p class="step-desc">No forms, no passwords. Simply authenticate with Google to start crafting
-                            your beautiful announcement immediately.</p>
+                        <i class="bi bi-stars step-icon"></i>
+                        <h3 class="step-title">Exclusive Access</h3>
+                        <p class="step-desc">Enter the world of Velvet Vows with a single click. Our concierge-style
+                            platform is ready to translate your vision into digital reality.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="step-card">
                         <span class="step-number">02</span>
-                        <i class="bi bi-vector-pen step-icon"></i>
-                        <h3 class="step-title">Personalise Details</h3>
-                        <p class="step-desc">Enter your names, venue, and timings into our seamless builder. Preview
-                            real-time changes on your chosen aesthetic.</p>
+                        <i class="bi bi-brush step-icon"></i>
+                        <h3 class="step-title">Bespoke Curation</h3>
+                        <p class="step-desc">Infuse your story into our masterfully crafted layouts. Every detail is
+                            refined to meet the highest standards of digital luxury.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="step-card">
                         <span class="step-number">03</span>
-                        <i class="bi bi-send-fill step-icon"></i>
-                        <h3 class="step-title">Share Instantly</h3>
-                        <p class="step-desc">Publish to receive your unique URL and QR code. Share via WhatsApp, Email,
-                            or Social Media in seconds.</p>
+                        <i class="bi bi-globe step-icon"></i>
+                        <h3 class="step-title">Global Reach</h3>
+                        <p class="step-desc">Share your masterpiece with distinguished guests worldwide. Seamless
+                            integration ensures your announcement arrives with elegance.</p>
                     </div>
                 </div>
             </div>
@@ -1138,7 +1379,7 @@
             <div class="row g-3">
                 <div class="col-md-3 col-sm-6">
                     <div class="template-card">
-                        <img src="https://images.unsplash.com/photo-1544926526-cb1723a1aee7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        <img src="https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                             alt="The Royal Scroll" class="template-img">
                         <div class="template-overlay">
                             <span class="template-tag">Classic</span>
@@ -1193,93 +1434,134 @@
             <span class="section-eyebrow text-center d-block" style="color:var(--gold-light);">Love Stories</span>
             <h2 class="section-title light">Couples Who Chose Elegance</h2>
             <p class="section-subtitle light">Over 10,000 love stories shared through Velvet Vows.</p>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"We wanted our digital invites to feel as special as physical ones.
-                            Velvet Vows delivered beyond our expectations. The Golden Minimalist theme was perfect."</p>
-                        <div class="t-author-row">
-                            <div class="t-avatar">P</div>
-                            <div>
-                                <p class="t-author-name">Priya &amp; Rahul</p>
-                                <p class="t-author-meta">February 2025 · Mumbai</p>
+            <!-- Testimonial Slider -->
+            <div class="swiper testimonial-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"We wanted our digital invites to feel as special as physical
+                                ones. Velvet Vows delivered beyond our expectations. The Golden Minimalist theme was
+                                perfect."</p>
+                            <div class="t-author-row">
+                                <div class="t-avatar">P</div>
+                                <div>
+                                    <p class="t-author-name">Priya &amp; Rahul</p>
+                                    <p class="t-author-meta">February 2025 · Mumbai</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"Created and sent to 300 guests in under 10 minutes. The
+                                WhatsApp
+                                integration is flawless, and the design received so many compliments from everyone!"</p>
+                            <div class="t-author-row">
+                                <div class="t-avatar">S</div>
+                                <div>
+                                    <p class="t-author-name">Sarah &amp; James</p>
+                                    <p class="t-author-meta">March 2025 · London</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"The Royal Scroll template perfectly captured the traditional
+                                yet
+                                grand feel we wanted. Truly a premium experience with absolutely zero stress."</p>
+                            <div class="t-author-row">
+                                <div class="t-avatar">A</div>
+                                <div>
+                                    <p class="t-author-name">Aisha &amp; Kabir</p>
+                                    <p class="t-author-meta">November 2024 · Dubai</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 4 (Extra for slider feel) -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p class="testimonial-text">"The RSVP tracking is a life-saver. We knew exactly who was
+                                coming and their meal preferences without a single phone call. Highly recommended!"</p>
+                            <div class="t-author-row">
+                                <div class="t-avatar">M</div>
+                                <div>
+                                    <p class="t-author-name">Meera &amp; Arjun</p>
+                                    <p class="t-author-meta">January 2025 · Bangalore</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Created and sent to 300 guests in under 10 minutes. The WhatsApp
-                            integration is flawless, and the design received so many compliments from everyone!"</p>
-                        <div class="t-author-row">
-                            <div class="t-avatar">S</div>
-                            <div>
-                                <p class="t-author-name">Sarah &amp; James</p>
-                                <p class="t-author-meta">March 2025 · London</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"The Royal Scroll template perfectly captured the traditional yet
-                            grand feel we wanted. Truly a premium experience with absolutely zero stress."</p>
-                        <div class="t-author-row">
-                            <div class="t-avatar">A</div>
-                            <div>
-                                <p class="t-author-name">Aisha &amp; Kabir</p>
-                                <p class="t-author-meta">November 2024 · Dubai</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination mt-5" style="position:relative; bottom:0;"></div>
             </div>
         </div>
     </section>
 
-    {{-- ═══ PRICING ═══ --}}
-    <section id="pricing" class="pricing-section">
+    {{-- ═══ EXCLUSIVE COLLECTIONS ═══ --}}
+    <section id="collections" class="collections-section">
         <div class="container">
-            <span class="section-eyebrow text-center d-block">No Surprises</span>
-            <h2 class="section-title">Simple, Transparent Pricing</h2>
-            <p class="section-subtitle">Start for free. Upgrade only when you need more.</p>
-            <div class="row justify-content-center g-4">
-                <!-- Free -->
-                <div class="col-md-5 col-lg-4">
-                    <div class="pricing-card">
-                        <p class="pricing-plan-label">Free Forever</p>
-                        <div class="pricing-amount">₹0</div>
-                        <p class="pricing-period">No credit card needed</p>
-                        <div class="pricing-divider"></div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> 1 Digital Invitation</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> 3 Premium Templates</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> Unique Shareable Link &amp; QR</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> WhatsApp &amp; Email Share</div>
-                        <div class="pricing-feature off"><i class="bi bi-x"></i> RSVP Tracking</div>
-                        <div class="pricing-feature off"><i class="bi bi-x"></i> Custom Domain</div>
-                        <div class="pricing-feature off"><i class="bi bi-x"></i> Remove Watermark</div>
-                        <a href="{{ url('/register') }}" class="btn btn-outline-gold w-100 mt-4">Get Started Free</a>
+            <span class="section-eyebrow text-center d-block">Unparalleled Artistry</span>
+            <h2 class="section-title">The Masterpiece Collections</h2>
+            <p class="section-subtitle">Exquisite digital invitations for life's most prestigious moments.</p>
+
+            <div class="row g-4 mt-2">
+                <!-- Wedding -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="category-card">
+                        <!-- <span class="coming-soon-badge">Coming Soon</span> -->
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Wedding Invitations" class="category-img">
+                        <div class="category-content">
+                            <h3 class="category-title">Weddings</h3>
+                            <p class="category-subtitle">Eternal Unions</p>
+                            <a href="#templates" class="btn btn-outline-ghost btn-sm px-4">Preview Samples</a>
+                        </div>
                     </div>
                 </div>
-                <!-- Premium -->
-                <div class="col-md-5 col-lg-4">
-                    <div class="pricing-card featured">
-                        <span class="pricing-badge">Most Popular</span>
-                        <p class="pricing-plan-label">Premium</p>
-                        <div class="pricing-amount">₹999</div>
-                        <p class="pricing-period">One-time per wedding</p>
-                        <div class="pricing-divider"></div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> Unlimited Invitations</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> All 20+ Templates</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> Unique Shareable Link &amp; QR</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> WhatsApp &amp; Email Share</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> RSVP Tracking Dashboard</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> Custom Domain</div>
-                        <div class="pricing-feature"><i class="bi bi-check2"></i> Remove Watermark</div>
-                        <a href="{{ url('/register') }}" class="btn btn-gold w-100 mt-4">Start Premium</a>
+                <!-- Engagement -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="category-card">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Engagement Invitations" class="category-img">
+                        <div class="category-content">
+                            <h3 class="category-title">Engagement</h3>
+                            <p class="category-subtitle">The Promise</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Birthday -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="category-card">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Birthday Invitations" class="category-img">
+                        <div class="category-content">
+                            <h3 class="category-title">Birthdays</h3>
+                            <p class="category-subtitle">Celebration of Life</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Anniversary -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="category-card">
+                        <span class="coming-soon-badge">Coming Soon</span>
+                        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Anniversary Invitations" class="category-img">
+                        <div class="category-content">
+                            <h3 class="category-title">Gala Events</h3>
+                            <p class="category-subtitle">Legacy & Milestones</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1396,7 +1678,35 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
+        // ── Swiper Initialization ────────────────────
+        document.addEventListener('DOMContentLoaded', function () {
+            new Swiper('.testimonial-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                }
+            });
+        });
+
         // ── Live Invitation Preview ────────────────────
         const previewMap = {
             previewName1: 'displayName1',

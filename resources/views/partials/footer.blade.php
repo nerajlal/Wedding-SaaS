@@ -24,7 +24,7 @@
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#live-preview">Live Preview</a></li>
                     <li><a href="#templates">Templates</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#collections">Collections</a></li>
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>
@@ -58,7 +58,7 @@
                 </div>
                 <div style="margin-top:1.5rem;padding:1rem;border:1px solid rgba(212,175,55,0.2);text-align:center;">
                     <p style="font-family:var(--font-heading);color:var(--gold-primary);font-size:0.85rem;margin-bottom:0.5rem;">Ready to start?</p>
-                    <a href="/register" class="btn btn-gold btn-sm w-100" style="font-size:0.8rem;">Create Free Invitation</a>
+                    <a href="{{ url('/register') }}" class="btn btn-gold btn-sm w-100" style="font-size:0.8rem;">Create Free Invitation</a>
                 </div>
             </div>
 
