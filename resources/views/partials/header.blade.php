@@ -22,7 +22,7 @@
                     <a class="nav-link" href="#collections">Collections</a>
                 </li>
                 <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                    <a href="{{ url('/register') }}" class="btn btn-gold py-2 px-4">Start Free</a>
+                    <a href="{{ url('/signin') }}" class="btn btn-gold py-2 px-4">Start Free</a>
                 </li>
             </ul>
         </div>

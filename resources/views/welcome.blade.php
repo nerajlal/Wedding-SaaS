@@ -1234,7 +1234,7 @@
                             <p class="hero-tagline">Where high-fashion meets heritage. Exquisite digital invitations
                                 designed for the world's most distinguished events.</p>
                             <div class="hero-ctas">
-                                <a href="{{ url('/register') }}" class="btn btn-gold btn-lg">Begin Your Story</a>
+                                <a href="{{ url('/signin') }}" class="btn btn-gold btn-lg">Begin Your Story</a>
                                 <a href="#live-preview" class="btn btn-outline-ghost btn-lg">View Showcase</a>
                             </div>
                         </div>
@@ -1344,7 +1344,7 @@
                         <input id="previewVenue" type="text" class="preview-input" value="The Grand Ballroom, Mumbai"
                             maxlength="50" style="margin-bottom:1.8rem;">
 
-                        <a href="{{ url('/register') }}" class="btn btn-gold w-100">Create Mine Now →</a>
+                        <a href="{{ url('/signin') }}" class="btn btn-gold w-100">Create Mine Now →</a>
                     </div>
                 </div>
                 <!-- Card -->
@@ -1663,7 +1663,7 @@
                     <p class="final-cta-sub">Join 10,000+ couples who trusted Velvet Vows to announce their most
                         important day. Start free in under 2 minutes.</p>
                     <div class="d-flex gap-3 justify-content-center flex-wrap">
-                        <a href="{{ url('/register') }}" class="btn btn-gold btn-lg px-5">Get Started Free</a>
+                        <a href="{{ url('/signin') }}" class="btn btn-gold btn-lg px-5">Get Started Free</a>
                         <a href="#live-preview" class="btn btn-outline-ghost btn-lg px-5">See a Demo</a>
                     </div>
                     <p class="cta-footnote">No credit card required &nbsp;·&nbsp; Free plan available forever</p>
