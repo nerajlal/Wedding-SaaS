@@ -30,6 +30,7 @@ class WeddingDetailsController extends Controller
             'rsvp_contact' => 'required|string',
             'dress_code' => 'nullable|string',
             'personal_message' => 'nullable|string|max:200',
+            'couples_photo' => 'nullable|image|max:5120',
         ]);
 
         // Save text details in session
@@ -56,8 +57,9 @@ class WeddingDetailsController extends Controller
         }
 
         $details = session('wedding_details');
+        $photo = session('wedding_photo');
 
-        return view('wedding-template', compact('details'));
+        return view('wedding-template', compact('details', 'photo'));
     }
 
     /**
@@ -104,7 +106,10 @@ class WeddingDetailsController extends Controller
         $photo = session('wedding_photo');
 
         // Dynamically save details to a public JSON store so guest devices/phones can read it without active builder session cookies
-        $slug = \Illuminate\Support\Str::slug($details['bride_name']) . '-' . \Illuminate\Support\Str::slug($details['groom_name']) . '-2026';
+        $slug = \Illuminate\Support\Str::slug($details['bride_name'])
+            . '-' . \Illuminate\Support\Str::slug($details['groom_name'])
+            . '-' . now()->format('YmdHis');
+        $publicUrl = url('/invite/' . $slug);
         
         $path = storage_path('app/public/invitations.json');
         $invitations = [];
@@ -125,7 +130,7 @@ class WeddingDetailsController extends Controller
         
         file_put_contents($path, json_encode($invitations, JSON_PRETTY_PRINT));
 
-        return view('wedding-published', compact('details', 'template'));
+        return view('wedding-published', compact('details', 'template', 'slug', 'publicUrl'));
     }
 
     /**

@@ -61,6 +61,12 @@
                     <!-- Header -->
                     <p class="text-[0.65rem] uppercase tracking-[0.2em] text-[#C59B27] font-semibold mb-2">✦ Request the Honour ✦</p>
                     <p class="text-xs italic text-[#C59B27]/80 font-light mb-6">of your presence at the marriage of</p>
+
+                    @if(!empty($photo))
+                        <div class="mx-auto mb-4 overflow-hidden rounded-3xl border border-[#C59B27] max-h-[160px]">
+                            <img src="{{ $photo }}" alt="Couple photo" class="w-full h-[160px] object-cover" />
+                        </div>
+                    @endif
                     
                     <!-- Names -->
                     <h2 class="text-3xl font-bold tracking-wide text-[#FFFDF9] leading-tight mb-2">{{ $details['bride_name'] }}</h2>
@@ -112,6 +118,12 @@
                     <div class="w-12 h-12 rounded-full border border-[#C59B27] flex items-center justify-center mx-auto mb-4 text-xs font-bold text-[#C59B27]">
                         {{ substr($details['bride_name'], 0, 1) }} &amp; {{ substr($details['groom_name'], 0, 1) }}
                     </div>
+
+                    @if(!empty($photo))
+                        <div class="mx-auto mb-4 w-28 h-28 overflow-hidden rounded-3xl border border-[#C59B27] shadow-sm">
+                            <img src="{{ $photo }}" alt="Couple photo" class="w-full h-full object-cover" />
+                        </div>
+                    @endif
 
                     <p class="text-[0.55rem] uppercase tracking-[0.25em] text-[#C8A882] font-semibold mb-3 font-['Lato']">JOIN US TO CELEBRATE THE WEDDING OF</p>
 
@@ -166,6 +178,12 @@
                     
                     <!-- Celestial Header Motif -->
                     <div class="text-lg mb-3 select-none">🌙 ✨ ⭐</div>
+
+                    @if(!empty($photo))
+                        <div class="mx-auto mb-4 w-28 h-28 overflow-hidden rounded-full border border-[#E8C55A]/70 shadow-inner">
+                            <img src="{{ $photo }}" alt="Couple photo" class="w-full h-full object-cover" />
+                        </div>
+                    @endif
 
                     <p class="text-[0.55rem] uppercase tracking-[0.25em] text-white/70 mb-3">Under the starlit sky, join the wedding of</p>
 
@@ -331,9 +349,9 @@
             document.getElementById('checkout-form-body').classList.add('hidden');
             document.getElementById('checkout-loader-body').classList.remove('hidden');
             
-            // Wait 2.2 seconds to simulate processing, then redirect to the published invitation page
+            // Wait 2.2 seconds to simulate processing, then redirect to the live publish page
             setTimeout(() => {
-                window.location.href = "wedding-published.blade.php";
+                window.location.href = "{{ route('wedding.published.show') }}";
             }, 2200);
         }
     </script>

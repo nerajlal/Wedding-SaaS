@@ -72,6 +72,12 @@
                 
                 <!-- Selected Badge (Shown conditionally) -->
                 <span id="badge-royal-scroll" class="absolute top-3 right-3 bg-[#C59B27] text-black text-[0.6rem] font-bold py-1 px-3 rounded-full uppercase tracking-wider shadow">Selected</span>
+
+                @if(!empty($photo))
+                    <div class="mx-auto mb-4 overflow-hidden rounded-3xl border border-[#C59B27] max-h-[140px]">
+                        <img src="{{ $photo }}" alt="Couple photo" class="w-full h-[140px] object-cover" />
+                    </div>
+                @endif
                 
                 <!-- Card Header -->
                 <p class="text-[0.65rem] uppercase tracking-[0.25em] text-[#C59B27] font-semibold mb-2">✦ The Royal Scroll ✦</p>
@@ -100,6 +106,12 @@
                     <!-- Selected Badge -->
                     <span id="badge-golden-minimalist" class="absolute top-2 right-2 bg-[#C59B27] text-black text-[0.5rem] font-bold py-0.5 px-2 rounded-full uppercase tracking-wider shadow hidden">Selected</span>
 
+                    @if(!empty($photo))
+                        <div class="mx-auto mb-3 w-24 h-24 overflow-hidden rounded-full border border-[#C59B27] shadow-sm">
+                            <img src="{{ $photo }}" alt="Couple photo" class="w-full h-full object-cover" />
+                        </div>
+                    @endif
+
                     <!-- Monogram Initials -->
                     <p class="text-[0.65rem] font-bold text-[#C59B27] tracking-widest uppercase">
                         {{ substr($details['bride_name'], 0, 1) }} &amp; {{ substr($details['groom_name'], 0, 1) }}
@@ -124,6 +136,12 @@
                     
                     <!-- Selected Badge -->
                     <span id="badge-garden-celestial" class="absolute top-2 right-2 bg-[#C59B27] text-black text-[0.5rem] font-bold py-0.5 px-2 rounded-full uppercase tracking-wider shadow hidden">Selected</span>
+
+                    @if(!empty($photo))
+                        <div class="mx-auto mb-3 w-20 h-20 overflow-hidden rounded-full border border-[#E8C55A]/50 shadow-inner">
+                            <img src="{{ $photo }}" alt="Couple photo" class="w-full h-full object-cover" />
+                        </div>
+                    @endif
 
                     <!-- Monogram Motif -->
                     <div class="text-[#E8C55A] text-[0.65rem] select-none">🌙 ✨</div>
