@@ -22,3 +22,7 @@ Route::post('/wedding-template', [WeddingDetailsController::class, 'storeTemplat
 Route::get('/wedding-preview', [WeddingDetailsController::class, 'showPreview'])->middleware('auth')->name('wedding.preview.show');
 Route::get('/wedding-published', [WeddingDetailsController::class, 'showPublished'])->middleware('auth')->name('wedding.published.show');
 Route::get('/invite/{slug}', [WeddingDetailsController::class, 'showPublicInvitation'])->name('wedding.public.show');
+
+Route::get('/newland', function () {
+    return view('new-landing');
+});
