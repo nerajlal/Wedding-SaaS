@@ -1,84 +1,116 @@
-<footer class="footer">
-    <div class="container footer-main">
+<!-- ══════════════════════════════════════════
+     FOOTER PARTIAL
+     ══════════════════════════════════════════ -->
+<style>
+    /* Premium Footer Styles */
+    .premium-footer {
+        background: #F7F3EB;
+        color: #7A7065;
+        border-top: 1.5px solid rgba(184, 144, 71, 0.18);
+        padding: 6.5rem 0 3.5rem;
+        font-size: 0.92rem;
+    }
+
+    .footer-logo {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 800;
+        font-size: 1.65rem;
+        letter-spacing: -0.5px;
+        color: #2A241E;
+        margin-bottom: 1.3rem;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .footer-logo span {
+        color: #B89047;
+    }
+
+    .footer-links-title {
+        color: #2A241E;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 1.6rem;
+    }
+
+    .footer-link-item {
+        display: block;
+        color: #7A7065;
+        text-decoration: none;
+        margin-bottom: 0.8rem;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .footer-link-item:hover {
+        color: #B89047;
+        transform: translateX(3px);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(184, 144, 71, 0.18);
+        padding-top: 2rem;
+        margin-top: 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .hover-light {
+        transition: color 0.3s ease;
+    }
+
+    .hover-light:hover {
+        color: #8C6D3B !important;
+    }
+</style>
+
+<footer class="premium-footer">
+    <div class="container">
         <div class="row g-5">
-
-            <!-- Col 1: Brand -->
-            <div class="col-lg-4 col-md-6 footer-brand">
-                <h3 style="font-family:var(--font-hero);font-size:2rem;color:var(--gold-primary);margin-bottom:0.5rem;">Velvet Vows</h3>
-                <p style="font-family:var(--font-heading);font-style:italic;color:var(--gold-light);font-size:0.9rem;margin-bottom:1.2rem;">Where Love Meets Legacy</p>
-                <p>Premium digital wedding invitations crafted with elegance. Share your love story with stunning designs that leave a lasting impression.</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-                    <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                </div>
+            <div class="col-lg-4">
+                <a href="{{ url('/') }}" class="footer-logo">
+                    <span><i class="bi bi-heart-fill"></i></span> Velvet Vows
+                </a>
+                <p class="opacity-75">
+                    Delivering the absolute highest quality digital and hybrid event invite systems to modern couples globally.
+                </p>
             </div>
 
-            <!-- Col 2: Quick Links -->
-            <div class="col-lg-2 col-md-6 col-6">
-                <h4 class="footer-heading">Quick Links</h4>
-                <ul class="footer-links-list">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#live-preview">Live Preview</a></li>
-                    <li><a href="#templates">Templates</a></li>
-                    <li><a href="#collections">Collections</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
+            <div class="col-6 col-md-4 col-lg-2 ms-lg-auto">
+                <h3 class="footer-links-title">Occasions</h3>
+                <a href="javascript:void(0)" onclick="openInfoModal()" class="footer-link-item">Weddings</a>
+                <a href="javascript:void(0)" class="footer-link-item" style="opacity:.45;cursor:default">Birthdays</a>
+                <a href="javascript:void(0)" class="footer-link-item" style="opacity:.45;cursor:default">Baptism</a>
+                <a href="javascript:void(0)" class="footer-link-item" style="opacity:.45;cursor:default">Housewarmings</a>
             </div>
 
-            <!-- Col 3: Support & Legal -->
-            <div class="col-lg-3 col-md-6 col-6">
-                <h4 class="footer-heading">Support</h4>
-                <ul class="footer-links-list">
-                    <li><a href="/privacy-policy">Privacy Policy</a></li>
-                    <li><a href="/terms-of-service">Terms of Service</a></li>
-                    <li><a href="/refund-policy">Refund Policy</a></li>
-                    <li><a href="/cookie-policy">Cookie Policy</a></li>
-                    <li><a href="mailto:hello@velvetvows.in">Help & Support</a></li>
-                </ul>
+            <div class="col-6 col-md-4 col-lg-2">
+                <h3 class="footer-links-title">Company</h3>
+                <a href="{{ url('/') }}#how-it-works" class="footer-link-item">Process</a>
+                <a href="{{ url('/') }}#categories" class="footer-link-item">Designs</a>
+                <a href="{{ url('/') }}#faqs" class="footer-link-item">Support FAQs</a>
             </div>
 
-            <!-- Col 4: Contact -->
-            <div class="col-lg-3 col-md-6">
-                <h4 class="footer-heading">Get In Touch</h4>
-                <div class="footer-contact-item">
-                    <i class="bi bi-envelope"></i>
-                    <a href="mailto:hello@velvetvows.in">hello@velvetvows.in</a>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="bi bi-whatsapp"></i>
-                    <a href="https://wa.me/919876543210">+91 98765 43210</a>
-                </div>
-                <div class="footer-contact-item">
-                    <i class="bi bi-geo-alt"></i>
-                    <span>Bangalore, India</span>
-                </div>
-                <div style="margin-top:1.5rem;padding:1rem;border:1px solid rgba(212,175,55,0.2);text-align:center;">
-                    <p style="font-family:var(--font-heading);color:var(--gold-primary);font-size:0.85rem;margin-bottom:0.5rem;">Ready to start?</p>
-                    <a href="{{ url('/register') }}" class="btn btn-gold btn-sm w-100" style="font-size:0.8rem;">Create Free Invitation</a>
-                </div>
+            <div class="col-md-4 col-lg-3">
+                <h3 class="footer-links-title">Support Channels</h3>
+                <p class="opacity-75">Have questions or custom requirements? Shoot us an email!</p>
+                <a href="mailto:support@velvetvows.invite" class="btn-premium-solid py-2 px-3">
+                    <i class="bi bi-envelope-fill"></i> Contact Support
+                </a>
             </div>
-
         </div>
-    </div>
 
-    <!-- Bottom Bar -->
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start">
-                    <p>&copy; {{ date('Y') }} Velvet Vows. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
-                    <a href="/privacy-policy">Privacy</a>
-                    <span style="color:rgba(139,115,85,0.3);margin:0 0.5rem;">·</span>
-                    <a href="/terms-of-service">Terms</a>
-                    <span style="color:rgba(139,115,85,0.3);margin:0 0.5rem;">·</span>
-                    <span style="color:var(--gray-warm);font-size:0.8rem;">Made by <a href="https://metora.in" target="_blank" rel="noopener noreferrer" style="color:var(--gold-primary);">Metora.in</a></span>
-                </div>
+        <div class="footer-bottom">
+            <div>
+                &copy; {{ date('Y') }} Velvet Vows & Bigdates. All rights reserved.
+            </div>
+            <div class="d-flex gap-3">
+                <a href="#" class="text-muted text-decoration-none hover-light">Privacy Policy</a>
+                <a href="#" class="text-muted text-decoration-none hover-light">Terms of Service</a>
             </div>
         </div>
     </div>

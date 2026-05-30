@@ -17,6 +17,16 @@ Route::post('/signin', [LoginController::class, 'login'])->name('signin.process'
 
 use App\Http\Controllers\WeddingDetailsController;
 
+use App\Http\Controllers\TemplateController;
+
+// ── Theme Gallery ──────────────────────────────────────────────────────────
+Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+
+// ── New bigdates-style single-page wedding wizard ──────────────────────────
+Route::get('/wedding',  [WeddingDetailsController::class, 'entryWedding'])->middleware('auth')->name('wedding.entry');
+Route::post('/wedding', [WeddingDetailsController::class, 'storeAll'])->middleware('auth')->name('wedding.store.all');
+
+// ── Legacy 3-step flow (kept for backward compatibility) ───────────────────
 Route::get('/wedding-details', [WeddingDetailsController::class, 'create'])->middleware('auth')->name('wedding.details.create');
 Route::post('/wedding-details', [WeddingDetailsController::class, 'store'])->middleware('auth')->name('wedding.details.store');
 Route::get('/wedding-template', [WeddingDetailsController::class, 'showTemplate'])->middleware('auth')->name('wedding.template.show');

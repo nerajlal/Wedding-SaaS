@@ -35,7 +35,13 @@ class LoginController extends Controller
                 ]
             );
             Auth::login($user, true);
-            return redirect()->intended(route('wedding.details.create'));
+
+            // If the user selected a template before logging in, save it
+            if ($request->filled('selected_template')) {
+                session(['wedding_template' => $request->input('selected_template')]);
+            }
+
+            return redirect()->intended(route('wedding.entry'));
         }
         // ─────────────────────────────────────────────────────────────────────
 

@@ -7,7 +7,52 @@ use Illuminate\Http\Request;
 class WeddingDetailsController extends Controller
 {
     /**
-     * Show the wedding details form (Step 1).
+     * Show the dedicated wedding creation landing page (bigdates-style).
+     */
+    public function entryWedding()
+    {
+        return view('wedding-flow');
+    }
+
+    /**
+     * Accept all wizard steps in ONE single POST (from the JS wizard).
+     * Stores everything in session and redirects to the published page.
+     */
+    public function storeAll(Request $request)
+    {
+        $validated = $request->validate([
+            'bride_name'       => 'required|string|max:255',
+            'groom_name'       => 'required|string|max:255',
+            'wedding_date'     => 'required|string',
+            'time'             => 'required|string',
+            'venue_name'       => 'required|string|max:255',
+            'venue_address'    => 'required|string',
+            'rsvp_contact'     => 'required|string',
+            'rsvp_deadline'    => 'nullable|string',
+            'dress_code'       => 'nullable|string',
+            'personal_message' => 'nullable|string|max:200',
+            'template'         => 'required|string|in:royal-scroll,golden-minimalist,garden-celestial',
+            'couples_photo'    => 'nullable|image|max:5120',
+        ]);
+
+        $template = $validated['template'];
+        unset($validated['template']);
+
+        session(['wedding_details'  => $validated]);
+        session(['wedding_template' => $template]);
+
+        if ($request->hasFile('couples_photo')) {
+            $file   = $request->file('couples_photo');
+            $base64 = base64_encode(file_get_contents($file->getRealPath()));
+            $mime   = $file->getMimeType();
+            session(['wedding_photo' => "data:$mime;base64,$base64"]);
+        }
+
+        return redirect()->route('wedding.published.show');
+    }
+
+    /**
+     * Show the legacy wedding details form (Step 1) — kept for backward compatibility.
      */
     public function create()
     {
