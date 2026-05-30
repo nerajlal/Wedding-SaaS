@@ -64,7 +64,7 @@
             position: relative;
         }
         .tpl-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(184,144,71,0.12); border-color: var(--gold); }
-        .tpl-img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+        .tpl-img { width: 100%; aspect-ratio: 2/3; object-fit: cover; object-position: top center; display: block; }
         .tpl-info { padding: 1rem 1.2rem; border-top: 1px solid var(--border); }
         .tpl-name { font-family: var(--display); font-size: 1.05rem; font-weight: 700; color: var(--text); }
         .tpl-hint { font-size: .8rem; color: var(--muted); margin-top: .2rem; }

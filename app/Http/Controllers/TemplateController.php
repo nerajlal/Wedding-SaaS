@@ -13,7 +13,7 @@ class TemplateController extends Controller
                 'id' => 'premium-vintage',
                 'name' => 'Premium Vintage',
                 'hint' => 'Classic and elegant',
-                'image' => 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80',
+                'image' => '/template_thumbnails/premium-vintage.png',
             ],
         ];
     }
