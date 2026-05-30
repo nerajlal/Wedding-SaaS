@@ -4,1563 +4,1347 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Velvet Vows - Digital Wedding Invitations</title>
+    <title>Velvet Vows & Bigdates - Beautiful Digital Invitation Websites</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
     <style>
         /* ══════════════════════════════════════════
-           DESIGN TOKENS
-        ══════════════════════════════════════════ */
+           LUXURY LIGHT GOLD DESIGN SYSTEM
+           ══════════════════════════════════════════ */
         :root {
-            --gold-primary: #D4AF37;
-            --gold-dark: #B8860B;
-            --gold-light: #F5E6A3;
-            --gold-pale: #FBF6E8;
-            --cream-base: #FDF8F0;
-            --cream-dark: #F5EDD8;
-            --black-rich: #1A1A1A;
-            --gray-warm: #8B7355;
-            --gray-mid: #B5A48A;
-            --white-pure: #FFFFFF;
-            --navy-deep: #0A1628;
-            --navy-mid: #0F1F38;
-
-            --font-hero: 'Cormorant Garamond', serif;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Lato', sans-serif;
-
-            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --gold-dark: #8C6D3B;       /* Deep Gold for text contrast */
+            --gold-primary: #B89047;    /* Classic Royal Gold */
+            --gold-light: #DFCA9B;      /* Soft Accent Gold */
+            --gold-pale: #F5EFEB;       /* Warm Champagne */
+            --cream-base: #FFFDF9;      /* Ultra Premium Off-White */
+            --cream-dark: #F7F3EB;      /* Ivory */
+            --text-dark: #2A241E;       /* Luxurious Warm Black */
+            --text-muted: #7A7065;      /* Warm Slate Gray */
+            --border-gold: rgba(184, 144, 71, 0.18);
+            --border-gold-light: rgba(184, 144, 71, 0.08);
+            
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
+            
+            --transition-premium: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow-premium: 0 15px 40px rgba(140, 109, 59, 0.05);
+            --shadow-premium-hover: 0 25px 50px rgba(140, 109, 59, 0.12);
         }
 
-        /* Luxury Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--navy-deep);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gold-primary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gold-dark);
-        }
-
-        /* Custom Selection */
-        ::selection {
-            background: var(--gold-primary);
-            color: var(--navy-deep);
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-        html {
+        body {
+            font-family: var(--font-body);
+            background-color: var(--cream-base);
+            color: var(--text-dark);
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        html,
-        body {
-            overflow-x: hidden;
-            width: 100%;
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-dark);
         }
 
-        body {
-            background-color: var(--cream-base);
-            color: var(--black-rich);
-            font-family: var(--font-body);
-            -webkit-font-smoothing: antialiased;
+        .highlight-gold {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        h1,
-        .font-hero {
-            font-family: var(--font-hero);
+        /* Custom luxury scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: var(--font-heading);
+        ::-webkit-scrollbar-track {
+            background: var(--cream-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 99px;
         }
 
         /* ══════════════════════════════════════════
-           GLOBAL BUTTONS
-        ══════════════════════════════════════════ */
-        .btn-gold {
-            background-color: var(--gold-primary);
-            color: var(--black-rich);
-            border: none;
-            padding: 0.8rem 2.2rem;
-            font-family: var(--font-body);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
-            border-radius: 0;
-            text-decoration: none;
-            display: inline-block;
+           PREMIUM LIGHT STICKY NAVIGATION
+           ══════════════════════════════════════════ */
+        .premium-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 253, 249, 0.88);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border-gold-light);
+            transition: var(--transition-premium);
+            padding: 0.9rem 0;
         }
 
-        .btn-gold:hover {
-            background-color: var(--gold-dark);
-            color: var(--white-pure);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(212, 175, 55, 0.4);
+        .premium-nav.scrolled {
+            box-shadow: 0 10px 30px rgba(140, 109, 59, 0.04);
+            padding: 0.65rem 0;
         }
 
-        .btn-outline-gold {
-            background-color: transparent;
-            color: var(--gold-primary);
-            border: 1px solid var(--gold-primary);
-            padding: 0.8rem 2.2rem;
-            font-family: var(--font-body);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            transition: var(--transition-smooth);
-            border-radius: 0;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-outline-gold:hover {
-            background-color: var(--gold-primary);
-            color: var(--black-rich);
-        }
-
-        .btn-outline-ghost {
-            background-color: transparent;
-            color: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            padding: 0.8rem 2.2rem;
-            font-family: var(--font-body);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            transition: var(--transition-smooth);
-            border-radius: 0;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-outline-ghost:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-            background: rgba(212, 175, 55, 0.08);
-        }
-
-        /* ══════════════════════════════════════════
-           SECTION TYPOGRAPHY HELPERS
-        ══════════════════════════════════════════ */
-        .section-eyebrow {
-            font-family: var(--font-body);
-            font-size: 0.7rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--gold-primary);
-            display: block;
-            margin-bottom: 0.8rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            color: var(--gold-dark);
-            text-align: center;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            margin: 1rem auto 0;
-        }
-
-        .section-title.light {
-            color: var(--gold-primary);
-        }
-
-        .section-title.light::after {
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--gray-warm);
-            font-size: 1rem;
-            margin-bottom: 3.5rem;
-            font-family: var(--font-heading);
-            font-style: italic;
-            max-width: 560px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-subtitle.light {
-            color: rgba(255, 255, 255, 0.45);
-        }
-
-        /* ══════════════════════════════════════════
-           HERO
-        ══════════════════════════════════════════ */
-        .hero {
-            min-height: 100vh;
-            background:
-                linear-gradient(rgba(10, 22, 40, 0.62), rgba(10, 22, 40, 0.82)),
-                url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center / cover no-repeat;
+        .navbar-brand {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.45rem;
+            letter-spacing: -0.5px;
+            color: var(--text-dark) !important;
             display: flex;
             align-items: center;
-            text-align: center;
-            color: var(--white-pure);
-            position: relative;
-            padding: 7rem 0 5rem;
+            gap: 0.6rem;
         }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(transparent, var(--cream-base));
-            pointer-events: none;
-        }
-
-        .hero-frame {
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            padding: 5px;
-            display: inline-block;
-        }
-
-        .hero-frame-inner {
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            padding: clamp(1.8rem, 4vw, 3rem) clamp(1.5rem, 5vw, 4rem);
-        }
-
-        .hero-eyebrow {
-            font-family: var(--font-body);
-            font-size: 0.68rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
+        .navbar-brand span {
             color: var(--gold-primary);
-            margin-bottom: 1.2rem;
-            opacity: 0;
-            animation: fadeUp 1s ease forwards 0.3s;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-muted) !important;
+            font-size: 0.92rem;
+            padding: 0.5rem 1.1rem !important;
+            border-radius: 99px;
+            transition: var(--transition-premium);
+        }
+
+        .nav-link:hover {
+            color: var(--gold-dark) !important;
+            background: rgba(184, 144, 71, 0.05);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-premium-outline {
+            border: 1.5px solid var(--gold-light);
+            background: transparent;
+            color: var(--gold-dark);
+            font-weight: 600;
+            font-size: 0.86rem;
+            padding: 0.55rem 1.4rem;
+            border-radius: 99px;
+            transition: var(--transition-premium);
+            text-decoration: none;
+        }
+
+        .btn-premium-outline:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            background: rgba(184, 144, 71, 0.03);
+        }
+
+        .btn-premium-solid {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+            border: none;
+            color: #fff !important;
+            font-weight: 600;
+            font-size: 0.86rem;
+            padding: 0.6rem 1.6rem;
+            border-radius: 99px;
+            box-shadow: 0 4px 20px rgba(184, 144, 71, 0.2);
+            transition: var(--transition-premium);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-premium-solid:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(184, 144, 71, 0.35);
+        }
+
+        /* ══════════════════════════════════════════
+           HERO SECTION
+           ══════════════════════════════════════════ */
+        .hero-section {
+            padding: 7.5rem 0 5.5rem;
+            position: relative;
+            background: radial-gradient(circle at 85% 15%, rgba(184, 144, 71, 0.07) 0%, transparent 60%),
+                        radial-gradient(circle at 15% 75%, rgba(184, 144, 71, 0.04) 0%, transparent 50%);
+        }
+
+        .badge-loved {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(184, 144, 71, 0.07);
+            border: 1px solid var(--border-gold);
+            padding: 0.45rem 1.1rem;
+            border-radius: 99px;
+            font-weight: 700;
+            font-size: 0.76rem;
+            color: var(--gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 1.6rem;
         }
 
         .hero-title {
-            font-family: var(--font-hero);
-            font-size: clamp(3.2rem, 8vw, 5.8rem);
-            font-weight: 600;
-            color: var(--white-pure);
-            line-height: 1;
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeUp 1s ease forwards 0.55s;
+            font-size: clamp(2.5rem, 5.5vw, 4.4rem);
+            line-height: 1.08;
+            letter-spacing: -1.2px;
+            color: var(--text-dark);
+            margin-bottom: 1.6rem;
         }
 
-        .hero-title span {
-            color: var(--gold-primary);
-        }
-
-        .hero-tagline {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            font-family: var(--font-heading);
-            font-style: italic;
-            margin-bottom: 2.5rem;
-            color: rgba(255, 255, 255, 0.72);
-            opacity: 0;
-            animation: fadeUp 1s ease forwards 0.85s;
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 2.4rem;
+            max-width: 600px;
         }
 
         .hero-ctas {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
             flex-wrap: wrap;
-            opacity: 0;
-            animation: fadeUp 1s ease forwards 1.1s;
+            margin-bottom: 1.6rem;
         }
 
-        .scroll-caret {
-            position: absolute;
-            bottom: 115px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(212, 175, 55, 0.6);
-            font-size: 1.6rem;
-            animation: bounce 2.2s ease-in-out infinite;
-            text-decoration: none;
-            z-index: 1;
-            transition: color 0.2s;
-        }
-
-        .scroll-caret:hover {
-            color: var(--gold-primary);
+        .cta-note {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
         }
 
         /* ══════════════════════════════════════════
-           STATS BAR
-        ══════════════════════════════════════════ */
-        .stats-bar {
-            background: var(--navy-deep);
-            padding: 2.8rem 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 0.5rem 1rem;
-            border-right: 1px solid rgba(212, 175, 55, 0.12);
-        }
-
-        .stat-item:last-child {
-            border-right: none;
-        }
-
-        .stat-number {
-            font-family: var(--font-hero);
-            font-size: 2.6rem;
-            color: var(--gold-primary);
-            font-weight: 600;
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 0.68rem;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.4);
-            margin-top: 0.35rem;
-            font-family: var(--font-body);
-        }
-
-        /* ══════════════════════════════════════════
-           HOW IT WORKS
-        ══════════════════════════════════════════ */
-        .how-it-works {
-            padding: 6rem 0;
-            background-color: var(--cream-base);
-        }
-
-        .step-card {
-            text-align: center;
-            padding: 2.5rem 1.8rem;
-            background: var(--white-pure);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            transition: var(--transition-smooth);
-            height: 100%;
+           PREMIUM PHONE SCREEN ANIMATION
+           ══════════════════════════════════════════ */
+        .hero-visual-wrapper {
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-mockup {
+            width: 310px;
+            height: 620px;
+            border: 11px solid var(--text-dark);
+            border-radius: 42px;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(140, 109, 59, 0.1);
             overflow: hidden;
+            z-index: 2;
+            transition: var(--transition-premium);
         }
 
-        .step-card:hover {
+        .phone-mockup:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(180, 140, 60, 0.1);
-            border-color: rgba(212, 175, 55, 0.35);
+            box-shadow: 0 40px 90px rgba(140, 109, 59, 0.18);
         }
 
-        .step-number {
-            position: absolute;
-            top: 1.2rem;
-            right: 1.5rem;
-            font-family: var(--font-hero);
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--gold-light);
-            line-height: 1;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .step-icon {
-            font-size: 2.2rem;
-            color: var(--gold-primary);
-            margin-bottom: 1.2rem;
-            display: block;
-        }
-
-        .step-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.8rem;
-            color: var(--black-rich);
-            font-weight: 500;
-        }
-
-        .step-desc {
-            color: var(--gray-warm);
-            line-height: 1.75;
-            font-size: 0.92rem;
-        }
-
-        /* ══════════════════════════════════════════
-           LIVE PREVIEW
-        ══════════════════════════════════════════ */
-        .live-preview-section {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, var(--cream-base) 0%, var(--cream-dark) 100%);
-        }
-
-        .preview-controls {
-            background: var(--white-pure);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            padding: 2.2rem;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-        }
-
-        .preview-label {
-            font-family: var(--font-heading);
-            color: var(--gold-dark);
-            font-size: 0.82rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 0.45rem;
-        }
-
-        .preview-input {
+        .phone-screen {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gold-light);
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            color: var(--black-rich);
-            background: var(--cream-base);
-            outline: none;
-            transition: border-color 0.25s;
-            border-radius: 0;
-            margin-bottom: 1.4rem;
-        }
-
-        .preview-input:focus {
-            border-color: var(--gold-primary);
-        }
-
-        .invitation-card {
-            background: linear-gradient(145deg, #FFFDF5, #FFF8E7);
-            border: 2px solid var(--gold-primary);
-            padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem);
-            text-align: center;
-            position: relative;
-            min-height: 400px;
+            height: 100%;
+            background: var(--cream-dark);
+            padding: 1.8rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            position: relative;
+            font-family: var(--font-serif);
         }
 
-        .invitation-card::before {
+        .phone-island {
+            width: 100px;
+            height: 25px;
+            background: var(--text-dark);
+            border-radius: 99px;
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .phone-einvite-card {
+            border: 1px solid var(--border-gold);
+            padding: 2.2rem 1.2rem;
+            background: var(--cream-base);
+            width: 100%;
+            text-align: center;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(140, 109, 59, 0.03);
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .phone-einvite-card::before {
             content: '';
             position: absolute;
-            inset: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.35);
+            inset: 6px;
+            border: 1.5px solid rgba(184, 144, 71, 0.12);
+            border-radius: 12px;
+        }
+
+        .floating-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
             pointer-events: none;
+            z-index: 1;
         }
 
-        .inv-corner {
+        .float-icon {
             position: absolute;
-            color: var(--gold-primary);
-            font-size: 1rem;
-            opacity: 0.5;
-            line-height: 1;
+            animation: float-anim 5.5s ease-in-out infinite;
         }
 
-        .inv-corner.tl {
-            top: 18px;
-            left: 18px;
+        .float-1 { top: 12%; left: -6%; color: var(--gold-primary); font-size: 2.2rem; animation-delay: 0s; }
+        .float-2 { top: 58%; right: -6%; color: var(--gold-dark); font-size: 1.8rem; animation-delay: 1.8s; }
+        .float-3 { bottom: 8%; left: -2%; color: var(--gold-light); font-size: 2rem; animation-delay: 3.5s; }
+
+        @keyframes float-anim {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(12deg); }
         }
 
-        .inv-corner.tr {
-            top: 18px;
-            right: 18px;
+        /* ══════════════════════════════════════════
+           TRUSTED SHOWCASE CAROUSEL
+           ══════════════════════════════════════════ */
+        .showcase-section {
+            background: var(--cream-dark);
+            padding: 5.5rem 0;
+            overflow: hidden;
+            border-top: 1px solid var(--border-gold-light);
+            border-bottom: 1px solid var(--border-gold-light);
         }
 
-        .inv-corner.bl {
-            bottom: 18px;
-            left: 18px;
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
         }
 
-        .inv-corner.br {
-            bottom: 18px;
-            right: 18px;
+        .showcase-slider {
+            display: flex;
+            gap: 2rem;
+            animation: slide-showcase 45s linear infinite;
+            width: max-content;
         }
 
-        .inv-overline {
-            font-family: var(--font-heading);
-            color: rgba(10, 22, 40, 0.5);
-            font-size: 0.68rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
+        .showcase-slider:hover {
+            animation-play-state: paused;
         }
 
-        .inv-names {
-            font-family: var(--font-hero);
-            font-size: clamp(2.2rem, 5vw, 3.2rem);
-            font-weight: 600;
-            color: var(--black-rich);
-            line-height: 1.05;
-            transition: all 0.25s ease;
+        .showcase-card {
+            width: 200px;
+            height: 380px;
+            border-radius: 24px;
+            background: #fff;
+            border: 1px solid var(--border-gold-light);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(140, 109, 59, 0.02);
+            transition: var(--transition-premium);
+            cursor: pointer;
+            position: relative;
         }
 
-        .inv-and {
-            font-style: italic;
-            color: var(--gold-primary);
-            font-size: 1.4em;
-            display: block;
-            line-height: 1;
+        .showcase-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-premium);
         }
 
-        .inv-rule {
-            width: 45px;
-            height: 1px;
-            background: var(--gold-primary);
-            margin: 1.2rem auto;
-            opacity: 0.55;
+        .showcase-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-premium-hover);
         }
 
-        .inv-request {
-            font-size: 0.68rem;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: var(--gray-mid);
-            font-family: var(--font-body);
-            margin-bottom: 0.6rem;
-        }
-
-        .inv-date {
-            font-family: var(--font-heading);
-            font-size: 1.15rem;
+        .showcase-badge {
+            position: absolute;
+            bottom: 1.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 253, 249, 0.95);
+            backdrop-filter: blur(10px);
             color: var(--gold-dark);
-            font-style: italic;
-            transition: all 0.25s ease;
-        }
-
-        .inv-venue {
-            font-size: 0.82rem;
-            color: var(--gray-warm);
-            margin-top: 0.3rem;
-            font-family: var(--font-body);
-            transition: all 0.25s ease;
-        }
-
-        /* ══════════════════════════════════════════
-           TEMPLATES
-        ══════════════════════════════════════════ */
-        .templates {
-            padding: 6rem 0;
-            background-color: var(--cream-base);
-        }
-
-        .template-card {
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            height: 420px;
-            border: 1px solid rgba(212, 175, 55, 0.15);
-        }
-
-        .template-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
-            filter: brightness(0.88);
-        }
-
-        .template-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(10, 22, 40, 0.92));
-            padding: 2.2rem 1.5rem 1.8rem;
-            text-align: center;
-        }
-
-        .template-tag {
-            display: inline-block;
-            font-size: 0.62rem;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: var(--gold-primary);
-            border: 1px solid rgba(212, 175, 55, 0.45);
-            padding: 3px 10px;
-            margin-bottom: 0.5rem;
-            font-family: var(--font-body);
-        }
-
-        .template-name {
-            color: var(--white-pure);
-            font-size: 1.5rem;
-            margin: 0;
-            font-family: var(--font-heading);
-            font-weight: 500;
-        }
-
-        .template-desc {
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 0.82rem;
-            margin: 0.3rem 0 0;
-            font-family: var(--font-body);
-        }
-
-        .template-card:hover .template-img {
-            transform: scale(1.06);
-            filter: brightness(0.7);
-        }
-
-        /* ══════════════════════════════════════════
-           TESTIMONIALS
-        ══════════════════════════════════════════ */
-        .testimonials {
-            padding: 6rem 0;
-            background: var(--navy-deep);
-        }
-
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 2.5rem 2rem;
-            height: 100%;
-            position: relative;
-            transition: var(--transition-smooth);
-        }
-
-        .testimonial-card:hover {
-            border-color: rgba(212, 175, 55, 0.35);
-        }
-
-        /* ══════════════════════════════════════════
-           EXCLUSIVE COLLECTIONS
-        ══════════════════════════════════════════ */
-        .collections-section {
-            padding: 8rem 0;
-            background: var(--white-pure);
-        }
-
-        .category-card {
-            position: relative;
-            height: 520px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            border: 1px solid rgba(212, 175, 55, 0.08);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-        }
-
-        .category-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: brightness(0.75);
-        }
-
-        .category-card:hover .category-img {
-            transform: scale(1.12);
-            filter: brightness(0.45);
-        }
-
-        .category-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 3rem 2rem;
-            text-align: center;
-            z-index: 2;
-            transform: translateY(20px);
-            transition: var(--transition-smooth);
-        }
-
-        .category-card:hover .category-content {
-            transform: translateY(0);
-        }
-
-        .category-title {
-            font-family: var(--font-hero);
-            font-size: 2.4rem;
-            color: var(--white-pure);
-            margin-bottom: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        .category-subtitle {
-            font-family: var(--font-heading);
-            font-style: italic;
-            color: var(--gold-primary);
-            font-size: 1rem;
-            opacity: 0.85;
-            margin-bottom: 1.5rem;
-        }
-
-        .coming-soon-badge {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            color: var(--navy-deep);
-            padding: 0.5rem 1.4rem;
-            font-size: 0.62rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 800;
-            z-index: 3;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .active-badge {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--navy-deep);
-            padding: 0.5rem 1.4rem;
-            font-size: 0.62rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 800;
-            z-index: 3;
-        }
-
-        .stars {
-            color: var(--gold-primary);
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            margin-bottom: 1.2rem;
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.72);
-            margin-bottom: 1.8rem;
-            line-height: 1.8;
-            font-family: var(--font-heading);
-        }
-
-        .t-author-row {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .t-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-hero);
-            font-size: 1rem;
-            color: var(--white-pure);
-            flex-shrink: 0;
-        }
-
-        .t-author-name {
-            font-family: var(--font-heading);
-            color: var(--gold-primary);
-            font-size: 1rem;
-            font-weight: 500;
-            margin: 0;
-        }
-
-        .t-author-meta {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.3);
-            margin: 0;
-        }
-
-        /* ══════════════════════════════════════════
-            font-family: var(--font-hero);
-            font-size: 3.5rem;
+            border: 1px solid var(--border-gold);
+            padding: 0.4rem 1.1rem;
+            border-radius: 99px;
+            font-size: 0.72rem;
             font-weight: 700;
-            line-height: 1;
-            margin: 0;
-            color: var(--black-rich);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
 
-        .pricing-card.featured .pricing-amount {
-            color: var(--gold-primary);
-        }
-
-        .pricing-period {
-            color: var(--gray-warm);
-            font-size: 0.82rem;
-            margin: 0.3rem 0 2rem;
-        }
-
-        .pricing-card.featured .pricing-period {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .pricing-divider {
-            height: 1px;
-            background: rgba(212, 175, 55, 0.12);
-            margin: 0 0 1.5rem;
-        }
-
-        .pricing-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            text-align: left;
-            color: var(--gray-warm);
-            font-size: 0.9rem;
-            padding: 0.45rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            font-family: var(--font-body);
-        }
-
-        .pricing-card.featured .pricing-feature {
-            color: rgba(255, 255, 255, 0.75);
-            border-bottom-color: rgba(255, 255, 255, 0.06);
-        }
-
-        .pricing-feature:last-of-type {
-            border-bottom: none;
-        }
-
-        .pricing-feature i.bi-check2 {
-            color: var(--gold-primary);
-            flex-shrink: 0;
-        }
-
-        .pricing-feature.off {
-            opacity: 0.32;
-        }
-
-        .pricing-feature.off i {
-            color: var(--gray-mid);
+        @keyframes slide-showcase {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* ══════════════════════════════════════════
-           FAQ
-        ══════════════════════════════════════════ */
-        .faq-section {
-            padding: 6rem 0;
+           OCCASIONS CATEGORY GRID
+           ══════════════════════════════════════════ */
+        .category-section {
+            padding: 7.5rem 0;
             background: var(--cream-base);
         }
 
-        .faq-item {
-            border: 1px solid rgba(212, 175, 55, 0.22);
-            margin-bottom: 0.65rem;
-            background: var(--white-pure);
-            transition: var(--transition-smooth);
-        }
-
-        .faq-item:hover {
-            border-color: rgba(212, 175, 55, 0.45);
-        }
-
-        .faq-btn {
-            width: 100%;
-            background: none;
-            border: none;
-            padding: 1.3rem 1.5rem;
-            text-align: left;
-            font-family: var(--font-heading);
-            font-size: 1.05rem;
-            color: var(--black-rich);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
+        .section-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            transition: color 0.2s;
-        }
-
-        .faq-btn:hover {
+            gap: 0.45rem;
+            padding: 0.45rem 1.1rem;
+            border-radius: 99px;
+            font-weight: 700;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            background: rgba(184, 144, 71, 0.06);
             color: var(--gold-dark);
+            border: 1px solid var(--border-gold);
+            margin-bottom: 1.4rem;
         }
 
-        .faq-btn .faq-icon {
-            color: var(--gold-primary);
-            font-size: 1.1rem;
-            transition: transform 0.3s ease;
+        .section-title-alt {
+            font-size: clamp(2.1rem, 4.5vw, 3rem);
+            color: var(--text-dark);
+            margin-bottom: 0.9rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .section-subtitle-alt {
+            color: var(--text-muted);
+            font-size: 1.08rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .category-card-compact {
+            border-radius: 26px;
+            background: var(--cream-dark);
+            border: 1.5px solid rgba(184, 144, 71, 0.05);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.25rem;
+            text-decoration: none;
+            transition: var(--transition-premium);
+        }
+
+        .category-card-compact:hover {
+            transform: translateY(-6px);
+            background: #fff;
+            border-color: var(--gold-primary);
+            box-shadow: var(--shadow-premium-hover);
+        }
+
+        .compact-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(184, 144, 71, 0.1);
+        }
+
+        .compact-info h3 {
+            font-size: 1.16rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 0.25rem 0;
+        }
+
+        .compact-info p {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .compact-arrow {
+            margin-left: auto;
+            color: var(--gold-light);
+            transition: var(--transition-premium);
+        }
+
+        .category-card-compact:hover .compact-arrow {
+            color: var(--gold-dark);
+            transform: translateX(4px);
+        }
+
+        .category-card-compact.coming-soon-card {
+            cursor: default !important;
+            opacity: 0.85;
+        }
+
+        .category-card-compact.coming-soon-card:hover {
+            transform: none !important;
+            border-color: rgba(184, 144, 71, 0.05) !important;
+            box-shadow: none !important;
+            background: var(--cream-dark) !important;
+        }
+
+        .category-card-compact.coming-soon-card .compact-arrow {
+            display: none !important;
+        }
+
+        .badge-coming-soon {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: rgba(184, 144, 71, 0.06);
+            color: var(--gold-dark);
+            border: 1px solid var(--border-gold);
+            padding: 0.15rem 0.55rem;
+            border-radius: 99px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.35rem;
+        }
+
+        /* ══════════════════════════════════════════
+           HOW IT WORKS & PROCESS
+           ══════════════════════════════════════════ */
+        .process-section {
+            padding: 7.5rem 0;
+            background: var(--cream-dark);
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            padding: 2.5rem 1.8rem;
+            background: var(--cream-base);
+            border-radius: 26px;
+            border: 1.5px solid var(--border-gold-light);
+            transition: var(--transition-premium);
+            height: 100%;
+        }
+
+        .process-step:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-premium-hover);
+            border-color: var(--gold-primary);
+        }
+
+        .step-num {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(184, 144, 71, 0.08);
+            line-height: 1;
+        }
+
+        .step-icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(184, 144, 71, 0.08);
+            color: var(--gold-dark);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.60rem;
+            margin-bottom: 1.6rem;
+            border: 1px solid var(--border-gold);
+        }
+
+        .process-step h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.7rem;
+            color: var(--text-dark);
+        }
+
+        .process-step p {
+            color: var(--text-muted);
+            font-size: 0.94rem;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* ══════════════════════════════════════════
+           LIVE WHATSAPP CHAT ANIMATION
+           ══════════════════════════════════════════ */
+        .whatsapp-section {
+            padding: 7.5rem 0;
+            background: var(--cream-base);
+        }
+
+        .wa-phone {
+            width: 320px;
+            height: 630px;
+            border: 12px solid var(--text-dark);
+            border-radius: 42px;
+            background: #fdfaf5; /* Clean light champagne wallpaper */
+            position: relative;
+            box-shadow: 0 30px 70px rgba(140, 109, 59, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wa-header {
+            background: var(--cream-dark);
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 1.8rem 1rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
             flex-shrink: 0;
         }
 
-        .faq-body {
-            overflow: hidden;
-            max-height: 0;
-            transition: max-height 0.4s ease, padding 0.3s ease;
-        }
-
-        .faq-body.open {
-            max-height: 300px;
-            padding-bottom: 1.3rem;
-        }
-
-        .faq-body p {
-            padding: 0 1.5rem;
-            color: var(--gray-warm);
-            font-size: 0.93rem;
-            line-height: 1.85;
-            margin: 0;
-            font-family: var(--font-body);
-        }
-
-        /* ══════════════════════════════════════════
-           FINAL CTA
-        ══════════════════════════════════════════ */
-        .final-cta {
-            padding: 6rem 0;
-            background:
-                linear-gradient(rgba(10, 22, 40, 0.88), rgba(10, 22, 40, 0.92)),
-                url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center / cover;
-            text-align: center;
-            color: var(--white-pure);
-        }
-
-        .final-cta-title {
-            font-family: var(--font-hero);
-            font-size: clamp(2.2rem, 5vw, 3.8rem);
-            font-weight: 600;
-            color: var(--white-pure);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        .final-cta-sub {
-            font-family: var(--font-heading);
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 1.05rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-footnote {
-            font-size: 0.72rem;
-            letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.25);
-            margin-top: 1.2rem;
-        }
-
-        /* ══════════════════════════════════════════
-           NAVBAR
-        ══════════════════════════════════════════ */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1.5rem 0;
-            transition: var(--transition-smooth);
-            background: transparent;
-        }
-
-        .navbar.scrolled {
-            padding: 0.8rem 0;
-            background: rgba(10, 22, 40, 0.96);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-        }
-
-        .navbar-brand {
-            font-family: var(--font-hero);
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--gold-primary) !important;
-            letter-spacing: 2px;
-            text-decoration: none;
-        }
-
-        .nav-link {
-            font-family: var(--font-body);
-            color: rgba(255, 255, 255, 0.85) !important;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            margin: 0 0.8rem;
-            transition: var(--transition-smooth);
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--gold-primary);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--gold-primary) !important;
-        }
-
-        /* ══════════════════════════════════════════
-           FOOTER
-        ══════════════════════════════════════════ */
-        .footer {
-            background: var(--black-rich);
-            color: var(--white-pure);
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .footer-main {
-            padding-top: 5rem;
-            padding-bottom: 3rem;
-        }
-
-        .footer-heading {
-            font-family: var(--font-heading);
-            color: var(--gold-primary);
-            font-size: 1.1rem;
-            margin-bottom: 1.8rem;
-            letter-spacing: 1px;
-        }
-
-        .footer-links-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links-list li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links-list a {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            font-size: 0.88rem;
-            transition: var(--transition-smooth);
-        }
-
-        .footer-links-list a:hover {
-            color: var(--gold-primary);
-            padding-left: 5px;
-        }
-
-        .footer-brand p {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-            line-height: 1.7;
-            margin-top: 1.2rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .footer-social a {
+        .wa-avatar {
             width: 36px;
             height: 36px;
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 50%;
+            background: var(--gold-primary);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gold-primary);
-            text-decoration: none;
-            transition: var(--transition-smooth);
+            font-weight: bold;
+            font-size: 0.95rem;
         }
 
-        .footer-social a:hover {
-            background: var(--gold-primary);
-            color: var(--black-rich);
-            border-color: var(--gold-primary);
-            transform: translateY(-3px);
+        .wa-contact-info h4 {
+            font-size: 0.92rem;
+            margin: 0;
+            font-weight: 700;
         }
 
-        .footer-contact-item {
+        .wa-contact-info span {
+            font-size: 0.72rem;
+            color: var(--gold-dark);
+            display: block;
+        }
+
+        .wa-chat-area {
+            flex-grow: 1;
+            padding: 1rem;
             display: flex;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.88rem;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+            position: relative;
         }
 
-        .footer-contact-item i {
-            color: var(--gold-primary);
+        .wa-msg {
+            max-width: 85%;
+            padding: 0.7rem 0.9rem;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            line-height: 1.45;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(140, 109, 59, 0.04);
         }
 
-        .footer-contact-item a {
-            color: inherit;
+        .wa-msg.received {
+            background: #fff;
+            color: var(--text-dark);
+            align-self: flex-start;
+            border-top-left-radius: 0;
+            border: 1px solid var(--border-gold-light);
+        }
+
+        .wa-msg.sent {
+            background: var(--cream-dark);
+            color: var(--text-dark);
+            align-self: flex-end;
+            border-top-right-radius: 0;
+            border: 1px solid var(--border-gold);
+        }
+
+        .wa-invite-preview {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-gold);
+            margin-top: 0.5rem;
+        }
+
+        .wa-invite-preview img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .wa-preview-body {
+            padding: 0.6rem;
+            font-size: 0.78rem;
+        }
+
+        .wa-preview-domain {
+            color: var(--gold-dark);
+            font-weight: 600;
+            font-size: 0.7rem;
+            display: block;
+        }
+
+        .wa-preview-title {
+            font-weight: 700;
+            color: var(--text-dark);
+            display: block;
+            margin-top: 0.15rem;
+        }
+
+        .wa-msg-meta {
+            font-size: 0.66rem;
+            color: var(--text-muted);
+            text-align: right;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* Continuous looping simulator animations using CSS keyframes */
+        .anim-wa-msg-1 { animation: show-msg 12s infinite 1s; opacity: 0; }
+        .anim-wa-msg-2 { animation: show-msg 12s infinite 3s; opacity: 0; }
+        .anim-wa-msg-3 { animation: show-msg 12s infinite 5.5s; opacity: 0; }
+        .anim-wa-msg-4 { animation: show-msg 12s infinite 8s; opacity: 0; }
+
+        @keyframes show-msg {
+            0%, 8% { opacity: 0; transform: translateY(10px); }
+            12%, 92% { opacity: 1; transform: translateY(0); }
+            96%, 100% { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .wa-input-simulator {
+            background: var(--cream-dark);
+            padding: 0.7rem 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-top: 1px solid var(--border-gold);
+            flex-shrink: 0;
+        }
+
+        .wa-input-field {
+            flex-grow: 1;
+            background: #fff;
+            padding: 0.5rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-gold);
+        }
+
+        /* ══════════════════════════════════════════
+           PAPER + DIGITAL QR SCAN ANIMATION
+           ══════════════════════════════════════════ */
+        .qr-section {
+            padding: 7.5rem 0;
+            background: var(--cream-dark);
+        }
+
+        .qr-animation-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .physical-invite {
+            width: 260px;
+            height: 380px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(140, 109, 59, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2.2rem 1.6rem;
+            position: relative;
+            border: 2px solid var(--border-gold);
+            transition: var(--transition-premium);
+        }
+
+        .physical-invite:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-premium-hover);
+        }
+
+        .physical-invite::before {
+            content: '';
+            position: absolute;
+            inset: 7px;
+            border: 1.5px solid rgba(184, 144, 71, 0.16);
+            border-radius: 14px;
+        }
+
+        .physical-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .physical-qr-box {
+            width: 110px;
+            height: 110px;
+            background: var(--cream-base);
+            border: 1.5px solid var(--border-gold);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .physical-qr-box img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .scan-wave {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: var(--gold-primary);
+            box-shadow: 0 0 12px var(--gold-primary);
+            left: 0;
+            top: 0;
+            animation: scan-loop 3.5s linear infinite;
+        }
+
+        @keyframes scan-loop {
+            0%, 100% { top: 0; }
+            50% { top: 100%; }
+        }
+
+        /* ══════════════════════════════════════════
+           PREMIUM FAQ SECTION
+           ══════════════════════════════════════════ */
+        .faq-section {
+            padding: 7.5rem 0;
+            background: var(--cream-base);
+        }
+
+        .accordion-item {
+            border: 1px solid var(--border-gold) !important;
+            border-radius: 18px !important;
+            overflow: hidden;
+            margin-bottom: 1.1rem;
+            box-shadow: 0 4px 15px rgba(140, 109, 59, 0.01);
+            transition: var(--transition-premium);
+            background: #fff;
+        }
+
+        .accordion-item:hover {
+            border-color: var(--gold-primary) !important;
+            box-shadow: 0 10px 30px rgba(184, 144, 71, 0.05);
+        }
+
+        .accordion-button {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.06rem;
+            color: var(--text-dark);
+            padding: 1.3rem 1.6rem;
+            background: #fff;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--cream-dark) !important;
+            color: var(--gold-dark) !important;
+        }
+
+        /* ══════════════════════════════════════════
+           SUPER CALL TO ACTION BANNER
+           ══════════════════════════════════════════ */
+        .cta-banner {
+            padding: 6.5rem 0;
+            background: linear-gradient(135deg, var(--cream-dark) 0%, #f1ebe1 100%);
+            color: var(--text-dark);
+            position: relative;
+            overflow: hidden;
+            border-radius: 40px;
+            margin: 2rem 0;
+            border: 1.5px solid var(--border-gold);
+            box-shadow: var(--shadow-premium);
+        }
+
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184, 144, 71, 0.12) 0%, transparent 70%);
+            top: -220px;
+            right: -120px;
+        }
+
+        .cta-banner-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ══════════════════════════════════════════
+           PREMIUM LIGHT FOOTER
+           ══════════════════════════════════════════ */
+        .premium-footer {
+            background: var(--cream-dark);
+            color: var(--text-muted);
+            border-top: 1.5px solid var(--border-gold);
+            padding: 6.5rem 0 3.5rem;
+            font-size: 0.92rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.65rem;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+            margin-bottom: 1.3rem;
+            display: inline-block;
             text-decoration: none;
-            transition: var(--transition-smooth);
         }
 
-        .footer-contact-item a:hover {
+        .footer-logo span {
             color: var(--gold-primary);
+        }
+
+        .footer-links-title {
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 1.6rem;
+        }
+
+        .footer-link-item {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: var(--transition-premium);
+        }
+
+        .footer-link-item:hover {
+            color: var(--gold-dark);
+            transform: translateX(3px);
         }
 
         .footer-bottom {
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.35);
-            font-size: 0.75rem;
-        }
-
-        .footer-bottom a {
-            color: inherit;
-            text-decoration: none;
-            margin-left: 1rem;
-            transition: var(--transition-smooth);
-        }
-
-        .footer-bottom a:hover {
-            color: var(--gold-primary);
-        }
-
-        /* ══════════════════════════════════════════
-           ANIMATIONS
-        ══════════════════════════════════════════ */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(28px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateX(-50%) translateY(0);
-            }
-
-            50% {
-                transform: translateX(-50%) translateY(10px);
-            }
-        }
-
-        /* ══════════════════════════════════════════
-           RESPONSIVE
-        ══════════════════════════════════════════ */
-        @media (max-width: 991px) {
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .pricing-card.featured:hover {
-                transform: translateY(-5px);
-            }
-        }
-
-        @media (max-width: 767px) {
-            .stat-item {
-                border-right: none;
-                border-bottom: 1px solid rgba(212, 175, 55, 0.12);
-                padding: 1rem 0;
-            }
-
-            .stat-item:last-child {
-                border-bottom: none;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero-frame-inner {
-                padding: 1.8rem 1.2rem;
-            }
-
-            .hero::after {
-                height: 60px;
-            }
+            margin-top: 4.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.88rem;
         }
     </style>
 </head>
 
 <body>
 
-    {{-- ═══ NAVBAR (from partial) ═══ --}}
-    @include('partials.header')
+    <!-- ══════════════════════════════════════════
+         NAVBAR / HEADER
+         ══════════════════════════════════════════ -->
+    <nav class="navbar navbar-expand-lg premium-nav">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span><i class="bi bi-heart-fill"></i></span> Velvet Vows
+            </a>
 
-    {{-- ═══ HERO ═══ --}}
-    <section id="hero" class="hero">
-        <div class="container" style="position:relative;z-index:1;">
-            <div class="row justify-content-center">
-                <div class="col-lg-9 col-xl-8">
-                    <p class="hero-eyebrow">Luxury Digital Stationery</p>
-                    <div class="hero-frame">
-                        <div class="hero-frame-inner">
-                            <h1 class="hero-title">Velvet <span>&</span> Vows</h1>
-                            <p class="hero-tagline">Where high-fashion meets heritage. Exquisite digital invitations
-                                designed for the world's most distinguished events.</p>
-                            <div class="hero-ctas">
-                                <a href="{{ url('/signin') }}" class="btn btn-gold btn-lg">Begin Your Story</a>
-                                <a href="#live-preview" class="btn btn-outline-ghost btn-lg">View Showcase</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#premiumNav"
+                aria-controls="premiumNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-3 text-dark"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="premiumNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#categories">Occasions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#whatsapp-sim">WhatsApp Invite</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#qr-hybrid">QR Scanning</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faqs">FAQs</a>
+                    </li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a href="{{ url('/signin') }}" class="btn-premium-outline">Login</a>
+                    <a href="{{ url('/signin') }}" class="btn-premium-solid">
+                        Create Card <i class="bi bi-arrow-right-short fs-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════
+         HERO SECTION
+         ══════════════════════════════════════════ -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <div class="badge-loved">
+                        <i class="bi bi-star-fill text-warning"></i> Loved by 10,000+ couples
+                    </div>
+                    <h1 class="hero-title">
+                        Beautiful Simple <span class="highlight-gold">Invitation Websites</span> that keep everyone connected
+                    </h1>
+                    <p class="hero-subtitle">
+                        Premium, high-conversion templates. Personalize yours in minutes. One elegant link that connects every guest, anywhere.
+                    </p>
+
+                    <div class="hero-ctas">
+                        <a href="{{ url('/signin') }}" class="btn-premium-solid py-3 px-5 fs-6">
+                            Start Creating <i class="bi bi-arrow-right-short fs-4"></i>
+                        </a>
+                        <div class="cta-note ms-lg-3">
+                            <i class="bi bi-clock-history text-warning fs-5"></i> Ready in 5 minutes • Share with one tap
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="hero-visual-wrapper">
+                        <div class="phone-mockup">
+                            <div class="phone-island"></div>
+                            <div class="phone-screen">
+                                <div style="margin-top: 1.5rem; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 3px; color: var(--gold-dark);">
+                                    The Royal Scroll
+                                </div>
+                                <div class="phone-einvite-card">
+                                    <div style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--text-dark);">
+                                        Rahul & Neha
+                                    </div>
+                                    <div style="color: var(--gold-primary); font-size: 1.2rem; margin: 0.5rem 0;">&</div>
+                                    <div style="font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted);">
+                                        Are getting married
+                                    </div>
+                                    <div style="height: 1px; width: 40px; background: var(--gold-primary); margin: 1.2rem auto; opacity: 0.5;"></div>
+                                    <div style="font-size: 1.1rem; font-style: italic; color: var(--text-dark);">
+                                        20 February 2027
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">
+                                        Jaipur Palace Ballroom
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1rem; width: 100%;">
+                                    <div style="background: var(--gold-primary); color: #fff; padding: 0.65rem; border-radius: 99px; font-size: 0.85rem; font-weight: 600; text-align: center; font-family: var(--font-body); box-shadow: 0 4px 15px rgba(184, 144, 71, 0.15);">
+                                        RSVP Now
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="floating-stars">
+                            <i class="bi bi-star-fill float-icon float-1"></i>
+                            <i class="bi bi-heart-fill float-icon float-2"></i>
+                            <i class="bi bi-brightness-high-fill float-icon float-3"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <a href="#stats" class="scroll-caret">
-            <i class="bi bi-chevron-double-down"></i>
-        </a>
     </section>
 
-    {{-- ═══ STATS BAR ═══ --}}
-    <section id="stats" class="stats-bar">
-        <div class="container">
-            <div class="row text-center g-0">
-                <div class="col-6 col-md-3">
-                    <div class="stat-item">
-                        <div class="stat-number">10K+</div>
-                        <div class="stat-label">Events Celebrated</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="stat-item">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Global Approval</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="stat-item">
-                        <div class="stat-number">20+</div>
-                        <div class="stat-label">Designer Themes</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="stat-item">
-                        <div class="stat-number">0.1s</div>
-                        <div class="stat-label">Load Time</div>
-                    </div>
-                </div>
+    <!-- ══════════════════════════════════════════
+         TRUSTED SHOWCASE SLIDER
+         ══════════════════════════════════════════ -->
+    <section class="showcase-section">
+        <div class="showcase-header">
+            <h2 class="section-title-alt text-center">Trusted Globally</h2>
+            <p class="text-center text-muted">Join thousands of happy couples and organizers who built premium digital cards</p>
+        </div>
+
+        <div class="showcase-slider">
+            <!-- First loop -->
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" alt="Wedding">
+                <span class="showcase-badge">Wedding</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=400&q=80" alt="Birthday">
+                <span class="showcase-badge">Birthday</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1545232979-8bf34eb9757b?auto=format&fit=crop&w=400&q=80" alt="Naming Ceremony">
+                <span class="showcase-badge">Naming</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80" alt="Housewarming">
+                <span class="showcase-badge">Housewarming</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" alt="Wedding 2">
+                <span class="showcase-badge">Wedding</span>
+            </div>
+
+            <!-- Second copy loop for seamless continuous slider animation -->
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" alt="Wedding">
+                <span class="showcase-badge">Wedding</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=400&q=80" alt="Birthday">
+                <span class="showcase-badge">Birthday</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1545232979-8bf34eb9757b?auto=format&fit=crop&w=400&q=80" alt="Naming Ceremony">
+                <span class="showcase-badge">Naming</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80" alt="Housewarming">
+                <span class="showcase-badge">Housewarming</span>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" alt="Wedding 2">
+                <span class="showcase-badge">Wedding</span>
             </div>
         </div>
     </section>
 
-    {{-- ═══ THE EXPERIENCE ═══ --}}
-    <section id="how-it-works" class="how-it-works">
+    <!-- ══════════════════════════════════════════
+         OCCASIONS CATEGORY GRID
+         ══════════════════════════════════════════ -->
+    <section id="categories" class="category-section">
         <div class="container">
-            <span class="section-eyebrow text-center d-block">The Experience</span>
-            <h2 class="section-title">Effortless Artistry</h2>
-            <p class="section-subtitle">A seamless journey from inspiration to invitation.</p>
+            <div class="text-center">
+                <span class="section-badge"><i class="bi bi-geo-alt-fill"></i> All Occasions</span>
+                <h2 class="section-title-alt">Big Moments Deserve Beautiful Sites</h2>
+                <p class="section-subtitle-alt">Select your occasion and build a personalized invite experience your guests will love.</p>
+            </div>
+
+            <div class="category-grid">
+                <!-- Wedding -->
+                <a href="{{ url('/signin') }}" class="category-card-compact">
+                    <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=150&q=80');"></div>
+                    <div class="compact-info">
+                        <h3>Wedding</h3>
+                        <p>Two hearts, one premium site</p>
+                    </div>
+                    <span class="compact-arrow"><i class="bi bi-arrow-right-short fs-4"></i></span>
+                </a>
+
+                <!-- Birthday -->
+                <a href="javascript:void(0)" class="category-card-compact coming-soon-card">
+                    <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=150&q=80');"></div>
+                    <div class="compact-info">
+                        <h3>Birthday</h3>
+                        <p>Celebrate another beautiful year</p>
+                        <span class="badge-coming-soon">Coming Soon</span>
+                    </div>
+                </a>
+
+                <!-- Baptism -->
+                <a href="javascript:void(0)" class="category-card-compact coming-soon-card">
+                    <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1545232979-8bf34eb9757b?auto=format&fit=crop&w=150&q=80');"></div>
+                    <div class="compact-info">
+                        <h3>Baptism</h3>
+                        <p>Blessed new beginnings</p>
+                        <span class="badge-coming-soon">Coming Soon</span>
+                    </div>
+                </a>
+
+                <!-- Holy Communion -->
+                <a href="javascript:void(0)" class="category-card-compact coming-soon-card">
+                    <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=150&q=80');"></div>
+                    <div class="compact-info">
+                        <h3>Holy Communion</h3>
+                        <p>Moments of grace and belief</p>
+                        <span class="badge-coming-soon">Coming Soon</span>
+                    </div>
+                </a>
+
+                <!-- Naming Ceremony -->
+                <a href="javascript:void(0)" class="category-card-compact coming-soon-card">
+                    <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=150&q=80');"></div>
+                    <div class="compact-info">
+                        <h3>Naming Ceremony</h3>
+                        <p>A beautiful name given in love</p>
+                        <span class="badge-coming-soon">Coming Soon</span>
+                    </div>
+                </a>
+
+                <!-- Baby Shower -->
+                <a href="javascript:void(0)" class="category-card-compact coming-soon-card">
+                    <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=150&q=80');"></div>
+                    <div class="compact-info">
+                        <h3>Baby Shower</h3>
+                        <p>Awaiting a little miracle</p>
+                        <span class="badge-coming-soon">Coming Soon</span>
+                    </div>
+                </a>
+
+                <!-- Housewarming -->
+                <a href="javascript:void(0)" class="category-card-compact coming-soon-card">
+                    <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=150&q=80');"></div>
+                    <div class="compact-info">
+                        <h3>Housewarming</h3>
+                        <p>Starting life in a brand new home</p>
+                        <span class="badge-coming-soon">Coming Soon</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         PROCESS / HOW IT WORKS
+         ══════════════════════════════════════════ -->
+    <section id="how-it-works" class="process-section">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-badge"><i class="bi bi-lightning-charge-fill"></i> Three Steps</span>
+                <h2 class="section-title-alt">From Details to Invitation in Minutes</h2>
+                <p class="section-subtitle-alt">The easiest digital invite process, requiring no complicated design skills.</p>
+            </div>
+
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="step-card">
-                        <span class="step-number">01</span>
-                        <i class="bi bi-stars step-icon"></i>
-                        <h3 class="step-title">Exclusive Access</h3>
-                        <p class="step-desc">Enter the world of Velvet Vows with a single click. Our concierge-style
-                            platform is ready to translate your vision into digital reality.</p>
+                    <div class="process-step">
+                        <div class="step-num">1</div>
+                        <div class="step-icon-wrapper">
+                            <i class="bi bi-chat-text-fill"></i>
+                        </div>
+                        <h3>Add Details</h3>
+                        <p>Fill out a quick and intuitive form listing event date, venue timings, RSVP contact, and photos.</p>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <div class="step-card">
-                        <span class="step-number">02</span>
-                        <i class="bi bi-brush step-icon"></i>
-                        <h3 class="step-title">Bespoke Curation</h3>
-                        <p class="step-desc">Infuse your story into our masterfully crafted layouts. Every detail is
-                            refined to meet the highest standards of digital luxury.</p>
+                    <div class="process-step">
+                        <div class="step-num">2</div>
+                        <div class="step-icon-wrapper">
+                            <i class="bi bi-palette-fill"></i>
+                        </div>
+                        <h3>Choose Style</h3>
+                        <p>Select from premium handcrafted design templates such as Royal Scroll or Golden Minimalist.</p>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <div class="step-card">
-                        <span class="step-number">03</span>
-                        <i class="bi bi-globe step-icon"></i>
-                        <h3 class="step-title">Global Reach</h3>
-                        <p class="step-desc">Share your masterpiece with distinguished guests worldwide. Seamless
-                            integration ensures your announcement arrives with elegance.</p>
+                    <div class="process-step">
+                        <div class="step-num">3</div>
+                        <div class="step-icon-wrapper">
+                            <i class="bi bi-share-fill"></i>
+                        </div>
+                        <h3>Share Instantly</h3>
+                        <p>Receive your customizable guest dashboard with dynamic WhatsApp sharing hooks and QR codes.</p>
                     </div>
                 </div>
-            </div>
-            <div class="text-center mt-5">
-                <!-- <a href="{{ url('/register') }}" class="btn btn-gold px-5 py-3">Start Creating — It's Free</a> -->
             </div>
         </div>
     </section>
 
-    {{-- ═══ LIVE PREVIEW ═══ --}}
-    <section id="live-preview" class="live-preview-section">
+    <!-- ══════════════════════════════════════════
+         WHATSAPP MESSAGE SIMULATOR ANIMATION
+         ══════════════════════════════════════════ -->
+    <section id="whatsapp-sim" class="whatsapp-section">
         <div class="container">
-            <span class="section-eyebrow text-center d-block">Interactive Demo</span>
-            <h2 class="section-title">See Your Invitation Come to Life</h2>
-            <p class="section-subtitle">Type your names below and watch the magic happen in real time.</p>
             <div class="row align-items-center g-5">
-                <!-- Controls -->
-                <div class="col-lg-5">
-                    <div class="preview-controls">
-                        <label class="preview-label">Partner One</label>
-                        <input id="previewName1" type="text" class="preview-input" value="Priya" maxlength="25">
-
-                        <label class="preview-label">Partner Two</label>
-                        <input id="previewName2" type="text" class="preview-input" value="Rahul" maxlength="25">
-
-                        <label class="preview-label">Wedding Date</label>
-                        <input id="previewDate" type="text" class="preview-input" value="December 25, 2026"
-                            maxlength="35">
-
-                        <label class="preview-label">Venue</label>
-                        <input id="previewVenue" type="text" class="preview-input" value="The Grand Ballroom, Mumbai"
-                            maxlength="50" style="margin-bottom:1.8rem;">
-
-                        <a href="{{ url('/signin') }}" class="btn btn-gold w-100">Create Mine Now →</a>
-                    </div>
-                </div>
-                <!-- Card -->
-                <div class="col-lg-7">
-                    <div class="invitation-card">
-                        <span class="inv-corner tl">✦</span>
-                        <span class="inv-corner tr">✦</span>
-                        <span class="inv-corner bl">✦</span>
-                        <span class="inv-corner br">✦</span>
-                        <p class="inv-overline">Together with their families</p>
-                        <div class="inv-names">
-                            <span id="displayName1">Priya</span>
-                            <span class="inv-and">&</span>
-                            <span id="displayName2">Rahul</span>
-                        </div>
-                        <div class="inv-rule"></div>
-                        <p class="inv-request">Request the honour of your presence</p>
-                        <p class="inv-date" id="displayDate">December 25, 2026</p>
-                        <p class="inv-venue" id="displayVenue">The Grand Ballroom, Mumbai</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- ═══ TEMPLATES ═══ --}}
-    <section id="templates" class="templates">
-        <div class="container">
-            <span class="section-eyebrow text-center d-block">Curated Collection</span>
-            <h2 class="section-title">Timeless Aesthetics</h2>
-            <p class="section-subtitle">Every template crafted to feel like heirloom stationery.</p>
-            <div class="row g-3">
-                <div class="col-md-3 col-sm-6">
-                    <div class="template-card">
-                        <img src="https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="The Royal Scroll" class="template-img">
-                        <div class="template-overlay">
-                            <span class="template-tag">Classic</span>
-                            <h3 class="template-name">The Royal Scroll</h3>
-                            <p class="template-desc">Classic Opulence</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="template-card">
-                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Golden Minimalist" class="template-img">
-                        <div class="template-overlay">
-                            <span class="template-tag">Contemporary</span>
-                            <h3 class="template-name">Golden Minimalist</h3>
-                            <p class="template-desc">Contemporary Luxury</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="template-card">
-                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Garden Celestial" class="template-img">
-                        <div class="template-overlay">
-                            <span class="template-tag">Romantic</span>
-                            <h3 class="template-name">Garden Celestial</h3>
-                            <p class="template-desc">Romantic Ethereal</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="template-card">
-                        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                            alt="Midnight Jasmine" class="template-img">
-                        <div class="template-overlay">
-                            <span class="template-tag">Mystique</span>
-                            <h3 class="template-name">Midnight Jasmine</h3>
-                            <p class="template-desc">Modern Mystique</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-5">
-                <a href="{{ url('/register') }}" class="btn btn-gold px-5">Start With a Template</a>
-            </div>
-        </div>
-    </section>
-
-    {{-- ═══ TESTIMONIALS ═══ --}}
-    <section class="testimonials">
-        <div class="container">
-            <span class="section-eyebrow text-center d-block" style="color:var(--gold-light);">Love Stories</span>
-            <h2 class="section-title light">Couples Who Chose Elegance</h2>
-            <p class="section-subtitle light">Over 10,000 love stories shared through Velvet Vows.</p>
-            <!-- Testimonial Slider -->
-            <div class="swiper testimonial-swiper">
-                <div class="swiper-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card">
-                            <div class="stars">★★★★★</div>
-                            <p class="testimonial-text">"We wanted our digital invites to feel as special as physical
-                                ones. Velvet Vows delivered beyond our expectations. The Golden Minimalist theme was
-                                perfect."</p>
-                            <div class="t-author-row">
-                                <div class="t-avatar">P</div>
-                                <div>
-                                    <p class="t-author-name">Priya &amp; Rahul</p>
-                                    <p class="t-author-meta">February 2025 · Mumbai</p>
-                                </div>
+                <div class="col-lg-6">
+                    <div class="wa-phone mx-auto">
+                        <div class="wa-header">
+                            <div class="wa-avatar" style="background: var(--gold-dark);">N</div>
+                            <div class="wa-contact-info">
+                                <h4>Neraj Lal</h4>
+                                <span>online</span>
                             </div>
                         </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card">
-                            <div class="stars">★★★★★</div>
-                            <p class="testimonial-text">"Created and sent to 300 guests in under 10 minutes. The
-                                WhatsApp
-                                integration is flawless, and the design received so many compliments from everyone!"</p>
-                            <div class="t-author-row">
-                                <div class="t-avatar">S</div>
-                                <div>
-                                    <p class="t-author-name">Sarah &amp; James</p>
-                                    <p class="t-author-meta">March 2025 · London</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card">
-                            <div class="stars">★★★★★</div>
-                            <p class="testimonial-text">"The Royal Scroll template perfectly captured the traditional
-                                yet
-                                grand feel we wanted. Truly a premium experience with absolutely zero stress."</p>
-                            <div class="t-author-row">
-                                <div class="t-avatar">A</div>
-                                <div>
-                                    <p class="t-author-name">Aisha &amp; Kabir</p>
-                                    <p class="t-author-meta">November 2024 · Dubai</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 4 (Extra for slider feel) -->
-                    <div class="swiper-slide">
-                        <div class="testimonial-card">
-                            <div class="stars">★★★★★</div>
-                            <p class="testimonial-text">"The RSVP tracking is a life-saver. We knew exactly who was
-                                coming and their meal preferences without a single phone call. Highly recommended!"</p>
-                            <div class="t-author-row">
-                                <div class="t-avatar">M</div>
-                                <div>
-                                    <p class="t-author-name">Meera &amp; Arjun</p>
-                                    <p class="t-author-meta">January 2025 · Bangalore</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Pagination -->
-                <div class="swiper-pagination mt-5" style="position:relative; bottom:0;"></div>
-            </div>
-        </div>
-    </section>
 
-    {{-- ═══ EXCLUSIVE COLLECTIONS ═══ --}}
-    <section id="collections" class="collections-section">
-        <div class="container">
-            <span class="section-eyebrow text-center d-block">Unparalleled Artistry</span>
-            <h2 class="section-title">The Masterpiece Collections</h2>
-            <p class="section-subtitle">Exquisite digital invitations for life's most prestigious moments.</p>
+                        <div class="wa-chat-area">
+                            <div class="wa-msg received anim-wa-msg-1">
+                                Hey! Are the wedding details ready?
+                                <span class="wa-msg-meta">10:30 AM</span>
+                            </div>
+                            <div class="wa-msg sent anim-wa-msg-2">
+                                Yes! Just created our digital invite website on Velvet Vows. Let me share it!
+                                <span class="wa-msg-meta">10:31 AM</span>
+                            </div>
+                            <div class="wa-msg sent anim-wa-msg-3">
+                                🎊 You're invited to celebrate our wedding!
+                                <div class="wa-invite-preview">
+                                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=300&q=80" alt="Preview">
+                                    <div class="wa-preview-body">
+                                        <span class="wa-preview-domain">velvetvows.invite</span>
+                                        <span class="wa-preview-title">Rahul & Neha Wedding Website</span>
+                                    </div>
+                                </div>
+                                <span class="wa-msg-meta">10:32 AM</span>
+                            </div>
+                            <div class="wa-msg received anim-wa-msg-4">
+                                Wow! The invitation website looks absolutely stunning and premium! 😍 RSVPing now!
+                                <span class="wa-msg-meta">10:34 AM</span>
+                            </div>
+                        </div>
 
-            <div class="row g-4 mt-2">
-                <!-- Wedding -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="category-card">
-                        <!-- <span class="coming-soon-badge">Coming Soon</span> -->
-                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                            alt="Wedding Invitations" class="category-img">
-                        <div class="category-content">
-                            <h3 class="category-title">Weddings</h3>
-                            <p class="category-subtitle">Eternal Unions</p>
-                            <a href="#templates" class="btn btn-outline-ghost btn-sm px-4">Preview Samples</a>
+                        <div class="wa-input-simulator">
+                            <div class="wa-input-field">Type a message...</div>
+                            <i class="bi bi-mic-fill text-muted fs-5"></i>
                         </div>
                     </div>
                 </div>
-                <!-- Engagement -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="category-card">
-                        <span class="coming-soon-badge">Coming Soon</span>
-                        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                            alt="Engagement Invitations" class="category-img">
-                        <div class="category-content">
-                            <h3 class="category-title">Engagement</h3>
-                            <p class="category-subtitle">The Promise</p>
+
+                <div class="col-lg-6">
+                    <span class="section-badge"><i class="bi bi-whatsapp"></i> Instant Sharing</span>
+                    <h2 class="section-title-alt">Invite Every Guest on WhatsApp</h2>
+                    <p class="lead text-muted mb-4">
+                        Say goodbye to boring plain text messages. Share an interactive visual card in one tap.
+                    </p>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="bg-warning-subtle text-warning rounded-circle p-2 d-inline-flex align-self-start" style="border: 1px solid var(--border-gold);">
+                            <i class="bi bi-check2-circle fs-5 text-warning"></i>
+                        </div>
+                        <div>
+                            <h4 class="h6 mb-1 text-slate-800" style="font-weight: 700;">Dynamic Link Previews</h4>
+                            <p class="text-muted small">Automatic rich-media previews when you drop your invite URL on any platform.</p>
                         </div>
                     </div>
-                </div>
-                <!-- Birthday -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="category-card">
-                        <span class="coming-soon-badge">Coming Soon</span>
-                        <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                            alt="Birthday Invitations" class="category-img">
-                        <div class="category-content">
-                            <h3 class="category-title">Birthdays</h3>
-                            <p class="category-subtitle">Celebration of Life</p>
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="bg-warning-subtle text-warning rounded-circle p-2 d-inline-flex align-self-start" style="border: 1px solid var(--border-gold);">
+                            <i class="bi bi-check2-circle fs-5 text-warning"></i>
                         </div>
-                    </div>
-                </div>
-                <!-- Anniversary -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="category-card">
-                        <span class="coming-soon-badge">Coming Soon</span>
-                        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-                            alt="Anniversary Invitations" class="category-img">
-                        <div class="category-content">
-                            <h3 class="category-title">Gala Events</h3>
-                            <p class="category-subtitle">Legacy & Milestones</p>
+                        <div>
+                            <h4 class="h6 mb-1 text-slate-800" style="font-weight: 700;">Zero Friction Onboarding</h4>
+                            <p class="text-muted small">Guests open your personalized invitation instantly without downloading apps.</p>
                         </div>
                     </div>
                 </div>
@@ -1568,84 +1352,109 @@
         </div>
     </section>
 
-    {{-- ═══ FAQ ═══ --}}
-    <section id="faq" class="faq-section">
+    <!-- ══════════════════════════════════════════
+         QR HYBRID SCANNING SECTION
+         ══════════════════════════════════════════ -->
+    <section id="qr-hybrid" class="qr-section">
         <div class="container">
+            <div class="row align-items-center g-5 flex-lg-row-reverse">
+                <div class="col-lg-6">
+                    <div class="qr-animation-wrapper">
+                        <!-- Physical Card Mockup with scanning beam -->
+                        <div class="physical-invite">
+                            <div class="physical-title">
+                                Velvet Vows<br>
+                                <span style="font-size: 0.9rem; font-style: italic; color: var(--gold-primary);">Wedding Invitation</span>
+                            </div>
+                            <div class="physical-qr-box">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://bigdates.ai" alt="QR Code">
+                                <div class="scan-wave"></div>
+                            </div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase;">
+                                Scan QR code to view details
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <span class="section-badge"><i class="bi bi-qr-code"></i> Hybrid Invitations</span>
+                    <h2 class="section-title-alt">Tradition on Paper. Magic on Phone.</h2>
+                    <p class="lead text-muted mb-4">
+                        Combine traditional physical cards with modern interactivity. Generate a high-resolution QR code, print it on paper cards, and let guests scan to view live locations and submit RSVPs.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-chevron-right text-warning"></i> Download printable high-res vector graphics
+                        </li>
+                        <li class="mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-chevron-right text-warning"></i> Guests easily grab navigation maps & timings
+                        </li>
+                        <li class="mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-chevron-right text-warning"></i> Perfect for elderly and tech-savvy guests alike
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         FAQ SECTION
+         ══════════════════════════════════════════ -->
+    <section id="faqs" class="faq-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-badge"><i class="bi bi-question-circle-fill"></i> Help & Support</span>
+                <h2 class="section-title-alt">Frequently Asked Questions</h2>
+            </div>
+
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <span class="section-eyebrow text-center d-block">Got Questions?</span>
-                    <h2 class="section-title">Frequently Asked Questions</h2>
-                    <p class="section-subtitle">Everything you need to know before you begin.</p>
-
-                    <div class="faq-item">
-                        <button class="faq-btn" onclick="toggleFaq(this)">
-                            Can guests RSVP through the invitation?
-                            <i class="bi bi-plus-lg faq-icon"></i>
-                        </button>
-                        <div class="faq-body">
-                            <p>Yes! Premium invitations include a built-in RSVP feature. Guests confirm attendance
-                                directly from the invitation link, and you see all responses in real-time on your
-                                dashboard with instant notifications.</p>
+                    <div class="accordion" id="accordionFaqs">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Can I edit details after publishing the invitation website?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionFaqs">
+                                <div class="accordion-body text-muted" style="background: #fff; line-height: 1.6;">
+                                    Absolutely! You can update the wedding details, add photos, change event locations, or adjust timings at any point through your dashboard, and guests will instantly see updates.
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="faq-item">
-                        <button class="faq-btn" onclick="toggleFaq(this)">
-                            Will it look good on mobile phones?
-                            <i class="bi bi-plus-lg faq-icon"></i>
-                        </button>
-                        <div class="faq-body">
-                            <p>Absolutely. Every invitation is fully responsive and looks stunning on any device. Since
-                                most guests open invitations via WhatsApp on their phone, we design mobile-first on
-                                every template.</p>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    How long will my invitation page remain online?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionFaqs">
+                                <div class="accordion-body text-muted" style="background: #fff; line-height: 1.6;">
+                                    Standard invitations are hosted safely for up to 6 months post-event. Premium plans offer extended lifetimes and offline archives for lifelong preservation.
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="faq-item">
-                        <button class="faq-btn" onclick="toggleFaq(this)">
-                            Is it really free to start? No hidden charges?
-                            <i class="bi bi-plus-lg faq-icon"></i>
-                        </button>
-                        <div class="faq-body">
-                            <p>Yes, completely free. No credit card required. The free plan lets you create one
-                                invitation with 3 beautiful templates and share it with unlimited guests via WhatsApp or
-                                link — forever.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-btn" onclick="toggleFaq(this)">
-                            Can I edit my invitation after publishing?
-                            <i class="bi bi-plus-lg faq-icon"></i>
-                        </button>
-                        <div class="faq-body">
-                            <p>Yes, update your invitation details at any time. The live URL stays the same, so guests
-                                who already received the link will automatically see the latest version when they open
-                                it.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-btn" onclick="toggleFaq(this)">
-                            How do I share it on WhatsApp or Email?
-                            <i class="bi bi-plus-lg faq-icon"></i>
-                        </button>
-                        <div class="faq-body">
-                            <p>After publishing, your dashboard gives you a shareable link, a downloadable QR code, and
-                                a one-click WhatsApp share button. You can also print the QR code on physical
-                                stationery.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-btn" onclick="toggleFaq(this)">
-                            What payment methods are accepted?
-                            <i class="bi bi-plus-lg faq-icon"></i>
-                        </button>
-                        <div class="faq-body">
-                            <p>Payments are processed securely via Razorpay. We accept all major credit/debit cards, UPI
-                                (GPay, PhonePe, Paytm), and net banking. We never store your card details on our
-                                servers.</p>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Can guests RSVP easily using mobile devices?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionFaqs">
+                                <div class="accordion-body text-muted" style="background: #fff; line-height: 1.6;">
+                                    Yes! The RSVP form is optimized explicitly for smartphone screen viewports with zero typing friction, ensuring maximum response rates from your invitees.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1653,107 +1462,76 @@
         </div>
     </section>
 
-    {{-- ═══ FINAL CTA ═══ --}}
-    <section class="final-cta">
+    <!-- ══════════════════════════════════════════
+         SUPER CALL TO ACTION BANNER
+         ══════════════════════════════════════════ -->
+    <div class="container my-5">
+        <div class="cta-banner text-center">
+            <div class="cta-banner-content col-md-8 mx-auto">
+                <h2 class="display-6 fw-bold mb-3" style="color: var(--text-dark);">Ready to Create Your Stunning Digital Invite?</h2>
+                <p class="lead opacity-75 mb-4 text-muted">
+                    Zero coding. Handcrafted design layouts. Share with the world in less than five minutes.
+                </p>
+                <a href="{{ url('/signin') }}" class="btn-premium-solid btn-lg px-5 py-3 fs-6">
+                    Get Started Free <i class="bi bi-arrow-right-short fs-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         FOOTER
+         ══════════════════════════════════════════ -->
+    <footer class="premium-footer">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 text-center">
-                    <span class="section-eyebrow">Your love story deserves a beautiful beginning</span>
-                    <h2 class="final-cta-title">Ready to Create Something Unforgettable?</h2>
-                    <p class="final-cta-sub">Join 10,000+ couples who trusted Velvet Vows to announce their most
-                        important day. Start free in under 2 minutes.</p>
-                    <div class="d-flex gap-3 justify-content-center flex-wrap">
-                        <a href="{{ url('/signin') }}" class="btn btn-gold btn-lg px-5">Get Started Free</a>
-                        <a href="#live-preview" class="btn btn-outline-ghost btn-lg px-5">See a Demo</a>
-                    </div>
-                    <p class="cta-footnote">No credit card required &nbsp;·&nbsp; Free plan available forever</p>
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a href="/" class="footer-logo">
+                        <span><i class="bi bi-heart-fill"></i></span> Velvet Vows
+                    </a>
+                    <p class="opacity-75">
+                        Delivering the absolute highest quality digital and hybrid event invite systems to modern couples globally.
+                    </p>
+                </div>
+
+                <div class="col-6 col-md-4 col-lg-2 ms-lg-auto">
+                    <h3 class="footer-links-title">Occasions</h3>
+                    <a href="{{ url('/signin') }}" class="footer-link-item">Weddings</a>
+                    <a href="{{ url('/signin') }}" class="footer-link-item">Birthdays</a>
+                    <a href="{{ url('/signin') }}" class="footer-link-item">Baptism</a>
+                    <a href="{{ url('/signin') }}" class="footer-link-item">Housewarmings</a>
+                </div>
+
+                <div class="col-6 col-md-4 col-lg-2">
+                    <h3 class="footer-links-title">Company</h3>
+                    <a href="#how-it-works" class="footer-link-item">Process</a>
+                    <a href="#categories" class="footer-link-item">Designs</a>
+                    <a href="#faqs" class="footer-link-item">Support FAQs</a>
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+                    <h3 class="footer-links-title">Support Channels</h3>
+                    <p class="opacity-75">Have questions or custom requirements? Shoot us an email!</p>
+                    <a href="mailto:support@velvetvows.invite" class="btn-premium-solid py-2 px-3">
+                        <i class="bi bi-envelope-fill"></i> Contact Support
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>
+                    &copy; {{ date('Y') }} Velvet Vows & Bigdates. All rights reserved.
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-muted text-decoration-none hover-light">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none hover-light">Terms of Service</a>
                 </div>
             </div>
         </div>
-    </section>
+    </footer>
 
-    {{-- ═══ FOOTER (from partial) ═══ --}}
-    @include('partials.footer')
-
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <script>
-        // ── Swiper Initialization ────────────────────
-        document.addEventListener('DOMContentLoaded', function () {
-            new Swiper('.testimonial-swiper', {
-                slidesPerView: 1,
-                spaceBetween: 30,
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                breakpoints: {
-                    768: {
-                        slidesPerView: 2,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                    },
-                }
-            });
-        });
-
-        // ── Live Invitation Preview ────────────────────
-        const previewMap = {
-            previewName1: 'displayName1',
-            previewName2: 'displayName2',
-            previewDate: 'displayDate',
-            previewVenue: 'displayVenue'
-        };
-        Object.entries(previewMap).forEach(([inputId, displayId]) => {
-            const input = document.getElementById(inputId);
-            const display = document.getElementById(displayId);
-            if (input && display) {
-                input.addEventListener('input', () => {
-                    display.textContent = input.value || '—';
-                });
-            }
-        });
-
-        // ── FAQ Accordion ─────────────────────────────
-        function toggleFaq(btn) {
-            const body = btn.nextElementSibling;
-            const icon = btn.querySelector('.faq-icon');
-            const isOpen = body.classList.contains('open');
-
-            document.querySelectorAll('.faq-body.open').forEach(b => b.classList.remove('open'));
-            document.querySelectorAll('.faq-icon').forEach(i => {
-                i.classList.replace('bi-dash-lg', 'bi-plus-lg');
-            });
-
-            if (!isOpen) {
-                body.classList.add('open');
-                icon.classList.replace('bi-plus-lg', 'bi-dash-lg');
-            }
-        }
-
-        // ── Scroll-spy: active nav link ───────────────
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(s => {
-                if (window.scrollY >= s.offsetTop - 130) current = s.id;
-            });
-            navLinks.forEach(l => {
-                l.classList.toggle('active', l.getAttribute('href') === '#' + current);
-            });
-        }, { passive: true });
-    </script>
 
 </body>
 
