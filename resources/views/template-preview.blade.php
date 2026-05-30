@@ -262,7 +262,7 @@
         }
 
         /* ── Live Previews ── */
-        .inv-royal { background: #1A1A1A; border: 2px dashed #B89047; border-radius: 16px; padding: 1.6rem; text-align: center; font-family: 'Playfair Display', serif; color: #E4D1A6; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .inv-royal { background: #1A1A1A; border: 2px dashed #B89047; border-radius: 16px; padding: 2rem 1.6rem 1.6rem; text-align: center; font-family: 'Playfair Display', serif; color: #E4D1A6; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
         .inv-royal-small { font-size: .55rem; text-transform: uppercase; letter-spacing: 4px; color: #B89047; margin-bottom: .5rem; font-style: italic; }
         .inv-royal-names { font-size: 1.4rem; font-weight: 700; color: #FFFDF9; line-height: 1.15; }
         .inv-royal-weds  { font-size: .85rem; font-style: italic; color: #B89047; margin: .3rem 0; }
@@ -272,7 +272,7 @@
         .inv-royal-addr   { font-size: .6rem; color: #857B72; }
         .inv-royal-rsvp   { font-size: .6rem; color: rgba(197,155,39,.8); margin-top: .6rem; }
 
-        .inv-minimalist { background: #fff; border: 1px solid #E4D1A6; border-radius: 16px; padding: 1.6rem; text-align: center; font-family: 'Playfair Display', serif; color: #1A1A1A; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .inv-minimalist { background: #fff; border: 1px solid #E4D1A6; border-radius: 16px; padding: 2rem 1.6rem 1.6rem; text-align: center; font-family: 'Playfair Display', serif; color: #1A1A1A; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
         .inv-min-mono  { font-size: .6rem; font-weight: 700; color: #B89047; letter-spacing: 3px; text-transform: uppercase; margin-bottom: .5rem; }
         .inv-min-sub   { font-size: .52rem; text-transform: uppercase; letter-spacing: 3px; color: #C8A882; font-family: 'Inter',sans-serif; margin-bottom: .8rem; }
         .inv-min-names { font-size: 1.3rem; font-weight: 900; color: #111; line-height: 1.15; }
@@ -285,7 +285,7 @@
         .inv-min-addr  { font-size: .6rem; color: #666; }
         .inv-min-rsvp  { font-size: .6rem; color: #999; background: #f9f9f9; border-radius: 8px; padding: .5rem; margin-top: .6rem; }
 
-        .inv-celestial { background: #0A1628; border: 2px solid #E8C55A; border-radius: 16px; padding: 1.6rem; text-align: center; color: #E8C55A; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .inv-celestial { background: #0A1628; border: 2px solid #E8C55A; border-radius: 16px; padding: 2rem 1.6rem 1.6rem; text-align: center; color: #E8C55A; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
         .inv-cel-stars  { font-size: .9rem; margin-bottom: .5rem; }
         .inv-cel-sub    { font-size: .52rem; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,.7); font-family: 'Inter',sans-serif; margin-bottom: .7rem; }
         .inv-cel-names  { font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #fff; line-height: 1.15; }
@@ -349,6 +349,10 @@
                             <p class="inv-royal-venue pv-venue">The Grand Palace</p>
                             <p class="inv-royal-addr pv-addr">123 Royal Road, City</p>
                             <p class="inv-royal-rsvp pv-rsvp">RSVP: Your Contact</p>
+                            <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
+                                <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
+                                <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
+                            </div>
                         </div>
                     @elseif($template['id'] === 'golden-minimalist')
                         <div class="inv-minimalist">
@@ -371,6 +375,10 @@
                             <p class="inv-min-venue pv-venue">The Grand Palace</p>
                             <p class="inv-min-addr pv-addr">123 Royal Road, City</p>
                             <p class="inv-min-rsvp pv-rsvp">RSVP: Your Contact</p>
+                            <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
+                                <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
+                                <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
+                            </div>
                         </div>
                     @elseif($template['id'] === 'garden-celestial')
                         <div class="inv-celestial">
@@ -388,9 +396,13 @@
                                 <p class="inv-cel-venue-addr pv-addr">123 Royal Road, City</p>
                             </div>
                             <p class="inv-cel-rsvp pv-rsvp">RSVP: Your Contact</p>
+                            <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
+                                <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
+                                <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
+                            </div>
                         </div>
                     @elseif($template['id'] === 'premium-vintage')
-                        <div class="inv-premium-vintage" style="background:#FAF8F5; width:100%; height:100%; display:flex; flex-direction:column; text-align:center; position:relative; overflow:hidden;">
+                        <div class="inv-premium-vintage" style="background:#FAF8F5; width:100%; height:100%; display:flex; flex-direction:column; text-align:center; position:relative; overflow-y:auto; overflow-x:hidden; scrollbar-width: none;">
                             <div style="background-color:#5A6D5C; height:40%; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#F0EAD6; padding:1rem; position:relative; z-index:1;">
                                 <img class="pv-main-img-src" src="{{ $invitation->main_image_url ?? '' }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
                                 <div style="position:absolute; inset:0; background:rgba(44,53,49,0.5); z-index:-1;"></div>
@@ -398,22 +410,37 @@
                                 <p style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; line-height:1;"><span class="pv-bride">Bride</span> <br>&<br> <span class="pv-groom">Groom</span></p>
                                 <p class="pv-date" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:1px; margin-top:0.5rem; padding:0.3rem 0; border-top:1px solid rgba(240,234,214,0.4); border-bottom:1px solid rgba(240,234,214,0.4);">Dec 1, 2026</p>
                             </div>
-                            <div style="padding:1rem; background:#fff; flex:1;">
-                                <p style="font-family:'Pinyon Script',cursive; font-size:1.5rem; color:#5A6D5C;">The Couple</p>
-                                <div style="display:flex; justify-content:center; gap:0.5rem; margin:1rem 0;">
-                                    <div style="width:60px; height:80px; border-radius:30px 30px 0 0; background-color:#eee; border:1px solid #ddd; position:relative; overflow:hidden;">
-                                        <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                            <div style="padding:1.5rem 1rem; background:#fff; flex:1;">
+                                <p style="font-family:'Pinyon Script',cursive; font-size:1.5rem; color:#5A6D5C; margin-bottom: 1rem;">The Couple</p>
+                                <div style="display:flex; justify-content:center; gap:1.5rem; margin-bottom:1.5rem;">
+                                    <div style="display:flex; flex-direction:column; align-items:center;">
+                                        <div style="width:70px; height:90px; border-radius:40px 40px 0 0; background-color:#eee; border:1px solid rgba(90, 109, 92, 0.2); padding: 2px; position:relative; overflow:hidden; margin-bottom: 0.5rem;">
+                                            <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; border-radius: 40px 40px 0 0; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                                        </div>
+                                        <p class="pv-bride" style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#2C3531; font-weight:600;">Bride</p>
                                     </div>
-                                    <div style="width:60px; height:80px; border-radius:30px 30px 0 0; background-color:#eee; border:1px solid #ddd; position:relative; overflow:hidden;">
-                                        <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                                    <div style="display:flex; flex-direction:column; align-items:center;">
+                                        <div style="width:70px; height:90px; border-radius:40px 40px 0 0; background-color:#eee; border:1px solid rgba(90, 109, 92, 0.2); padding: 2px; position:relative; overflow:hidden; margin-bottom: 0.5rem;">
+                                            <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; border-radius: 40px 40px 0 0; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                                        </div>
+                                        <p class="pv-groom" style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#2C3531; font-weight:600;">Groom</p>
                                     </div>
                                 </div>
-                                <p class="pv-venue" style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#2C3531;">The Grand Palace</p>
-                                <p class="pv-addr" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:#7A7065;">123 Royal Road, City</p>
-                                <p class="pv-rsvp" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:#D4AF37; margin-top:0.5rem; margin-bottom: 1rem;">RSVP: Your Contact</p>
 
-                                <div class="pv-gallery-container" style="{{ isset($invitation) && $invitation->galleries->count() > 0 ? 'display:block;' : 'display:none;' }} margin-top:1rem; border-top:1px solid #eee; padding-top:1rem;">
-                                    <p style="font-family:'Pinyon Script',cursive; font-size:1.2rem; color:#5A6D5C; margin-bottom:0.5rem;">Our Memories</p>
+                                <div style="background:#5A6D5C; color:#F0EAD6; padding: 1.5rem 1rem; margin: 1rem -1rem;">
+                                    <p style="font-family:'Pinyon Script',cursive; font-size:1.3rem; color:#F0EAD6; margin-bottom: 0.2rem;">When & Where</p>
+                                    <div style="border: 1px solid rgba(240, 234, 214, 0.3); padding: 1rem; margin-top: 1rem;">
+                                        <p style="font-family:'Pinyon Script',cursive; font-size:1rem; color:#D4AF37; margin-bottom:0.2rem;">The Venue</p>
+                                        <p class="pv-venue" style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600;">The Grand Palace</p>
+                                        <p class="pv-addr" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; opacity:0.8;">123 Royal Road, City</p>
+                                        <p class="pv-time" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; opacity:0.8; margin-top: 0.3rem;">7:00 PM</p>
+                                    </div>
+                                </div>
+
+                                <!-- GALLERY SECTION -->
+                                <div class="pv-gallery-container" style="{{ isset($invitation) && $invitation->galleries->count() > 0 ? 'display:block;' : 'display:none;' }} margin-bottom:2rem;">
+                                    <p style="font-family:'Pinyon Script',cursive; font-size:1.8rem; color:#5A6D5C; margin-bottom:0.2rem;">Memories</p>
+                                    <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:0.6rem; color:#D4AF37; margin-bottom: 1.5rem;">Captured moments</p>
                                     <div class="pv-gallery-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem;">
                                         <!-- Images injected via JS -->
                                         @if(isset($invitation) && $invitation->galleries->count() > 0)
@@ -424,6 +451,24 @@
                                             @endforeach
                                         @endif
                                     </div>
+                                </div>
+
+                                <!-- RSVP SECTION -->
+                                <div style="background:#fff; padding: 3rem 1rem 1rem;">
+                                    <p style="font-family:'Pinyon Script',cursive; font-size:2rem; color:#5A6D5C; margin-bottom:0.2rem;">RSVP</p>
+                                    <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:0.6rem; color:#D4AF37; margin-bottom: 2rem;">We look forward to celebrating with you</p>
+                                    
+                                    <p style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#2C3531; margin-bottom: 1.5rem;">
+                                        Please confirm your attendance
+                                    </p>
+
+                                    <div style="background:rgba(212, 175, 55, 0.1); padding: 0.8rem 1.5rem; display:inline-block; border-radius:4px;">
+                                        <p class="pv-rsvp" style="font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:#2C3531; margin:0;">Contact: Your Contact</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
+                                    <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
+                                    <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
                                 </div>
                             </div>
                         </div>

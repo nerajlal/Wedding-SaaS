@@ -340,5 +340,11 @@
         </div>
     </section>
 
+    <!-- VELVET VOWS FOOTER -->
+    <footer style="text-align: center; padding: 3rem 1rem; background: var(--bg-color); border-top: 1px solid rgba(0,0,0,0.05); font-family: var(--font-body); font-size: 0.85rem; color: #888;">
+        <p style="margin-bottom: 0.3rem;">Created with love using <a href="{{ url('/') }}" style="color: var(--secondary); font-weight: 600; text-decoration: none;">Velvet Vows</a></p>
+        <p style="font-size: 0.75rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
+    </footer>
+
 </body>
 </html>

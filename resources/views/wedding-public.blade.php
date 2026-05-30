@@ -171,5 +171,10 @@
             </div>
         @endif
     </div>
+
+    <footer style="margin-top: 3rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.85rem; color: #888;">
+        <p style="margin-bottom: 0.3rem;">Created with love using <a href="{{ url('/') }}" style="color: #B89047; font-weight: 600; text-decoration: none;">Velvet Vows</a></p>
+        <p style="font-size: 0.75rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
+    </footer>
 </body>
 </html>
