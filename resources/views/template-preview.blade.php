@@ -31,12 +31,14 @@
             background: var(--cream-2); 
             color: var(--text); 
             -webkit-font-smoothing: antialiased; 
+            overflow: hidden; /* Prevent full page scroll */
         }
 
         .preview-layout {
             display: flex;
-            min-height: calc(100vh - 100px);
+            height: calc(100vh - 74px); /* Fixed height minus header */
             width: 100%;
+            overflow: hidden;
         }
 
         /* ── Left Side (Preview) ── */
@@ -46,6 +48,7 @@
             flex-direction: column;
             background: var(--cream-2);
             position: relative;
+            overflow: hidden; /* Left side fixed, no scroll */
         }
         .preview-header {
             padding: 1rem 2rem;
@@ -80,7 +83,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            overflow-y: auto;
+            overflow: hidden;
         }
 
         .phone-mockup {
@@ -113,7 +116,7 @@
 
         /* ── Right Side (Sidebar) ── */
         .sidebar-pane {
-            width: 440px;
+            width: 550px; /* Increased right side width (reduces left side) */
             background: #FFFDF9;
             border-left: 1px solid var(--border);
             box-shadow: -10px 0 30px rgba(140, 109, 59, 0.05);
@@ -490,6 +493,48 @@
                             <input type="text" name="rsvp_contact" id="inp-rsvp" class="modal-field-input" style="padding-left:1rem;" placeholder="Phone or Email" required value="{{ $invitation->rsvp_contact ?? '' }}">
                         </div>
 
+                        <!-- Image URLs -->
+                        <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Theme Images ✦</span></div>
+
+                        <div class="modal-field-group">
+                            <label class="modal-field-label">Main Hero Image Link (Drive/URL)</label>
+                            <input type="url" name="main_image_url" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem;" placeholder="Paste image link here..." value="{{ $invitation->main_image_url ?? '' }}">
+                        </div>
+
+                        <div class="modal-field-group">
+                            <label class="modal-field-label">Bride Image Link</label>
+                            <input type="url" name="bride_image_url" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem;" placeholder="Paste bride image link..." value="{{ $invitation->bride_image_url ?? '' }}">
+                        </div>
+
+                        <div class="modal-field-group">
+                            <label class="modal-field-label">Groom Image Link</label>
+                            <input type="url" name="groom_image_url" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem;" placeholder="Paste groom image link..." value="{{ $invitation->groom_image_url ?? '' }}">
+                        </div>
+
+                        <!-- Gallery Section -->
+                        <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Photo Gallery ✦</span></div>
+                        <p style="font-size: 0.75rem; color: var(--muted); text-align: center; margin-bottom: 1rem;">Add links to images you want in your gallery.</p>
+                        
+                        <div id="gallery-container">
+                            @if(isset($invitation) && $invitation->galleries->count() > 0)
+                                @foreach($invitation->galleries as $gallery)
+                                    <div class="modal-field-group gallery-input-group" style="display:flex; gap:0.5rem; align-items:center;">
+                                        <input type="url" name="gallery_urls[]" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem; flex:1;" placeholder="Gallery image link..." value="{{ $gallery->image_url }}">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove()" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="modal-field-group gallery-input-group" style="display:flex; gap:0.5rem; align-items:center;">
+                                    <input type="url" name="gallery_urls[]" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem; flex:1;" placeholder="Gallery image link...">
+                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove()" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <button type="button" onclick="addGalleryInput()" style="background:none; border:1px dashed var(--gold); color:var(--gold-dk); padding:0.6rem; border-radius:12px; font-weight:600; font-size:0.85rem; width:100%; margin-bottom: 1.5rem; cursor:pointer;">
+                            <i class="bi bi-plus-circle"></i> Add another image link
+                        </button>
+
                         <button type="submit" class="modal-signin-btn" style="margin-top:auto;">
                             <i class="bi bi-magic"></i> {{ isset($invitation) ? 'Update Invitation' : 'Publish My Invitation' }}
                         </button>
@@ -505,8 +550,7 @@
     </div>
 
     @include('partials.popups')
-    @include('partials.footer')
-
+    <!-- Footer removed for full-screen editor mode -->
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -579,6 +623,20 @@
             const el = document.getElementById(id);
             if (el && el.value) el.dispatchEvent(new Event('input'));
         });
+
+        function addGalleryInput() {
+            const container = document.getElementById('gallery-container');
+            const div = document.createElement('div');
+            div.className = 'modal-field-group gallery-input-group';
+            div.style.display = 'flex';
+            div.style.gap = '0.5rem';
+            div.style.alignItems = 'center';
+            div.innerHTML = `
+                <input type="url" name="gallery_urls[]" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem; flex:1;" placeholder="Gallery image link...">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove()" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
+            `;
+            container.appendChild(div);
+        }
     </script>
 </body>
 </html>

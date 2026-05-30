@@ -9,4 +9,9 @@ class Invitation extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
 }

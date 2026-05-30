@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 class WeddingDetailsController extends Controller
 {
+    private function formatDriveUrl($url)
+    {
+        if (!$url) return null;
+        if (preg_match('/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/', $url, $matches)) {
+            return 'https://drive.google.com/uc?export=view&id=' . $matches[1];
+        }
+        return $url;
+    }
     /**
      * Show the dedicated wedding creation landing page (bigdates-style).
      */
@@ -33,10 +41,16 @@ class WeddingDetailsController extends Controller
             'personal_message' => 'nullable|string|max:200',
             'template'         => 'required|string|in:royal-scroll,golden-minimalist,garden-celestial',
             'couples_photo'    => 'nullable|image|max:5120',
+            'main_image_url'   => 'nullable|url',
+            'groom_image_url'  => 'nullable|url',
+            'bride_image_url'  => 'nullable|url',
+            'gallery_urls'     => 'nullable|array',
+            'gallery_urls.*'   => 'nullable|url',
         ]);
 
         $template = $validated['template'];
         unset($validated['template']);
+        unset($validated['gallery_urls']);
 
         $photoBase64 = null;
         if ($request->hasFile('couples_photo')) {
@@ -51,12 +65,25 @@ class WeddingDetailsController extends Controller
             . '-' . \Illuminate\Support\Str::slug($validated['groom_name'])
             . '-' . now()->format('YmdHis');
 
-        \App\Models\Invitation::create(array_merge($validated, [
+        $invitation = \App\Models\Invitation::create(array_merge($validated, [
             'slug' => $slug,
             'template' => $template,
             'photo' => $photoBase64,
             'user_id' => auth()->id(),
+            'main_image_url' => $this->formatDriveUrl($request->input('main_image_url')),
+            'groom_image_url' => $this->formatDriveUrl($request->input('groom_image_url')),
+            'bride_image_url' => $this->formatDriveUrl($request->input('bride_image_url')),
         ]));
+
+        if ($request->has('gallery_urls')) {
+            foreach ($request->input('gallery_urls') as $gUrl) {
+                if ($gUrl) {
+                    $invitation->galleries()->create([
+                        'image_url' => $this->formatDriveUrl($gUrl)
+                    ]);
+                }
+            }
+        }
 
         session(['wedding_details'  => $validated]);
         session(['wedding_template' => $template]);
@@ -261,10 +288,16 @@ class WeddingDetailsController extends Controller
             'personal_message' => 'nullable|string|max:200',
             'template'         => 'required|string',
             'couples_photo'    => 'nullable|image|max:5120',
+            'main_image_url'   => 'nullable|url',
+            'groom_image_url'  => 'nullable|url',
+            'bride_image_url'  => 'nullable|url',
+            'gallery_urls'     => 'nullable|array',
+            'gallery_urls.*'   => 'nullable|url',
         ]);
 
         $template = $validated['template'];
         unset($validated['template']);
+        unset($validated['gallery_urls']);
 
         $photoBase64 = $invitation->photo;
         if ($request->hasFile('couples_photo')) {
@@ -278,7 +311,21 @@ class WeddingDetailsController extends Controller
         $invitation->update(array_merge($validated, [
             'template' => $template,
             'photo' => $photoBase64,
+            'main_image_url' => $this->formatDriveUrl($request->input('main_image_url')),
+            'groom_image_url' => $this->formatDriveUrl($request->input('groom_image_url')),
+            'bride_image_url' => $this->formatDriveUrl($request->input('bride_image_url')),
         ]));
+
+        if ($request->has('gallery_urls')) {
+            $invitation->galleries()->delete();
+            foreach ($request->input('gallery_urls') as $gUrl) {
+                if ($gUrl) {
+                    $invitation->galleries()->create([
+                        'image_url' => $this->formatDriveUrl($gUrl)
+                    ]);
+                }
+            }
+        }
 
         session(['wedding_details'  => $validated]);
         session(['wedding_template' => $template]);
