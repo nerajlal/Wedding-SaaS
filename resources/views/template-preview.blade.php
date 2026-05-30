@@ -389,6 +389,44 @@
                             </div>
                             <p class="inv-cel-rsvp pv-rsvp">RSVP: Your Contact</p>
                         </div>
+                    @elseif($template['id'] === 'premium-vintage')
+                        <div class="inv-premium-vintage" style="background:#FAF8F5; width:100%; height:100%; display:flex; flex-direction:column; text-align:center; position:relative; overflow:hidden;">
+                            <div style="background-color:#5A6D5C; height:40%; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#F0EAD6; padding:1rem; position:relative; z-index:1;">
+                                <img class="pv-main-img-src" src="{{ $invitation->main_image_url ?? '' }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                                <div style="position:absolute; inset:0; background:rgba(44,53,49,0.5); z-index:-1;"></div>
+                                <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; font-size:0.5rem; letter-spacing:2px; margin-bottom:0.5rem;">We are getting married</p>
+                                <p style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; line-height:1;"><span class="pv-bride">Bride</span> <br>&<br> <span class="pv-groom">Groom</span></p>
+                                <p class="pv-date" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:1px; margin-top:0.5rem; padding:0.3rem 0; border-top:1px solid rgba(240,234,214,0.4); border-bottom:1px solid rgba(240,234,214,0.4);">Dec 1, 2026</p>
+                            </div>
+                            <div style="padding:1rem; background:#fff; flex:1;">
+                                <p style="font-family:'Pinyon Script',cursive; font-size:1.5rem; color:#5A6D5C;">The Couple</p>
+                                <div style="display:flex; justify-content:center; gap:0.5rem; margin:1rem 0;">
+                                    <div style="width:60px; height:80px; border-radius:30px 30px 0 0; background-color:#eee; border:1px solid #ddd; position:relative; overflow:hidden;">
+                                        <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                                    </div>
+                                    <div style="width:60px; height:80px; border-radius:30px 30px 0 0; background-color:#eee; border:1px solid #ddd; position:relative; overflow:hidden;">
+                                        <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                                    </div>
+                                </div>
+                                <p class="pv-venue" style="font-family:'Montserrat',sans-serif; font-size:0.75rem; font-weight:600; color:#2C3531;">The Grand Palace</p>
+                                <p class="pv-addr" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:#7A7065;">123 Royal Road, City</p>
+                                <p class="pv-rsvp" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; color:#D4AF37; margin-top:0.5rem; margin-bottom: 1rem;">RSVP: Your Contact</p>
+
+                                <div class="pv-gallery-container" style="{{ isset($invitation) && $invitation->galleries->count() > 0 ? 'display:block;' : 'display:none;' }} margin-top:1rem; border-top:1px solid #eee; padding-top:1rem;">
+                                    <p style="font-family:'Pinyon Script',cursive; font-size:1.2rem; color:#5A6D5C; margin-bottom:0.5rem;">Our Memories</p>
+                                    <div class="pv-gallery-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem;">
+                                        <!-- Images injected via JS -->
+                                        @if(isset($invitation) && $invitation->galleries->count() > 0)
+                                            @foreach($invitation->galleries as $gallery)
+                                                <div style="aspect-ratio: 1; border-radius: 4px; overflow: hidden;">
+                                                    <img src="{{ $gallery->image_url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @else
                         <img src="{{ $template['image'] }}" alt="{{ $template['name'] }} preview">
                     @endif
@@ -457,6 +495,15 @@
                     <h2 class="modal-brand-name"><span>Create</span> Invitation</h2>
                     <p class="modal-brand-tag">Fill the details to publish your site</p>
                     
+                    @if ($errors->any())
+                        <div class="modal-error-alert" style="background: #FFF5F5; border: 1px solid #FFD6D6; border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="bi bi-exclamation-circle-fill" style="color: #E53E3E;"></i>
+                            <span style="font-size: 0.8rem; color: #C53030; font-weight: 500;">
+                                Please check the form below for errors. Some fields may be missing or files may be too large.
+                            </span>
+                        </div>
+                    @endif
+                    
                     @if(isset($invitation))
                         <form action="{{ route('wedding.update.all', $invitation->slug) }}" method="POST" enctype="multipart/form-data" autocomplete="off" style="flex-grow:1; display:flex; flex-direction:column;">
                             @method('PUT')
@@ -497,42 +544,66 @@
                         <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Theme Images ✦</span></div>
 
                         <div class="modal-field-group">
-                            <label class="modal-field-label">Main Hero Image Link (Drive/URL)</label>
-                            <input type="url" name="main_image_url" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem;" placeholder="Paste image link here..." value="{{ $invitation->main_image_url ?? '' }}">
-                        </div>
-
-                        <div class="modal-field-group">
-                            <label class="modal-field-label">Bride Image Link</label>
-                            <input type="url" name="bride_image_url" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem;" placeholder="Paste bride image link..." value="{{ $invitation->bride_image_url ?? '' }}">
-                        </div>
-
-                        <div class="modal-field-group">
-                            <label class="modal-field-label">Groom Image Link</label>
-                            <input type="url" name="groom_image_url" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem;" placeholder="Paste groom image link..." value="{{ $invitation->groom_image_url ?? '' }}">
-                        </div>
-
-                        <!-- Gallery Section -->
-                        <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Photo Gallery ✦</span></div>
-                        <p style="font-size: 0.75rem; color: var(--muted); text-align: center; margin-bottom: 1rem;">Add links to images you want in your gallery.</p>
-                        
-                        <div id="gallery-container">
-                            @if(isset($invitation) && $invitation->galleries->count() > 0)
-                                @foreach($invitation->galleries as $gallery)
-                                    <div class="modal-field-group gallery-input-group" style="display:flex; gap:0.5rem; align-items:center;">
-                                        <input type="url" name="gallery_urls[]" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem; flex:1;" placeholder="Gallery image link..." value="{{ $gallery->image_url }}">
-                                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove()" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="modal-field-group gallery-input-group" style="display:flex; gap:0.5rem; align-items:center;">
-                                    <input type="url" name="gallery_urls[]" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem; flex:1;" placeholder="Gallery image link...">
-                                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove()" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
+                            <label class="modal-field-label">Main Hero Image (Upload)</label>
+                            <input type="file" name="main_image" id="inp-main-img" class="modal-field-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                            @if(isset($invitation) && $invitation->main_image_url)
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+                                    <img src="{{ $invitation->main_image_url }}" style="width: 30px; height: 30px; border-radius: 4px; object-fit: cover;">
+                                    <p style="font-size: 0.7rem; color: #888; margin: 0;">Current: {{ basename($invitation->main_image_url) }}</p>
                                 </div>
                             @endif
                         </div>
+
+                        <div class="modal-field-group">
+                            <label class="modal-field-label">Bride Image (Upload)</label>
+                            <input type="file" name="bride_image" id="inp-bride-img" class="modal-field-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                            @if(isset($invitation) && $invitation->bride_image_url)
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+                                    <img src="{{ $invitation->bride_image_url }}" style="width: 30px; height: 30px; border-radius: 4px; object-fit: cover;">
+                                    <p style="font-size: 0.7rem; color: #888; margin: 0;">Current: {{ basename($invitation->bride_image_url) }}</p>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="modal-field-group">
+                            <label class="modal-field-label">Groom Image (Upload)</label>
+                            <input type="file" name="groom_image" id="inp-groom-img" class="modal-field-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+                            @if(isset($invitation) && $invitation->groom_image_url)
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+                                    <img src="{{ $invitation->groom_image_url }}" style="width: 30px; height: 30px; border-radius: 4px; object-fit: cover;">
+                                    <p style="font-size: 0.7rem; color: #888; margin: 0;">Current: {{ basename($invitation->groom_image_url) }}</p>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Photo Gallery ✦</span></div>
+                        <p style="font-size: 0.75rem; color: var(--muted); text-align: center; margin-bottom: 1rem;">Upload images for your gallery.</p>
                         
+                        <div id="gallery-container">
+                            <div class="modal-field-group gallery-input-group" style="display:flex; gap:0.5rem; align-items:center;">
+                                <input type="file" name="gallery_images[]" class="modal-field-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem; flex:1;">
+                            </div>
+                        </div>
+                        
+                        @if(isset($invitation) && $invitation->galleries->count() > 0)
+                            <div style="margin-bottom: 1.5rem;">
+                                <p style="font-size: 0.75rem; color: #5A6D5C; margin-bottom: 0.5rem;">Currently Uploaded (Click trash to remove):</p>
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+                                    @foreach($invitation->galleries as $gallery)
+                                        <div class="existing-gallery-item" style="position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #eee;">
+                                            <img src="{{ $gallery->image_url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                            <button type="button" style="position: absolute; top: 0; right: 0; background: rgba(220, 53, 69, 0.9); color: white; border: none; padding: 0.2rem 0.4rem; border-radius: 0 0 0 8px; cursor: pointer; font-size: 0.75rem;" onclick="this.parentElement.style.display='none'; document.getElementById('delete-galleries').innerHTML += '<input type=\'hidden\' name=\'delete_galleries[]\' value=\'{{ $gallery->id }}\'>';">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div id="delete-galleries"></div>
+                            </div>
+                        @endif
+
                         <button type="button" onclick="addGalleryInput()" style="background:none; border:1px dashed var(--gold); color:var(--gold-dk); padding:0.6rem; border-radius:12px; font-weight:600; font-size:0.85rem; width:100%; margin-bottom: 1.5rem; cursor:pointer;">
-                            <i class="bi bi-plus-circle"></i> Add another image link
+                            <i class="bi bi-plus-circle"></i> Add another image
                         </button>
 
                         <button type="submit" class="modal-signin-btn" style="margin-top:auto;">
@@ -618,8 +689,67 @@
         updateField('inp-addr', '.pv-addr');
         updateField('inp-rsvp', '.pv-rsvp', 'RSVP: ');
 
+        // Image File Previewer
+        const updateImageUrl = (inputId, targetClasses, isBg = false) => {
+            const inp = document.getElementById(inputId);
+            if (!inp) return;
+            inp.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const objectUrl = URL.createObjectURL(file);
+                const targets = document.querySelectorAll(targetClasses);
+                targets.forEach(t => {
+                    if (isBg) t.style.backgroundImage = `url('${objectUrl}')`;
+                    else t.src = objectUrl;
+                });
+            });
+        };
+
+        // Live preview for gallery
+        const updateGalleryPreview = () => {
+            const galleryInputs = document.querySelectorAll('input[name="gallery_images[]"]');
+            const grid = document.querySelector('.pv-gallery-grid');
+            const container = document.querySelector('.pv-gallery-container');
+            if (!grid || !container) return;
+
+            grid.innerHTML = '';
+            let hasImages = false;
+
+            galleryInputs.forEach(inp => {
+                if (inp.files && inp.files[0]) {
+                    hasImages = true;
+                    const objectUrl = URL.createObjectURL(inp.files[0]);
+                    const div = document.createElement('div');
+                    div.style.aspectRatio = '1';
+                    div.style.borderRadius = '4px';
+                    div.style.overflow = 'hidden';
+                    const img = document.createElement('img');
+                    img.src = objectUrl;
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    div.appendChild(img);
+                    grid.appendChild(div);
+                }
+            });
+
+            if (hasImages) container.style.display = 'block';
+            else container.style.display = 'none';
+        };
+
+        document.getElementById('gallery-container').addEventListener('change', (e) => {
+            if (e.target.name === 'gallery_images[]') {
+                updateGalleryPreview();
+            }
+        });
+
+        updateImageUrl('inp-main-img', '.pv-main-img-src', false);
+        updateImageUrl('inp-bride-img', '.pv-bride-img-src', false);
+        updateImageUrl('inp-groom-img', '.pv-groom-img-src', false);
+
         // trigger input to sync initial values if any
-        ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp'].forEach(id => {
+        ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp', 'inp-main-img', 'inp-bride-img', 'inp-groom-img'].forEach(id => {
             const el = document.getElementById(id);
             if (el && el.value) el.dispatchEvent(new Event('input'));
         });
@@ -632,11 +762,12 @@
             div.style.gap = '0.5rem';
             div.style.alignItems = 'center';
             div.innerHTML = `
-                <input type="url" name="gallery_urls[]" class="modal-field-input" style="padding-left:1rem; font-size: 0.85rem; flex:1;" placeholder="Gallery image link...">
-                <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove()" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
+                <input type="file" name="gallery_images[]" class="modal-field-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem; flex:1;">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove(); updateGalleryPreview();" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
             `;
             container.appendChild(div);
         }
+
     </script>
 </body>
 </html>

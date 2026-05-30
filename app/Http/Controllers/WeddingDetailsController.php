@@ -39,18 +39,19 @@ class WeddingDetailsController extends Controller
             'rsvp_deadline'    => 'nullable|string',
             'dress_code'       => 'nullable|string',
             'personal_message' => 'nullable|string|max:200',
-            'template'         => 'required|string|in:royal-scroll,golden-minimalist,garden-celestial',
+            'template'         => 'required|string|in:royal-scroll,golden-minimalist,garden-celestial,premium-vintage',
             'couples_photo'    => 'nullable|image|max:5120',
-            'main_image_url'   => 'nullable|url',
-            'groom_image_url'  => 'nullable|url',
-            'bride_image_url'  => 'nullable|url',
-            'gallery_urls'     => 'nullable|array',
-            'gallery_urls.*'   => 'nullable|url',
+            'main_image'       => 'nullable|image|max:5120',
+            'groom_image'      => 'nullable|image|max:5120',
+            'bride_image'      => 'nullable|image|max:5120',
+            'gallery_images'   => 'nullable|array',
+            'gallery_images.*' => 'nullable|image|max:5120',
         ]);
 
         $template = $validated['template'];
         unset($validated['template']);
         unset($validated['gallery_urls']);
+        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['gallery_images'], $validated['couples_photo']);
 
         $photoBase64 = null;
         if ($request->hasFile('couples_photo')) {
@@ -65,21 +66,26 @@ class WeddingDetailsController extends Controller
             . '-' . \Illuminate\Support\Str::slug($validated['groom_name'])
             . '-' . now()->format('YmdHis');
 
+        $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : null;
+        $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : null;
+        $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : null;
+
         $invitation = \App\Models\Invitation::create(array_merge($validated, [
             'slug' => $slug,
             'template' => $template,
             'photo' => $photoBase64,
             'user_id' => auth()->id(),
-            'main_image_url' => $this->formatDriveUrl($request->input('main_image_url')),
-            'groom_image_url' => $this->formatDriveUrl($request->input('groom_image_url')),
-            'bride_image_url' => $this->formatDriveUrl($request->input('bride_image_url')),
+            'main_image_url' => $mainImageUrl,
+            'groom_image_url' => $groomImageUrl,
+            'bride_image_url' => $brideImageUrl,
         ]));
 
-        if ($request->has('gallery_urls')) {
-            foreach ($request->input('gallery_urls') as $gUrl) {
-                if ($gUrl) {
+        if ($request->hasFile('gallery_images')) {
+            foreach ($request->file('gallery_images') as $file) {
+                if ($file) {
+                    $path = '/storage/' . $file->store('invitations', 'public');
                     $invitation->galleries()->create([
-                        'image_url' => $this->formatDriveUrl($gUrl)
+                        'image_url' => $path
                     ]);
                 }
             }
@@ -247,7 +253,11 @@ class WeddingDetailsController extends Controller
             }
         }
 
-        return view('wedding-public', compact('details', 'template', 'photo'));
+        if (view()->exists('templates.' . $template)) {
+            return view('templates.' . $template, compact('details', 'template', 'photo', 'invitation'));
+        }
+
+        return view('wedding-public', compact('details', 'template', 'photo', 'invitation'));
     }
 
     /**
@@ -288,16 +298,17 @@ class WeddingDetailsController extends Controller
             'personal_message' => 'nullable|string|max:200',
             'template'         => 'required|string',
             'couples_photo'    => 'nullable|image|max:5120',
-            'main_image_url'   => 'nullable|url',
-            'groom_image_url'  => 'nullable|url',
-            'bride_image_url'  => 'nullable|url',
-            'gallery_urls'     => 'nullable|array',
-            'gallery_urls.*'   => 'nullable|url',
+            'main_image'       => 'nullable|image|max:5120',
+            'groom_image'      => 'nullable|image|max:5120',
+            'bride_image'      => 'nullable|image|max:5120',
+            'gallery_images'   => 'nullable|array',
+            'gallery_images.*' => 'nullable|image|max:5120',
         ]);
 
         $template = $validated['template'];
         unset($validated['template']);
         unset($validated['gallery_urls']);
+        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['gallery_images'], $validated['couples_photo']);
 
         $photoBase64 = $invitation->photo;
         if ($request->hasFile('couples_photo')) {
@@ -308,20 +319,33 @@ class WeddingDetailsController extends Controller
             session(['wedding_photo' => $photoBase64]);
         }
 
+        $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : $invitation->main_image_url;
+        $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : $invitation->groom_image_url;
+        $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : $invitation->bride_image_url;
+
         $invitation->update(array_merge($validated, [
             'template' => $template,
             'photo' => $photoBase64,
-            'main_image_url' => $this->formatDriveUrl($request->input('main_image_url')),
-            'groom_image_url' => $this->formatDriveUrl($request->input('groom_image_url')),
-            'bride_image_url' => $this->formatDriveUrl($request->input('bride_image_url')),
+            'main_image_url' => $mainImageUrl,
+            'groom_image_url' => $groomImageUrl,
+            'bride_image_url' => $brideImageUrl,
         ]));
 
-        if ($request->has('gallery_urls')) {
-            $invitation->galleries()->delete();
-            foreach ($request->input('gallery_urls') as $gUrl) {
-                if ($gUrl) {
+        if ($request->has('delete_galleries')) {
+            $deleteIds = $request->input('delete_galleries');
+            if (is_array($deleteIds)) {
+                $invitation->galleries()->whereIn('id', $deleteIds)->delete();
+            }
+        }
+
+        if ($request->hasFile('gallery_images')) {
+            // Optional: You could delete existing galleries here if you want to replace them,
+            // or just append them. We'll append them for now.
+            foreach ($request->file('gallery_images') as $file) {
+                if ($file) {
+                    $path = '/storage/' . $file->store('invitations', 'public');
                     $invitation->galleries()->create([
-                        'image_url' => $this->formatDriveUrl($gUrl)
+                        'image_url' => $path
                     ]);
                 }
             }
@@ -330,6 +354,10 @@ class WeddingDetailsController extends Controller
         session(['wedding_details'  => $validated]);
         session(['wedding_template' => $template]);
         session(['wedding_slug'     => $invitation->slug]);
+
+        if ($invitation->is_paid) {
+            return redirect()->route('wedding.published.show');
+        }
 
         return redirect()->route('wedding.payment.show');
     }
