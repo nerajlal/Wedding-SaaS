@@ -771,30 +771,14 @@
                 <p>Tap to select your invitation design</p>
             </div>
             <div class="fs-card-body">
-                <input type="hidden" name="template" id="tpl-val" value="{{ session('wedding_template', 'royal-scroll') }}">
+                <input type="hidden" name="template" id="tpl-val" value="{{ session('wedding_template', 'premium-vintage') }}">
                 <div class="tpl-grid">
-                    <div class="tpl-tile sel" id="tpl-royal-scroll" onclick="pickTpl('royal-scroll', this)">
-                        <img src="{{ asset('images/templates/royal-scroll.png') }}" alt="Royal Scroll">
+                    <div class="tpl-tile sel" id="tpl-premium-vintage" onclick="pickTpl('premium-vintage', this)">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" alt="Premium Vintage">
                         <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
                         <div class="tpl-tile-foot">
-                            <div class="tpl-tile-name">Royal Scroll</div>
-                            <div class="tpl-tile-hint">Dark gold luxury</div>
-                        </div>
-                    </div>
-                    <div class="tpl-tile" id="tpl-golden-minimalist" onclick="pickTpl('golden-minimalist', this)">
-                        <img src="{{ asset('images/templates/golden-minimalist.png') }}" alt="Golden Minimalist">
-                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
-                        <div class="tpl-tile-foot">
-                            <div class="tpl-tile-name">Golden Minimal</div>
-                            <div class="tpl-tile-hint">Clean &amp; modern</div>
-                        </div>
-                    </div>
-                    <div class="tpl-tile" id="tpl-garden-celestial" onclick="pickTpl('garden-celestial', this)">
-                        <img src="{{ asset('images/templates/garden-celestial.png') }}" alt="Celestial">
-                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
-                        <div class="tpl-tile-foot">
-                            <div class="tpl-tile-name">Celestial</div>
-                            <div class="tpl-tile-hint">Starlit romance</div>
+                            <div class="tpl-tile-name">Premium Vintage</div>
+                            <div class="tpl-tile-hint">Classic and elegant</div>
                         </div>
                     </div>
                 </div>

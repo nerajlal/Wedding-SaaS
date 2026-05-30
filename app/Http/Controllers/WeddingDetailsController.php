@@ -39,7 +39,7 @@ class WeddingDetailsController extends Controller
             'rsvp_deadline'    => 'nullable|string',
             'dress_code'       => 'nullable|string',
             'personal_message' => 'nullable|string|max:200',
-            'template'         => 'required|string|in:royal-scroll,golden-minimalist,garden-celestial,premium-vintage',
+            'template'         => 'required|string',
             'couples_photo'    => 'nullable|image|max:5120',
             'main_image'       => 'nullable|image|max:5120',
             'groom_image'      => 'nullable|image|max:5120',
@@ -66,9 +66,9 @@ class WeddingDetailsController extends Controller
             . '-' . \Illuminate\Support\Str::slug($validated['groom_name'])
             . '-' . now()->format('YmdHis');
 
-        $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : null;
-        $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : null;
-        $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : null;
+        $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : ($request->input('existing_main_image_url') ?: null);
+        $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : ($request->input('existing_groom_image_url') ?: null);
+        $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : ($request->input('existing_bride_image_url') ?: null);
 
         $invitation = \App\Models\Invitation::create(array_merge($validated, [
             'slug' => $slug,
@@ -84,6 +84,16 @@ class WeddingDetailsController extends Controller
             foreach ($request->file('gallery_images') as $file) {
                 if ($file) {
                     $path = '/storage/' . $file->store('invitations', 'public');
+                    $invitation->galleries()->create([
+                        'image_url' => $path
+                    ]);
+                }
+            }
+        }
+
+        if ($request->has('existing_gallery_images')) {
+            foreach ($request->input('existing_gallery_images') as $path) {
+                if ($path) {
                     $invitation->galleries()->create([
                         'image_url' => $path
                     ]);
@@ -160,7 +170,7 @@ class WeddingDetailsController extends Controller
     public function storeTemplate(Request $request)
     {
         $request->validate([
-            'template' => 'required|string|in:royal-scroll,golden-minimalist,garden-celestial',
+            'template' => 'required|string',
         ]);
 
         session(['wedding_template' => $request->input('template')]);
@@ -223,7 +233,7 @@ class WeddingDetailsController extends Controller
             // Fallback to active session
             if (session()->has('wedding_details')) {
                 $details = session('wedding_details');
-                $template = session('wedding_template', 'royal-scroll');
+                $template = session('wedding_template', 'premium-vintage');
                 $photo = session('wedding_photo');
             } else {
                 $details = [
@@ -238,7 +248,7 @@ class WeddingDetailsController extends Controller
                     'dress_code' => 'formal_attire',
                     'personal_message' => 'With joy in our hearts, we welcome you to celebrate this union'
                 ];
-                $template = 'royal-scroll';
+                $template = 'premium-vintage';
                 $photo = null;
             }
         }

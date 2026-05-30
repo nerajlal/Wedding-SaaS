@@ -327,6 +327,11 @@
                 <a href="{{ route('templates.index') }}" class="btn-back">
                     <i class="bi bi-arrow-left"></i> Back to Templates
                 </a>
+                @if(isset($existingInvitation))
+                    <button type="button" id="btn-load-data" class="btn btn-sm" style="border-radius: 99px; font-weight: 600; background: rgba(184,144,71,0.1); color: var(--gold-dk); border: 1px solid var(--border); padding: 0.4rem 1rem; transition: all 0.3s; font-family: var(--display);" onmouseover="this.style.background='rgba(184,144,71,0.2)'; this.style.borderColor='var(--gold)';" onmouseout="this.style.background='rgba(184,144,71,0.1)'; this.style.borderColor='var(--border)';">
+                        <i class="bi bi-database-fill-down"></i> Load My Datas
+                    </button>
+                @endif
                 <div class="template-name-badge">
                     {{ $template['name'] }}
                 </div>
@@ -418,6 +423,9 @@
                     @endif
                         @csrf
                         <input type="hidden" name="template" value="{{ $template['id'] }}">
+                        <input type="hidden" name="existing_main_image_url" id="existing-main-image-url" value="">
+                        <input type="hidden" name="existing_bride_image_url" id="existing-bride-image-url" value="">
+                        <input type="hidden" name="existing_groom_image_url" id="existing-groom-image-url" value="">
 
                         <div class="modal-field-group">
                             <label class="modal-field-label">Couple Names</label>
@@ -701,6 +709,123 @@
             `;
             container.appendChild(div);
         }
+
+        @if(isset($existingInvitation))
+        const loadBtn = document.getElementById('btn-load-data');
+        if (loadBtn) {
+            loadBtn.addEventListener('click', function() {
+                const data = @json($existingInvitation);
+                
+                // Populate text inputs
+                const fields = {
+                    'inp-bride': data.bride_name,
+                    'inp-groom': data.groom_name,
+                    'inp-date': data.wedding_date,
+                    'inp-time': data.time,
+                    'inp-venue': data.venue_name,
+                    'inp-addr': data.venue_address,
+                    'inp-rsvp': data.rsvp_contact
+                };
+                
+                for (const [id, val] of Object.entries(fields)) {
+                    const el = document.getElementById(id);
+                    if (el && val) {
+                        el.value = val;
+                        el.dispatchEvent(new Event('input'));
+                    }
+                }
+                
+                // Set hidden inputs for image URLs so they are submitted
+                if (data.main_image_url) document.getElementById('existing-main-image-url').value = data.main_image_url;
+                if (data.bride_image_url) document.getElementById('existing-bride-image-url').value = data.bride_image_url;
+                if (data.groom_image_url) document.getElementById('existing-groom-image-url').value = data.groom_image_url;
+
+                // Live preview images in iframe
+                const iframe = document.getElementById('preview-iframe');
+                if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
+                    const doc = iframe.contentWindow.document;
+                    if (data.main_image_url) {
+                        const mainImg = doc.querySelector('.pv-main-img-src');
+                        if (mainImg) {
+                            if (mainImg.tagName === 'IMG') mainImg.src = data.main_image_url;
+                            else mainImg.style.backgroundImage = `url('${data.main_image_url}')`;
+                        }
+                    }
+                    if (data.bride_image_url) {
+                        const brideImg = doc.querySelector('.pv-bride-img-src');
+                        if (brideImg) {
+                            if (brideImg.tagName === 'IMG') brideImg.src = data.bride_image_url;
+                            else brideImg.style.backgroundImage = `url('${data.bride_image_url}')`;
+                        }
+                    }
+                    if (data.groom_image_url) {
+                        const groomImg = doc.querySelector('.pv-groom-img-src');
+                        if (groomImg) {
+                            if (groomImg.tagName === 'IMG') groomImg.src = data.groom_image_url;
+                            else groomImg.style.backgroundImage = `url('${data.groom_image_url}')`;
+                        }
+                    }
+                    
+                    // Handle Gallery if any
+                    if (data.galleries && data.galleries.length > 0) {
+                        const grid = doc.querySelector('.gallery-grid');
+                        if (grid) {
+                            grid.innerHTML = '';
+                            let hasImages = false;
+                            
+                            // Remove any old existing gallery inputs
+                            const form = document.querySelector('form[action*="store"]');
+                            if (form) {
+                                form.querySelectorAll('input[name="existing_gallery_images[]"]').forEach(el => el.remove());
+                            }
+
+                            data.galleries.forEach(g => {
+                                hasImages = true;
+                                const div = doc.createElement('div');
+                                div.className = 'gallery-item';
+                                const img = doc.createElement('img');
+                                img.src = g.image_url;
+                                img.className = 'gallery-img';
+                                img.style.width = '100%';
+                                img.style.height = '100%';
+                                img.style.objectFit = 'cover';
+                                div.appendChild(img);
+                                grid.appendChild(div);
+                                
+                                // Append hidden inputs for gallery submission
+                                if (form) {
+                                    const hiddenG = document.createElement('input');
+                                    hiddenG.type = 'hidden';
+                                    hiddenG.name = 'existing_gallery_images[]';
+                                    hiddenG.value = g.image_url;
+                                    form.appendChild(hiddenG);
+                                }
+                            });
+                            
+                            const section = grid.closest('.gallery-section');
+                            if (section) {
+                                section.style.display = hasImages ? '' : 'none';
+                            }
+                        }
+                    }
+                }
+                
+                // Visual feedback on button
+                const btn = this;
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Data Loaded!';
+                btn.style.color = '#2e7d32';
+                btn.style.background = 'rgba(46, 125, 50, 0.1)';
+                btn.style.borderColor = 'rgba(46, 125, 50, 0.2)';
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.style.color = '';
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                }, 2000);
+            });
+        }
+        @endif
 
     </script>
 </body>
