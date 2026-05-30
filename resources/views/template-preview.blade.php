@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -31,13 +31,12 @@
             background: var(--cream-2); 
             color: var(--text); 
             -webkit-font-smoothing: antialiased; 
-            overflow: hidden; /* Prevent scrolling on the main body since it's a full-screen app-like view */
         }
 
         .preview-layout {
             display: flex;
-            height: 100vh;
-            width: 100vw;
+            min-height: calc(100vh - 100px);
+            width: 100%;
         }
 
         /* ── Left Side (Preview) ── */
@@ -259,6 +258,44 @@
             margin-top: auto;
         }
 
+        /* ── Live Previews ── */
+        .inv-royal { background: #1A1A1A; border: 2px dashed #B89047; border-radius: 16px; padding: 1.6rem; text-align: center; font-family: 'Playfair Display', serif; color: #E4D1A6; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .inv-royal-small { font-size: .55rem; text-transform: uppercase; letter-spacing: 4px; color: #B89047; margin-bottom: .5rem; font-style: italic; }
+        .inv-royal-names { font-size: 1.4rem; font-weight: 700; color: #FFFDF9; line-height: 1.15; }
+        .inv-royal-weds  { font-size: .85rem; font-style: italic; color: #B89047; margin: .3rem 0; }
+        .inv-royal-divider { width: 70%; height: 1px; background: linear-gradient(90deg,transparent,#B89047,transparent); margin: .7rem auto; }
+        .inv-royal-detail { font-size: .65rem; color: #B89047; letter-spacing: 1.5px; }
+        .inv-royal-venue  { font-size: .75rem; font-weight: 600; color: #FFFDF9; margin-top: .4rem; }
+        .inv-royal-addr   { font-size: .6rem; color: #857B72; }
+        .inv-royal-rsvp   { font-size: .6rem; color: rgba(197,155,39,.8); margin-top: .6rem; }
+
+        .inv-minimalist { background: #fff; border: 1px solid #E4D1A6; border-radius: 16px; padding: 1.6rem; text-align: center; font-family: 'Playfair Display', serif; color: #1A1A1A; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .inv-min-mono  { font-size: .6rem; font-weight: 700; color: #B89047; letter-spacing: 3px; text-transform: uppercase; margin-bottom: .5rem; }
+        .inv-min-sub   { font-size: .52rem; text-transform: uppercase; letter-spacing: 3px; color: #C8A882; font-family: 'Inter',sans-serif; margin-bottom: .8rem; }
+        .inv-min-names { font-size: 1.3rem; font-weight: 900; color: #111; line-height: 1.15; }
+        .inv-min-amp   { font-family: 'Great Vibes', cursive; font-size: 1.1rem; color: #B89047; margin: .2rem 0; }
+        .inv-min-row   { display: flex; justify-content: center; gap: 1.5rem; margin: .8rem 0; padding: .6rem 0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
+        .inv-min-col   { text-align: center; }
+        .inv-min-col-label { font-size: .5rem; text-transform: uppercase; letter-spacing: 2px; color: #aaa; font-family: 'Inter',sans-serif; }
+        .inv-min-col-val   { font-size: .72rem; font-weight: 700; color: #333; font-family: 'Inter',sans-serif; margin-top: .2rem; }
+        .inv-min-venue { font-size: .68rem; font-weight: 700; color: #333; margin-top: .5rem; }
+        .inv-min-addr  { font-size: .6rem; color: #666; }
+        .inv-min-rsvp  { font-size: .6rem; color: #999; background: #f9f9f9; border-radius: 8px; padding: .5rem; margin-top: .6rem; }
+
+        .inv-celestial { background: #0A1628; border: 2px solid #E8C55A; border-radius: 16px; padding: 1.6rem; text-align: center; color: #E8C55A; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .inv-cel-stars  { font-size: .9rem; margin-bottom: .5rem; }
+        .inv-cel-sub    { font-size: .52rem; text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,.7); font-family: 'Inter',sans-serif; margin-bottom: .7rem; }
+        .inv-cel-names  { font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #fff; line-height: 1.15; }
+        .inv-cel-amp    { font-size: .65rem; text-transform: uppercase; letter-spacing: 2px; color: #E8C55A; margin: .25rem 0; }
+        .inv-cel-divider { width: 40px; height: 1px; background: #E8C55A; margin: .6rem auto; }
+        .inv-cel-date   { font-size: .62rem; font-weight: 700; color: #fff; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; }
+        .inv-cel-time   { font-size: .58rem; color: rgba(255,255,255,.75); font-family: 'Inter',sans-serif; margin-top: .2rem; }
+        .inv-cel-venue-box { border: 1px solid rgba(232,197,90,.25); border-radius: 10px; padding: .65rem; background: rgba(10,22,40,.6); margin: .7rem 0; }
+        .inv-cel-venue-label { font-size: .5rem; text-transform: uppercase; letter-spacing: 3px; color: #E8C55A; font-family: 'Cinzel',serif; }
+        .inv-cel-venue-name  { font-size: .72rem; font-weight: 700; color: #fff; margin-top: .2rem; }
+        .inv-cel-venue-addr  { font-size: .58rem; color: rgba(255,255,255,.65); font-family: 'Inter',sans-serif; }
+        .inv-cel-rsvp   { font-size: .58rem; color: rgba(255,255,255,.75); font-family: 'Inter',sans-serif; margin-top: .5rem; }
+
         @media (max-width: 992px) {
             .preview-layout {
                 flex-direction: column;
@@ -278,6 +315,7 @@
     </style>
 </head>
 <body>
+    @include('partials.header')
 
     <div class="preview-layout">
         <!-- Left Pane: Template Preview -->
@@ -294,7 +332,63 @@
             <div class="preview-content">
                 <div class="phone-mockup">
                     <div class="phone-island"></div>
-                    <img src="{{ $template['image'] }}" alt="{{ $template['name'] }} preview">
+                    @if($template['id'] === 'royal-scroll')
+                        <div class="inv-royal">
+                            <p class="inv-royal-small">✦ Request the Honour ✦</p>
+                            <p style="font-size:.58rem;font-style:italic;color:rgba(197,155,39,.75);margin-bottom:.6rem">of your presence at the marriage of</p>
+                            <p class="inv-royal-names pv-bride">Bride Name</p>
+                            <p class="inv-royal-weds">&amp;</p>
+                            <p class="inv-royal-names pv-groom">Groom Name</p>
+                            <div class="inv-royal-divider"></div>
+                            <p class="inv-royal-detail pv-date">Your Wedding Date</p>
+                            <p class="inv-royal-detail pv-time" style="margin-top:.2rem">7:00 PM onwards</p>
+                            <div class="inv-royal-divider"></div>
+                            <p class="inv-royal-venue pv-venue">The Grand Palace</p>
+                            <p class="inv-royal-addr pv-addr">123 Royal Road, City</p>
+                            <p class="inv-royal-rsvp pv-rsvp">RSVP: Your Contact</p>
+                        </div>
+                    @elseif($template['id'] === 'golden-minimalist')
+                        <div class="inv-minimalist">
+                            <p class="inv-min-mono"><span class="pv-bride-ini">B</span> &amp; <span class="pv-groom-ini">G</span></p>
+                            <p class="inv-min-sub">Join Us To Celebrate The Wedding Of</p>
+                            <p class="inv-min-names pv-bride">Bride Name</p>
+                            <p class="inv-min-amp">&amp;</p>
+                            <p class="inv-min-names pv-groom">Groom Name</p>
+                            <div class="inv-min-row">
+                                <div class="inv-min-col">
+                                    <div class="inv-min-col-label">Date</div>
+                                    <div class="inv-min-col-val pv-date">Dec 1, 2026</div>
+                                </div>
+                                <div style="width:1px;background:#e0e0e0;align-self:stretch"></div>
+                                <div class="inv-min-col">
+                                    <div class="inv-min-col-label">Time</div>
+                                    <div class="inv-min-col-val pv-time">7:00 PM</div>
+                                </div>
+                            </div>
+                            <p class="inv-min-venue pv-venue">The Grand Palace</p>
+                            <p class="inv-min-addr pv-addr">123 Royal Road, City</p>
+                            <p class="inv-min-rsvp pv-rsvp">RSVP: Your Contact</p>
+                        </div>
+                    @elseif($template['id'] === 'garden-celestial')
+                        <div class="inv-celestial">
+                            <p class="inv-cel-stars">🌙 ✨ ⭐</p>
+                            <p class="inv-cel-sub">Under the starlit sky, join the wedding of</p>
+                            <p class="inv-cel-names pv-bride">Bride Name</p>
+                            <p class="inv-cel-amp">&amp;</p>
+                            <p class="inv-cel-names pv-groom">Groom Name</p>
+                            <div class="inv-cel-divider"></div>
+                            <p class="inv-cel-date pv-date">Friday · Dec 1, 2026</p>
+                            <p class="inv-cel-time pv-time">at 7:00 PM onwards</p>
+                            <div class="inv-cel-venue-box">
+                                <p class="inv-cel-venue-label">Celestial Venue</p>
+                                <p class="inv-cel-venue-name pv-venue">The Grand Palace</p>
+                                <p class="inv-cel-venue-addr pv-addr">123 Royal Road, City</p>
+                            </div>
+                            <p class="inv-cel-rsvp pv-rsvp">RSVP: Your Contact</p>
+                        </div>
+                    @else
+                        <img src="{{ $template['image'] }}" alt="{{ $template['name'] }} preview">
+                    @endif
                 </div>
             </div>
         </div>
@@ -360,39 +454,44 @@
                     <h2 class="modal-brand-name"><span>Create</span> Invitation</h2>
                     <p class="modal-brand-tag">Fill the details to publish your site</p>
                     
-                    <form action="{{ route('wedding.store.all') }}" method="POST" enctype="multipart/form-data" autocomplete="off" style="flex-grow:1; display:flex; flex-direction:column;">
+                    @if(isset($invitation))
+                        <form action="{{ route('wedding.update.all', $invitation->slug) }}" method="POST" enctype="multipart/form-data" autocomplete="off" style="flex-grow:1; display:flex; flex-direction:column;">
+                            @method('PUT')
+                    @else
+                        <form action="{{ route('wedding.store.all') }}" method="POST" enctype="multipart/form-data" autocomplete="off" style="flex-grow:1; display:flex; flex-direction:column;">
+                    @endif
                         @csrf
                         <input type="hidden" name="template" value="{{ $template['id'] }}">
 
                         <div class="modal-field-group">
                             <label class="modal-field-label">Couple Names</label>
                             <div style="display:flex; gap:0.5rem;">
-                                <input type="text" name="bride_name" class="modal-field-input" style="padding-left:1rem;" placeholder="Bride Name" required>
-                                <input type="text" name="groom_name" class="modal-field-input" style="padding-left:1rem;" placeholder="Groom Name" required>
+                                <input type="text" name="bride_name" id="inp-bride" class="modal-field-input" style="padding-left:1rem;" placeholder="Bride Name" required value="{{ $invitation->bride_name ?? '' }}">
+                                <input type="text" name="groom_name" id="inp-groom" class="modal-field-input" style="padding-left:1rem;" placeholder="Groom Name" required value="{{ $invitation->groom_name ?? '' }}">
                             </div>
                         </div>
 
                         <div class="modal-field-group">
                             <label class="modal-field-label">Date & Time</label>
                             <div style="display:flex; gap:0.5rem;">
-                                <input type="date" name="wedding_date" class="modal-field-input" style="padding-left:1rem; color: var(--text);" required>
-                                <input type="time" name="time" class="modal-field-input" style="padding-left:1rem; color: var(--text);" required>
+                                <input type="date" name="wedding_date" id="inp-date" class="modal-field-input" style="padding-left:1rem; color: var(--text);" required value="{{ $invitation->wedding_date ?? '' }}">
+                                <input type="time" name="time" id="inp-time" class="modal-field-input" style="padding-left:1rem; color: var(--text);" required value="{{ $invitation->time ?? '' }}">
                             </div>
                         </div>
 
                         <div class="modal-field-group">
                             <label class="modal-field-label">Venue</label>
-                            <input type="text" name="venue_name" class="modal-field-input" style="padding-left:1rem; margin-bottom:0.5rem;" placeholder="Venue Name" required>
-                            <textarea name="venue_address" class="modal-field-input" style="padding-left:1rem; padding-top: 0.6rem; resize: none;" rows="2" placeholder="Full Address" required></textarea>
+                            <input type="text" name="venue_name" id="inp-venue" class="modal-field-input" style="padding-left:1rem; margin-bottom:0.5rem;" placeholder="Venue Name" required value="{{ $invitation->venue_name ?? '' }}">
+                            <textarea name="venue_address" id="inp-addr" class="modal-field-input" style="padding-left:1rem; padding-top: 0.6rem; resize: none;" rows="2" placeholder="Full Address" required>{{ $invitation->venue_address ?? '' }}</textarea>
                         </div>
 
                         <div class="modal-field-group">
                             <label class="modal-field-label">RSVP Contact</label>
-                            <input type="text" name="rsvp_contact" class="modal-field-input" style="padding-left:1rem;" placeholder="Phone or Email" required>
+                            <input type="text" name="rsvp_contact" id="inp-rsvp" class="modal-field-input" style="padding-left:1rem;" placeholder="Phone or Email" required value="{{ $invitation->rsvp_contact ?? '' }}">
                         </div>
 
                         <button type="submit" class="modal-signin-btn" style="margin-top:auto;">
-                            <i class="bi bi-magic"></i> Publish My Invitation
+                            <i class="bi bi-magic"></i> {{ isset($invitation) ? 'Update Invitation' : 'Publish My Invitation' }}
                         </button>
                     </form>
                 @endguest
@@ -405,27 +504,81 @@
         </div>
     </div>
 
+    @include('partials.popups')
+    @include('partials.footer')
+
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function focusSidebarEmail() {
             const inp = document.getElementById('sidebar-email');
-            inp.focus();
-            inp.style.borderColor = '#B89047';
-            inp.style.boxShadow = '0 0 0 4px rgba(184,144,71,0.12)';
-            setTimeout(() => { inp.style.borderColor = ''; inp.style.boxShadow = ''; }, 1800);
+            if(inp) {
+                inp.focus();
+                inp.style.borderColor = '#B89047';
+                inp.style.boxShadow = '0 0 0 4px rgba(184,144,71,0.12)';
+                setTimeout(() => { inp.style.borderColor = ''; inp.style.boxShadow = ''; }, 1800);
+            }
         }
         function toggleSidebarPwd() {
             const inp = document.getElementById('sidebar-password');
             const eye = document.getElementById('sidebar-eye');
-            if (inp.type === 'password') {
-                inp.type = 'text';
-                eye.className = 'bi bi-eye-slash modal-field-eye';
-            } else {
-                inp.type = 'password';
-                eye.className = 'bi bi-eye modal-field-eye';
+            if (inp && eye) {
+                if (inp.type === 'password') {
+                    inp.type = 'text';
+                    eye.className = 'bi bi-eye-slash modal-field-eye';
+                } else {
+                    inp.type = 'password';
+                    eye.className = 'bi bi-eye modal-field-eye';
+                }
             }
         }
+
+        // Live preview sync
+        const updateField = (inputId, targetClasses, prefix = '', suffix = '') => {
+            const inp = document.getElementById(inputId);
+            if (!inp) return;
+            inp.addEventListener('input', (e) => {
+                const val = e.target.value.trim();
+                const targets = document.querySelectorAll(targetClasses);
+                targets.forEach(t => {
+                    if (val) t.textContent = prefix + val + suffix;
+                    else t.textContent = t.getAttribute('data-default') || '...';
+                });
+            });
+            // Init data-default
+            document.querySelectorAll(targetClasses).forEach(t => {
+                if(!t.getAttribute('data-default')) t.setAttribute('data-default', t.textContent);
+            });
+        };
+
+        const updateInitial = (inputId, targetClasses) => {
+            const inp = document.getElementById(inputId);
+            if (!inp) return;
+            inp.addEventListener('input', (e) => {
+                const val = e.target.value.trim();
+                const targets = document.querySelectorAll(targetClasses);
+                targets.forEach(t => {
+                    if (val) t.textContent = val.charAt(0).toUpperCase();
+                    else t.textContent = '·';
+                });
+            });
+        };
+
+        updateField('inp-bride', '.pv-bride');
+        updateField('inp-groom', '.pv-groom');
+        updateInitial('inp-bride', '.pv-bride-ini');
+        updateInitial('inp-groom', '.pv-groom-ini');
+        updateField('inp-date', '.pv-date');
+        updateField('inp-time', '.pv-time', '', ' onwards');
+        updateField('inp-venue', '.pv-venue');
+        updateField('inp-addr', '.pv-addr');
+        updateField('inp-rsvp', '.pv-rsvp', 'RSVP: ');
+
+        // trigger input to sync initial values if any
+        ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el && el.value) el.dispatchEvent(new Event('input'));
+        });
     </script>
 </body>
 </html>

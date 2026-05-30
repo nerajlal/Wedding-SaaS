@@ -38,17 +38,31 @@ class WeddingDetailsController extends Controller
         $template = $validated['template'];
         unset($validated['template']);
 
-        session(['wedding_details'  => $validated]);
-        session(['wedding_template' => $template]);
-
+        $photoBase64 = null;
         if ($request->hasFile('couples_photo')) {
             $file   = $request->file('couples_photo');
             $base64 = base64_encode(file_get_contents($file->getRealPath()));
             $mime   = $file->getMimeType();
-            session(['wedding_photo' => "data:$mime;base64,$base64"]);
+            $photoBase64 = "data:$mime;base64,$base64";
+            session(['wedding_photo' => $photoBase64]);
         }
 
-        return redirect()->route('wedding.published.show');
+        $slug = \Illuminate\Support\Str::slug($validated['bride_name'])
+            . '-' . \Illuminate\Support\Str::slug($validated['groom_name'])
+            . '-' . now()->format('YmdHis');
+
+        \App\Models\Invitation::create(array_merge($validated, [
+            'slug' => $slug,
+            'template' => $template,
+            'photo' => $photoBase64,
+            'user_id' => auth()->id(),
+        ]));
+
+        session(['wedding_details'  => $validated]);
+        session(['wedding_template' => $template]);
+        session(['wedding_slug'     => $slug]);
+
+        return redirect()->route('wedding.payment.show');
     }
 
     /**
@@ -142,38 +156,31 @@ class WeddingDetailsController extends Controller
      */
     public function showPublished()
     {
-        if (!session()->has('wedding_details')) {
-            return redirect()->route('wedding.details.create');
+        if (!session()->has('wedding_slug')) {
+            if (!session()->has('wedding_details')) {
+                return redirect()->route('wedding.details.create');
+            }
+            // Fallback for older sessions without slug but have details
+            $details = session('wedding_details');
+            $slug = \Illuminate\Support\Str::slug($details['bride_name']) . '-' . \Illuminate\Support\Str::slug($details['groom_name']) . '-' . now()->format('YmdHis');
+            $template = session('wedding_template', 'royal-scroll');
+            $photo = session('wedding_photo');
+            
+            \App\Models\Invitation::create(array_merge($details, [
+                'slug' => $slug,
+                'template' => $template,
+                'photo' => $photo,
+                'user_id' => auth()->id(),
+            ]));
+            session(['wedding_slug' => $slug]);
         }
 
-        $details = session('wedding_details');
-        $template = session('wedding_template', 'royal-scroll');
-        $photo = session('wedding_photo');
+        $slug = session('wedding_slug');
+        $invitation = \App\Models\Invitation::where('slug', $slug)->firstOrFail();
 
-        // Dynamically save details to a public JSON store so guest devices/phones can read it without active builder session cookies
-        $slug = \Illuminate\Support\Str::slug($details['bride_name'])
-            . '-' . \Illuminate\Support\Str::slug($details['groom_name'])
-            . '-' . now()->format('YmdHis');
+        $details = $invitation->toArray();
+        $template = $invitation->template;
         $publicUrl = url('/invite/' . $slug);
-        
-        $path = storage_path('app/public/invitations.json');
-        $invitations = [];
-        if (file_exists($path)) {
-            $invitations = json_decode(file_get_contents($path), true) ?: [];
-        }
-        
-        $invitations[$slug] = [
-            'details' => $details,
-            'template' => $template,
-            'photo' => $photo,
-            'updated_at' => now()->toDateTimeString()
-        ];
-        
-        if (!is_dir(dirname($path))) {
-            mkdir(dirname($path), 0755, true);
-        }
-        
-        file_put_contents($path, json_encode($invitations, JSON_PRETTY_PRINT));
 
         return view('wedding-published', compact('details', 'template', 'slug', 'publicUrl'));
     }
@@ -183,16 +190,12 @@ class WeddingDetailsController extends Controller
      */
     public function showPublicInvitation($slug)
     {
-        $path = storage_path('app/public/invitations.json');
-        $invitations = [];
-        if (file_exists($path)) {
-            $invitations = json_decode(file_get_contents($path), true) ?: [];
-        }
+        $invitation = \App\Models\Invitation::where('slug', $slug)->first();
 
-        if (isset($invitations[$slug])) {
-            $details = $invitations[$slug]['details'];
-            $template = $invitations[$slug]['template'];
-            $photo = $invitations[$slug]['photo'] ?? null;
+        if ($invitation) {
+            $details = $invitation->toArray();
+            $template = $invitation->template;
+            $photo = $invitation->photo;
         } else {
             // Fallback to active session
             if (session()->has('wedding_details')) {
@@ -218,5 +221,106 @@ class WeddingDetailsController extends Controller
         }
 
         return view('wedding-public', compact('details', 'template', 'photo'));
+    }
+
+    /**
+     * Show the user's created cards/invitations.
+     */
+    public function myCards()
+    {
+        $invitations = \App\Models\Invitation::where('user_id', auth()->id())->latest()->get();
+        return view('my-cards', compact('invitations'));
+    }
+
+    public function edit($slug)
+    {
+        $invitation = \App\Models\Invitation::where('slug', $slug)->where('user_id', auth()->id())->firstOrFail();
+        
+        $template = [
+            'id' => $invitation->template,
+            'name' => ucwords(str_replace('-', ' ', $invitation->template))
+        ];
+
+        return view('template-preview', compact('template', 'invitation'));
+    }
+
+    public function updateAll(Request $request, $slug)
+    {
+        $invitation = \App\Models\Invitation::where('slug', $slug)->where('user_id', auth()->id())->firstOrFail();
+
+        $validated = $request->validate([
+            'bride_name'       => 'required|string|max:255',
+            'groom_name'       => 'required|string|max:255',
+            'wedding_date'     => 'required|string',
+            'time'             => 'required|string',
+            'venue_name'       => 'required|string|max:255',
+            'venue_address'    => 'required|string',
+            'rsvp_contact'     => 'required|string',
+            'rsvp_deadline'    => 'nullable|string',
+            'dress_code'       => 'nullable|string',
+            'personal_message' => 'nullable|string|max:200',
+            'template'         => 'required|string',
+            'couples_photo'    => 'nullable|image|max:5120',
+        ]);
+
+        $template = $validated['template'];
+        unset($validated['template']);
+
+        $photoBase64 = $invitation->photo;
+        if ($request->hasFile('couples_photo')) {
+            $file   = $request->file('couples_photo');
+            $base64 = base64_encode(file_get_contents($file->getRealPath()));
+            $mime   = $file->getMimeType();
+            $photoBase64 = "data:$mime;base64,$base64";
+            session(['wedding_photo' => $photoBase64]);
+        }
+
+        $invitation->update(array_merge($validated, [
+            'template' => $template,
+            'photo' => $photoBase64,
+        ]));
+
+        session(['wedding_details'  => $validated]);
+        session(['wedding_template' => $template]);
+        session(['wedding_slug'     => $invitation->slug]);
+
+        return redirect()->route('wedding.payment.show');
+    }
+
+    /**
+     * Show dummy payment interface.
+     */
+    public function showPayment()
+    {
+        return view('payment');
+    }
+
+    /**
+     * Process dummy payment and redirect to success.
+     */
+    public function processPayment(Request $request)
+    {
+        $slug = session('wedding_slug');
+        if ($slug) {
+            $invitation = \App\Models\Invitation::where('slug', $slug)->first();
+            if ($invitation) {
+                $invitation->update(['is_paid' => true]);
+            }
+        }
+        return redirect()->route('wedding.published.show');
+    }
+
+    /**
+     * Initiate payment from My Cards dashboard.
+     */
+    public function initiatePayment($slug)
+    {
+        $invitation = \App\Models\Invitation::where('slug', $slug)->where('user_id', auth()->id())->firstOrFail();
+        
+        session(['wedding_details'  => $invitation->details]);
+        session(['wedding_template' => $invitation->template]);
+        session(['wedding_slug'     => $invitation->slug]);
+
+        return redirect()->route('wedding.payment.show');
     }
 }

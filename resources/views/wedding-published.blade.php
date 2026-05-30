@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -16,337 +17,264 @@
             --gold-dark:    #8C6D3B;
             --gold-primary: #B89047;
             --gold-light:   #DFCA9B;
-            --cream-base:   #FFFDF9;
-            --cream-dark:   #F7F3EB;
             --text-dark:    #2A241E;
             --text-muted:   #7A7065;
-            --border-gold:  rgba(184,144,71,0.18);
+            --border-gold:  rgba(184,144,71,0.25);
             --font-display: 'Outfit', sans-serif;
             --font-body:    'Inter', sans-serif;
             --font-serif:   'Cormorant Garamond', serif;
-            --ease:         cubic-bezier(0.16,1,0.3,1);
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: var(--font-body);
-            background: var(--cream-dark);
-            min-height: 100vh;
+            background: #FFFDF9;
             color: var(--text-dark);
-            display: flex; flex-direction: column; align-items: center;
-        }
-        body::before {
-            content: ''; position: fixed; inset: 0;
-            background:
-                radial-gradient(circle at 85% 10%, rgba(184,144,71,0.07) 0%, transparent 55%),
-                radial-gradient(circle at 10% 85%, rgba(184,144,71,0.05) 0%, transparent 45%);
-            pointer-events: none; z-index: 0;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* Step header (success state) */
-        .step-header {
-            width: 100%; position: sticky; top: 0; z-index: 100;
-            background: rgba(255,253,249,0.9); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-gold);
-            padding: 1rem 1.5rem;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .step-brand {
-            font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
-            color: var(--text-dark); display: flex; align-items: center; gap: .5rem; text-decoration: none;
-        }
-        .step-brand span { color: var(--gold-primary); }
-        .step-brand-icon {
-            width: 32px; height: 32px; border-radius: 10px;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: .85rem;
-        }
-        .published-badge {
-            display: flex; align-items: center; gap: .45rem;
-            background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25);
-            border-radius: 99px; padding: .35rem .9rem;
-            font-size: .75rem; font-weight: 700; color: #16a34a;
-        }
-        .published-badge i { font-size: .9rem; }
-
-        /* Main card */
-        .main-card {
-            position: relative; z-index: 1;
-            width: 100%; max-width: 620px;
-            background: var(--cream-base);
-            border: 1.5px solid var(--border-gold);
-            border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(140,109,59,0.08);
-            margin: 2rem 1rem 4rem;
+        /* Hero Section */
+        .pub-hero {
+            background: linear-gradient(135deg, #F9F6F0 0%, #FFFDF9 100%);
+            padding: 5rem 2rem 6rem;
+            position: relative;
             overflow: hidden;
-            animation: riseUp .7s var(--ease) .1s both;
+            border-bottom: 1px solid rgba(184,144,71,0.15);
         }
-        @keyframes riseUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes popIn  { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
+        .pub-hero::before {
+            content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(184,144,71,0.1) 0%, transparent 70%); border-radius: 50%;
+        }
+        .pub-hero::after {
+            content: ''; position: absolute; bottom: -50%; left: -10%; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%); border-radius: 50%;
+        }
 
-        /* Success hero */
-        .success-hero {
-            padding: 2.4rem 2.4rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-gold);
-            background: linear-gradient(to bottom, rgba(184,144,71,0.04), transparent);
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            position: relative; z-index: 10;
         }
-        .success-icon {
-            width: 64px; height: 64px; border-radius: 50%;
-            background: linear-gradient(135deg, #16a34a, #22c55e);
+        .hero-icon {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: linear-gradient(135deg, #10B981, #34D399);
             display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 1.6rem;
-            margin: 0 auto 1rem;
-            box-shadow: 0 8px 24px rgba(34,197,94,0.25);
-            animation: popIn .5s var(--ease) .3s both;
+            color: #fff; font-size: 2.5rem;
+            box-shadow: 0 15px 35px rgba(16,185,129,0.3), inset 0 2px 5px rgba(255,255,255,0.5);
         }
-        .success-title {
-            font-family: var(--font-display); font-size: 1.55rem; font-weight: 800;
-            color: var(--text-dark); letter-spacing: -.3px; margin-bottom: .3rem;
+        .hero-text h1 {
+            font-family: var(--font-display); font-size: 3rem; font-weight: 800;
+            color: var(--text-dark); letter-spacing: -1px; margin-bottom: .2rem;
         }
-        .success-title span { color: var(--gold-primary); }
-        .success-subtitle {
-            font-family: var(--font-serif); font-style: italic;
-            font-size: .95rem; color: var(--text-muted);
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-text p {
+            font-family: var(--font-serif); font-style: italic; font-size: 1.4rem; color: var(--text-muted);
         }
 
-        /* Card body */
-        .card-body { padding: 2rem 2.4rem 2.4rem; display: flex; flex-direction: column; gap: 1.6rem; }
-
-        /* Section headers */
-        .section-title {
-            font-size: .7rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px;
-            color: var(--gold-dark); margin-bottom: .75rem;
-            display: flex; align-items: center; gap: .5rem;
-        }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border-gold); }
-
-        /* Share link */
-        .link-row {
-            display: flex; gap: .6rem;
-        }
-        .link-display {
+        /* Main Content */
+        .pub-main {
             flex: 1;
-            padding: .75rem 1rem;
+            padding: 4rem 0 6rem;
             background: #fff;
-            border: 1.5px solid var(--border-gold);
-            border-radius: 12px;
-            font-size: .82rem; color: var(--text-dark);
-            font-weight: 500; overflow: hidden;
-            text-overflow: ellipsis; white-space: nowrap;
-            user-select: all;
+        }
+
+        .pub-card {
+            background: #FFFDF9;
+            border: 1px solid rgba(184,144,71,0.15);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.02);
+            height: 100%;
+            display: flex; flex-direction: column;
+        }
+
+        .section-title {
+            font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--text-dark);
+            margin-bottom: 1.5rem; display: flex; align-items: center; gap: .8rem;
+        }
+        .section-title i { color: var(--gold-primary); font-size: 1.4rem; }
+
+        /* Link Box */
+        .link-box {
+            background: #fff; border: 1px solid var(--border-gold); border-radius: 16px;
+            padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+            box-shadow: 0 8px 20px rgba(184,144,71,0.05); margin-bottom: 2.5rem;
+        }
+        .link-text {
+            font-family: 'Inter', monospace; font-size: 1.1rem; color: var(--gold-dark); font-weight: 600;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .btn-copy {
-            padding: .75rem 1.2rem;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
-            border: none; border-radius: 12px;
-            color: #fff; font-weight: 700; font-size: .85rem;
-            cursor: pointer; white-space: nowrap;
-            transition: all .25s;
+            color: #fff; border: none; padding: .8rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1rem;
+            transition: all .3s; white-space: nowrap; box-shadow: 0 8px 15px rgba(184,144,71,0.2);
         }
-        .btn-copy:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(184,144,71,0.25); }
+        .btn-copy:hover { transform: translateY(-2px); box-shadow: 0 12px 20px rgba(184,144,71,0.3); }
 
-        /* QR + Share row */
-        .qr-share-row { display: grid; grid-template-columns: auto 1fr; gap: 1.4rem; align-items: start; }
-        .qr-box {
-            background: #fff; border: 1.5px solid var(--border-gold);
-            border-radius: 16px; padding: .75rem;
-            display: flex; flex-direction: column; align-items: center; gap: .6rem;
-            min-width: 130px;
+        /* Stats Grid */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2.5rem;
         }
-        .qr-canvas { width: 110px; height: 110px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .qr-canvas img, .qr-canvas canvas { max-width: 100%; max-height: 100%; border-radius: 6px; }
-        .qr-dl-row { display: flex; gap: .5rem; width: 100%; }
-        .btn-qr-dl {
-            flex: 1; padding: .4rem .3rem;
-            border-radius: 99px; font-size: .62rem; font-weight: 800;
-            cursor: pointer; text-align: center; text-transform: uppercase; letter-spacing: .5px;
-            transition: all .2s;
+        .stat-item {
+            background: #fff; border: 1px solid #f0f0f0; border-radius: 16px; padding: 1.5rem; text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02); transition: transform .3s;
         }
-        .btn-qr-dl-dark { background: var(--text-dark); color: #fff; border: none; }
-        .btn-qr-dl-dark:hover { background: #3a3a3a; }
-        .btn-qr-dl-outline { background: transparent; color: var(--gold-dark); border: 1.5px solid var(--border-gold); }
-        .btn-qr-dl-outline:hover { border-color: var(--gold-primary); }
+        .stat-item:hover { transform: translateY(-5px); }
+        .stat-val { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--gold-primary); line-height: 1; margin-bottom: .5rem; }
+        .stat-label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
 
-        /* Share buttons */
-        .share-buttons { display: flex; flex-direction: column; gap: .6rem; }
+        /* QR Layout */
+        .qr-layout {
+            display: flex; gap: 2.5rem; align-items: center;
+        }
+        .qr-card {
+            background: #fff; padding: 1.5rem; border-radius: 20px; border: 1px solid #f0f0f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
+        }
+        .qr-canvas { width: 160px; height: 160px; margin: 0 auto 1rem; }
+        .qr-canvas img, .qr-canvas canvas { max-width: 100%; border-radius: 8px; }
+        .btn-dl { background: #f8f9fa; border: 1px solid #ddd; padding: .5rem 1rem; border-radius: 8px; font-weight: 600; font-size: .85rem; color: var(--text-dark); transition: all .2s; }
+        .btn-dl:hover { background: #fff; border-color: var(--gold-primary); color: var(--gold-primary); }
+
+        .share-actions { flex: 1; display: flex; flex-direction: column; gap: 1rem; }
         .btn-share {
-            display: flex; align-items: center; justify-content: center; gap: .5rem;
-            padding: .75rem; border-radius: 12px;
-            font-weight: 700; font-size: .88rem;
-            text-decoration: none; cursor: pointer; transition: all .25s;
+            display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border-radius: 12px;
+            background: #fff; border: 1px solid #f0f0f0; color: var(--text-dark); font-weight: 600; font-size: 1.05rem;
+            text-decoration: none; transition: all .3s; box-shadow: 0 5px 15px rgba(0,0,0,0.02);
         }
-        .btn-whatsapp { background: #25D366; color: #fff; border: none; }
-        .btn-whatsapp:hover { background: #20ba59; transform: translateY(-1px); }
-        .btn-email { background: var(--text-dark); color: var(--gold-primary); border: none; }
-        .btn-email:hover { background: #3a3a3a; transform: translateY(-1px); }
-        .btn-copylink { background: transparent; color: var(--text-dark); border: 1.5px solid var(--border-gold); }
-        .btn-copylink:hover { border-color: var(--gold-primary); transform: translateY(-1px); }
+        .btn-share:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .btn-share i { font-size: 1.4rem; }
+        .btn-share.wa i { color: #10B981; }
+        .btn-share.em i { color: #3B82F6; }
 
-        /* Stats grid */
-        .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; }
-        .stat-card {
-            background: #fff; border: 1.5px solid var(--border-gold);
-            border-radius: 14px; padding: .9rem .75rem;
-            text-align: center;
+        /* Actions Footer */
+        .actions-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eaeaea;
         }
-        .stat-val { font-size: 1.25rem; font-weight: 800; color: var(--gold-primary); }
-        .stat-label { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--text-muted); margin-top: .2rem; }
-
-        /* Tip alert */
-        .tip-alert {
-            background: rgba(184,144,71,0.05);
-            border: 1px solid rgba(184,144,71,0.18);
-            border-radius: 16px; padding: 1.1rem 1.2rem;
-            font-size: .8rem; color: var(--text-dark); line-height: 1.6;
-        }
-        .tip-alert-title { font-weight: 800; color: var(--gold-dark); margin-bottom: .5rem; font-size: .82rem; }
-        .tip-alert code { background: #fff; border: 1px solid var(--border-gold); padding: .15rem .4rem; border-radius: 5px; font-size: .74rem; color: var(--gold-dark); }
-        .tip-alert ul { padding-left: 1.1rem; margin-top: .35rem; }
-        .tip-alert li { margin-bottom: .3rem; color: var(--text-muted); }
-
-        /* Edit link */
         .btn-edit {
-            display: flex; align-items: center; justify-content: center; gap: .45rem;
-            padding: .85rem; border-radius: 12px;
-            border: 1.5px solid var(--border-gold);
-            color: var(--gold-dark); text-decoration: none; font-weight: 600; font-size: .9rem;
-            transition: all .25s;
+            color: var(--gold-dark); font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: .5rem; font-size: 1.05rem; transition: color .3s;
         }
-        .btn-edit:hover { border-color: var(--gold-primary); color: var(--gold-primary); }
+        .btn-edit:hover { color: var(--gold-primary); }
 
-        /* Footer text */
-        .pub-footer { text-align: center; font-size: .72rem; color: var(--text-muted); padding-bottom: .5rem; }
-        .pub-footer span { color: var(--gold-primary); font-weight: 700; }
-
-        /* Copy toast */
-        .copy-toast {
-            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
-            background: var(--text-dark); color: var(--gold-primary);
-            border: 1px solid var(--border-gold);
-            font-size: .82rem; font-weight: 700;
-            padding: .7rem 1.6rem; border-radius: 99px;
-            box-shadow: 0 8px 24px rgba(0,0,0,.15);
-            z-index: 9999; opacity: 0;
-            transition: all .35s var(--ease); pointer-events: none; white-space: nowrap;
-        }
+        .copy-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text-dark); color: var(--gold-primary); border: 1px solid rgba(255,255,255,0.1); font-size: .9rem; font-weight: 700; padding: .8rem 2rem; border-radius: 99px; box-shadow: 0 15px 40px rgba(0,0,0,.2); z-index: 9999; opacity: 0; transition: all .4s cubic-bezier(0.16,1,0.3,1); pointer-events: none; white-space: nowrap; }
         .copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        @media (max-width: 520px) {
-            .main-card { margin: 1rem .75rem 3rem; border-radius: 20px; }
-            .success-hero { padding: 1.6rem 1.2rem 1.4rem; }
-            .card-body { padding: 1.4rem 1.2rem 1.6rem; gap: 1.3rem; }
-            .qr-share-row { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: repeat(3,1fr); }
+        @media (max-width: 992px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .qr-layout { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
 <body>
+    @include('partials.header')
 
-    <header class="step-header">
-        <a class="step-brand" href="{{ url('/') }}">
-            <div class="step-brand-icon"><i class="bi bi-heart-fill"></i></div>
-            <span>Velvet</span>&nbsp;Vows
-        </a>
-        <div class="published-badge">
-            <i class="bi bi-check-circle-fill"></i> Published
-        </div>
-    </header>
-
-    <div class="main-card">
-        <!-- Success hero -->
-        <div class="success-hero">
-            <div class="success-icon"><i class="bi bi-check-lg"></i></div>
-            <h1 class="success-title">Your Invitation is <span>Live!</span></h1>
-            <p class="success-subtitle">Share it with your guests — the link is ready instantly</p>
-        </div>
-
-        <div class="card-body">
-
-            <!-- Shareable link -->
-            <div>
-                <p class="section-title">Shareable Link</p>
-                <div class="link-row">
-                    <div class="link-display" id="invite-link">{{ $publicUrl }}</div>
-                    <button class="btn-copy" onclick="copyLink()">Copy</button>
-                </div>
+    <section class="pub-hero">
+        <div class="hero-content">
+            <div class="hero-icon"><i class="bi bi-check-lg"></i></div>
+            <div class="hero-text">
+                <h1>Your Invitation is <span>Live!</span></h1>
+                <p>Beautifully published and ready to be shared with the world.</p>
             </div>
+        </div>
+    </section>
 
-            <!-- QR + Share buttons -->
-            <div>
-                <p class="section-title">QR Code &amp; Share</p>
-                <div class="qr-share-row">
-                    <div class="qr-box">
-                        <div class="qr-canvas" id="qrcode"></div>
-                        <div class="qr-dl-row">
-                            <button class="btn-qr-dl btn-qr-dl-dark" onclick="downloadInvitation('png')">PNG ↓</button>
-                            <button class="btn-qr-dl btn-qr-dl-outline" onclick="downloadInvitation('svg')">SVG ↓</button>
+    <section class="pub-main">
+        <div class="container-xl">
+            <div class="row g-5">
+                
+                <!-- Left Column: Links & Stats -->
+                <div class="col-lg-7">
+                    <div class="pub-card">
+                        <div class="section-title"><i class="bi bi-link-45deg"></i> Shareable Link</div>
+                        <div class="link-box">
+                            <div class="link-text" id="invite-link">{{ $publicUrl }}</div>
+                            <button class="btn-copy" onclick="copyLink()">Copy Link</button>
+                        </div>
+
+                        <div class="section-title"><i class="bi bi-bar-chart-line-fill"></i> Performance Stats</div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-val">0</div>
+                                <div class="stat-label">Views</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-val" style="font-size:1.3rem; margin-top:.4rem">{{ now()->format('M d') }}</div>
+                                <div class="stat-label">Published</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-val" style="font-size:1.1rem; margin-top:.5rem">
+                                    @if($template === 'royal-scroll') Royal
+                                    @elseif($template === 'golden-minimalist') Minimal
+                                    @else Celestial
+                                    @endif
+                                </div>
+                                <div class="stat-label">Template</div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(184,144,71,0.05); padding: 1.5rem; border-radius: 16px; border: 1px dashed rgba(184,144,71,0.3);">
+                            <h5 style="color:var(--gold-dark); font-weight:700; font-size:1rem; margin-bottom:.5rem;">💡 Developer Testing Tip</h5>
+                            <p style="margin:0; font-size:.9rem; color:var(--text-muted);">Since you are running on <code>127.0.0.1</code>, scanning the QR code on a mobile device won't work unless you start the server with <code>php artisan serve --host 0.0.0.0</code> and use your local Wi-Fi IP address.</p>
                         </div>
                     </div>
-
-                    <div class="share-buttons">
-                        <a href="https://api.whatsapp.com/send?text={{ urlencode('You are cordially invited to our wedding! View our digital invitation here: '.$publicUrl) }}"
-                           target="_blank" class="btn-share btn-whatsapp">
-                            <i class="bi bi-whatsapp"></i> Share on WhatsApp
-                        </a>
-                        <a href="mailto:?subject={{ urlencode('Wedding Invitation') }}&body={{ urlencode('We invite you to join us on our special day! View details here: '.$publicUrl) }}"
-                           class="btn-share btn-email">
-                            <i class="bi bi-envelope-fill"></i> Share via Email
-                        </a>
-                        <button onclick="copyLink()" class="btn-share btn-copylink">
-                            <i class="bi bi-link-45deg"></i> Copy Link
-                        </button>
-                    </div>
                 </div>
-            </div>
 
-            <!-- Stats -->
-            <div>
-                <p class="section-title">Invitation Stats</p>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-val">0</div>
-                        <div class="stat-label">Guest Views</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-val" style="font-size:.82rem">{{ now()->format('d M Y') }}</div>
-                        <div class="stat-label">Published</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-val" style="font-size:.78rem">
-                            @if($template === 'royal-scroll') Royal
-                            @elseif($template === 'golden-minimalist') Minimal
-                            @else Celestial
-                            @endif
+                <!-- Right Column: QR & Share -->
+                <div class="col-lg-5">
+                    <div class="pub-card">
+                        <div class="section-title"><i class="bi bi-qr-code-scan"></i> QR & Quick Share</div>
+                        
+                        <div class="qr-layout">
+                            <div class="qr-card">
+                                <div class="qr-canvas" id="qrcode"></div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn-dl flex-fill" onclick="downloadInvitation('png')">PNG</button>
+                                    <button class="btn-dl flex-fill" onclick="downloadInvitation('svg')">SVG</button>
+                                </div>
+                            </div>
+                            
+                            <div class="share-actions">
+                                <a href="https://api.whatsapp.com/send?text={{ urlencode('You are cordially invited to our wedding! View our digital invitation here: '.$publicUrl) }}" target="_blank" class="btn-share wa">
+                                    <i class="bi bi-whatsapp"></i> WhatsApp
+                                </a>
+                                <a href="mailto:?subject={{ urlencode('Wedding Invitation') }}&body={{ urlencode('We invite you to join us on our special day! View details here: '.$publicUrl) }}" class="btn-share em">
+                                    <i class="bi bi-envelope-fill"></i> Email Invite
+                                </a>
+                                <a href="{{ route('wedding.details.create') }}" class="btn-share" style="color:var(--gold-dark)">
+                                    <i class="bi bi-pencil-square"></i> Edit Details
+                                </a>
+                            </div>
                         </div>
-                        <div class="stat-label">Template</div>
                     </div>
                 </div>
+
             </div>
-
-            <!-- Tip -->
-            <div class="tip-alert">
-                <p class="tip-alert-title">💡 Local Network Testing Tip</p>
-                <p>On <code>127.0.0.1 / localhost</code>, the QR won't work on a phone. Try:</p>
-                <ul>
-                    <li><strong>Option A (PC)</strong>: Click "Copy Link" and paste into a new browser tab.</li>
-                    <li><strong>Option B (Phone)</strong>: Run <code>php artisan serve --host 0.0.0.0</code> and use your Wi-Fi IP to open the site.</li>
-                </ul>
+            
+            <div class="actions-bar">
+                <a href="{{ route('my.cards') }}" class="btn-edit">
+                    <i class="bi bi-arrow-left"></i> Back to Dashboard
+                </a>
+                <div style="font-size:.85rem; color:var(--text-muted); font-weight:600;">
+                    ✦ velvetvows.com ✦
+                </div>
             </div>
-
-            <!-- Edit button -->
-            <a href="{{ route('wedding.details.create') }}" class="btn-edit">
-                <i class="bi bi-pencil-fill"></i> Edit Invitation Details
-            </a>
-
-            <p class="pub-footer">✦ <span>velvetvows.com</span> ✦</p>
         </div>
-    </div>
+    </section>
 
-    <!-- Copy toast -->
+    @include('partials.popups')
+    @include('partials.footer')
+
     <div class="copy-toast" id="copy-toast"><i class="bi bi-check2"></i> &nbsp;Link copied!</div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const publicUrl = @json($publicUrl);
         const template  = @json($template);
@@ -355,7 +283,7 @@
         /* QR code */
         window.addEventListener('DOMContentLoaded', () => {
             new QRCode(document.getElementById('qrcode'), {
-                text: publicUrl, width: 110, height: 110,
+                text: publicUrl, width: 160, height: 160,
                 colorDark: '#1A1A1A', colorLight: '#FFFFFF',
                 correctLevel: QRCode.CorrectLevel.H
             });

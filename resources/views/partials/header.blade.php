@@ -127,7 +127,12 @@
             </ul>
 
             <div class="nav-actions">
-                <button onclick="openSigninModal()" class="btn-premium-outline">Login</button>
+                @guest
+                    <button onclick="openSigninModal()" class="btn-premium-outline">Login</button>
+                @endguest
+                @auth
+                    <a href="{{ route('my.cards') }}" class="btn-premium-outline">My Cards</a>
+                @endauth
                 <a href="{{ url('/') }}#categories" class="btn-premium-solid">
                     Create Card <i class="bi bi-arrow-right-short fs-5"></i>
                 </a>

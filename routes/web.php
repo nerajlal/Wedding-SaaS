@@ -34,7 +34,13 @@ Route::get('/wedding-template', [WeddingDetailsController::class, 'showTemplate'
 Route::post('/wedding-template', [WeddingDetailsController::class, 'storeTemplate'])->middleware('auth')->name('wedding.template.store');
 Route::get('/wedding-preview', [WeddingDetailsController::class, 'showPreview'])->middleware('auth')->name('wedding.preview.show');
 Route::get('/wedding-published', [WeddingDetailsController::class, 'showPublished'])->middleware('auth')->name('wedding.published.show');
+Route::get('/wedding/payment', [WeddingDetailsController::class, 'showPayment'])->middleware('auth')->name('wedding.payment.show');
+Route::post('/wedding/payment/process', [WeddingDetailsController::class, 'processPayment'])->middleware('auth')->name('wedding.payment.process');
+Route::get('/wedding/{slug}/pay', [WeddingDetailsController::class, 'initiatePayment'])->middleware('auth')->name('wedding.payment.initiate');
 Route::get('/invite/{slug}', [WeddingDetailsController::class, 'showPublicInvitation'])->name('wedding.public.show');
+Route::get('/my-cards', [WeddingDetailsController::class, 'myCards'])->middleware('auth')->name('my.cards');
+Route::get('/wedding/{slug}/edit', [WeddingDetailsController::class, 'edit'])->middleware('auth')->name('wedding.edit');
+Route::put('/wedding/{slug}', [WeddingDetailsController::class, 'updateAll'])->middleware('auth')->name('wedding.update.all');
 
 Route::get('/newland', function () {
     return view('new-landing');
