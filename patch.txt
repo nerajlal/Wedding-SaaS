@@ -1,0 +1,39 @@
+--- app/Http/Controllers/WeddingDetailsController.php
++++ app/Http/Controllers/WeddingDetailsController.php
+@@ -216,11 +216,21 @@
+     }
+ 
+-    public function showPublished()
++    public function showPublished(Request $request)
+     {
+-        if (!session()->has('wedding_slug')) {
+-            if (!session()->has('wedding_details')) {
+-                return redirect()->route('wedding.details.create');
+-            }
+-            // Fallback for older sessions without slug but have details
+-            $details = session('wedding_details');
+-            $slug = \Illuminate\Support\Str::slug($details['bride_name']) . '-' . \Illuminate\Support\Str::slug($details['groom_name']) . '-' . now()->format('YmdHis');
+-            $template = session('wedding_template', 'royal-scroll');
+-            $photo = session('wedding_photo');
+-        } else {
+-            $slug = session('wedding_slug');
+-        }
++        $slug = $request->query('slug');
++        
++        if (!$slug) {
++            if (!session()->has('wedding_slug')) {
++                if (!session()->has('wedding_details')) {
++                    return redirect()->route('wedding.details.create');
++                }
++                // Fallback for older sessions without slug but have details
++                $details = session('wedding_details');
++                $slug = \Illuminate\Support\Str::slug($details['bride_name']) . '-' . \Illuminate\Support\Str::slug($details['groom_name']) . '-' . now()->format('YmdHis');
++                $template = session('wedding_template', 'royal-scroll');
++                $photo = session('wedding_photo');
++            } else {
++                $slug = session('wedding_slug');
++            }
++        }
+ 
+         // Get real data if slug exists in DB
+         $invitation = \App\Models\Invitation::where('slug', $slug)->first();

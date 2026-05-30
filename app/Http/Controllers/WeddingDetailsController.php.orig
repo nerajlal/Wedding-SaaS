@@ -187,18 +187,28 @@ class WeddingDetailsController extends Controller
     /**
      * Show the published success sharing page.
      */
-    public function showPublished(Request $request)
+    public function showPublished()
     {
-        $slug = $request->query('slug');
-
-        if (!$slug) {
-            $slug = session('wedding_slug');
+        if (!session()->has('wedding_slug')) {
+            if (!session()->has('wedding_details')) {
+                return redirect()->route('wedding.details.create');
+            }
+            // Fallback for older sessions without slug but have details
+            $details = session('wedding_details');
+            $slug = \Illuminate\Support\Str::slug($details['bride_name']) . '-' . \Illuminate\Support\Str::slug($details['groom_name']) . '-' . now()->format('YmdHis');
+            $template = session('wedding_template', 'royal-scroll');
+            $photo = session('wedding_photo');
+            
+            \App\Models\Invitation::create(array_merge($details, [
+                'slug' => $slug,
+                'template' => $template,
+                'photo' => $photo,
+                'user_id' => auth()->id(),
+            ]));
+            session(['wedding_slug' => $slug]);
         }
 
-        if (!$slug) {
-            return redirect()->route('wedding.details.create');
-        }
-
+        $slug = session('wedding_slug');
         $invitation = \App\Models\Invitation::where('slug', $slug)->firstOrFail();
 
         $details = $invitation->toArray();
@@ -277,13 +287,6 @@ class WeddingDetailsController extends Controller
         }
 
         return view('wedding-public', compact('details', 'template', 'photo', 'invitation'));
-    }
-
-    public function destroy($slug)
-    {
-        $invitation = \App\Models\Invitation::where('slug', $slug)->where('user_id', auth()->id())->firstOrFail();
-        $invitation->delete();
-        return redirect()->route('my.cards')->with('success', 'Invitation deleted successfully!');
     }
 
     /**

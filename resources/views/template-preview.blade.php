@@ -335,146 +335,7 @@
             <div class="preview-content">
                 <div class="phone-mockup">
                     <div class="phone-island"></div>
-                    @if($template['id'] === 'royal-scroll')
-                        <div class="inv-royal">
-                            <p class="inv-royal-small">✦ Request the Honour ✦</p>
-                            <p style="font-size:.58rem;font-style:italic;color:rgba(197,155,39,.75);margin-bottom:.6rem">of your presence at the marriage of</p>
-                            <p class="inv-royal-names pv-bride">Bride Name</p>
-                            <p class="inv-royal-weds">&amp;</p>
-                            <p class="inv-royal-names pv-groom">Groom Name</p>
-                            <div class="inv-royal-divider"></div>
-                            <p class="inv-royal-detail pv-date">Your Wedding Date</p>
-                            <p class="inv-royal-detail pv-time" style="margin-top:.2rem">7:00 PM onwards</p>
-                            <div class="inv-royal-divider"></div>
-                            <p class="inv-royal-venue pv-venue">The Grand Palace</p>
-                            <p class="inv-royal-addr pv-addr">123 Royal Road, City</p>
-                            <p class="inv-royal-rsvp pv-rsvp">RSVP: Your Contact</p>
-                            <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
-                                <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
-                                <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
-                            </div>
-                        </div>
-                    @elseif($template['id'] === 'golden-minimalist')
-                        <div class="inv-minimalist">
-                            <p class="inv-min-mono"><span class="pv-bride-ini">B</span> &amp; <span class="pv-groom-ini">G</span></p>
-                            <p class="inv-min-sub">Join Us To Celebrate The Wedding Of</p>
-                            <p class="inv-min-names pv-bride">Bride Name</p>
-                            <p class="inv-min-amp">&amp;</p>
-                            <p class="inv-min-names pv-groom">Groom Name</p>
-                            <div class="inv-min-row">
-                                <div class="inv-min-col">
-                                    <div class="inv-min-col-label">Date</div>
-                                    <div class="inv-min-col-val pv-date">Dec 1, 2026</div>
-                                </div>
-                                <div style="width:1px;background:#e0e0e0;align-self:stretch"></div>
-                                <div class="inv-min-col">
-                                    <div class="inv-min-col-label">Time</div>
-                                    <div class="inv-min-col-val pv-time">7:00 PM</div>
-                                </div>
-                            </div>
-                            <p class="inv-min-venue pv-venue">The Grand Palace</p>
-                            <p class="inv-min-addr pv-addr">123 Royal Road, City</p>
-                            <p class="inv-min-rsvp pv-rsvp">RSVP: Your Contact</p>
-                            <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
-                                <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
-                                <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
-                            </div>
-                        </div>
-                    @elseif($template['id'] === 'garden-celestial')
-                        <div class="inv-celestial">
-                            <p class="inv-cel-stars">🌙 ✨ ⭐</p>
-                            <p class="inv-cel-sub">Under the starlit sky, join the wedding of</p>
-                            <p class="inv-cel-names pv-bride">Bride Name</p>
-                            <p class="inv-cel-amp">&amp;</p>
-                            <p class="inv-cel-names pv-groom">Groom Name</p>
-                            <div class="inv-cel-divider"></div>
-                            <p class="inv-cel-date pv-date">Friday · Dec 1, 2026</p>
-                            <p class="inv-cel-time pv-time">at 7:00 PM onwards</p>
-                            <div class="inv-cel-venue-box">
-                                <p class="inv-cel-venue-label">Celestial Venue</p>
-                                <p class="inv-cel-venue-name pv-venue">The Grand Palace</p>
-                                <p class="inv-cel-venue-addr pv-addr">123 Royal Road, City</p>
-                            </div>
-                            <p class="inv-cel-rsvp pv-rsvp">RSVP: Your Contact</p>
-                            <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
-                                <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
-                                <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
-                            </div>
-                        </div>
-                    @elseif($template['id'] === 'premium-vintage')
-                        <div class="inv-premium-vintage" style="background:#FAF8F5; width:100%; height:100%; display:flex; flex-direction:column; text-align:center; position:relative; overflow-y:auto; overflow-x:hidden; scrollbar-width: none;">
-                            <div style="background-color:#5A6D5C; height:40%; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#F0EAD6; padding:1rem; position:relative; z-index:1;">
-                                <img class="pv-main-img-src" src="{{ $invitation->main_image_url ?? '' }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
-                                <div style="position:absolute; inset:0; background:rgba(44,53,49,0.5); z-index:-1;"></div>
-                                <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; font-size:0.5rem; letter-spacing:2px; margin-bottom:0.5rem;">We are getting married</p>
-                                <p style="font-family:'Cormorant Garamond',serif; font-size:1.8rem; line-height:1;"><span class="pv-bride">Bride</span> <br>&<br> <span class="pv-groom">Groom</span></p>
-                                <p class="pv-date" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:1px; margin-top:0.5rem; padding:0.3rem 0; border-top:1px solid rgba(240,234,214,0.4); border-bottom:1px solid rgba(240,234,214,0.4);">Dec 1, 2026</p>
-                            </div>
-                            <div style="padding:1.5rem 1rem; background:#fff; flex:1;">
-                                <p style="font-family:'Pinyon Script',cursive; font-size:1.5rem; color:#5A6D5C; margin-bottom: 1rem;">The Couple</p>
-                                <div style="display:flex; justify-content:center; gap:1.5rem; margin-bottom:1.5rem;">
-                                    <div style="display:flex; flex-direction:column; align-items:center;">
-                                        <div style="width:70px; height:90px; border-radius:40px 40px 0 0; background-color:#eee; border:1px solid rgba(90, 109, 92, 0.2); padding: 2px; position:relative; overflow:hidden; margin-bottom: 0.5rem;">
-                                            <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; border-radius: 40px 40px 0 0; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
-                                        </div>
-                                        <p class="pv-bride" style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#2C3531; font-weight:600;">Bride</p>
-                                    </div>
-                                    <div style="display:flex; flex-direction:column; align-items:center;">
-                                        <div style="width:70px; height:90px; border-radius:40px 40px 0 0; background-color:#eee; border:1px solid rgba(90, 109, 92, 0.2); padding: 2px; position:relative; overflow:hidden; margin-bottom: 0.5rem;">
-                                            <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; border-radius: 40px 40px 0 0; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
-                                        </div>
-                                        <p class="pv-groom" style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#2C3531; font-weight:600;">Groom</p>
-                                    </div>
-                                </div>
-
-                                <div style="background:#5A6D5C; color:#F0EAD6; padding: 1.5rem 1rem; margin: 1rem -1rem;">
-                                    <p style="font-family:'Pinyon Script',cursive; font-size:1.3rem; color:#F0EAD6; margin-bottom: 0.2rem;">When & Where</p>
-                                    <div style="border: 1px solid rgba(240, 234, 214, 0.3); padding: 1rem; margin-top: 1rem;">
-                                        <p style="font-family:'Pinyon Script',cursive; font-size:1rem; color:#D4AF37; margin-bottom:0.2rem;">The Venue</p>
-                                        <p class="pv-venue" style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600;">The Grand Palace</p>
-                                        <p class="pv-addr" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; opacity:0.8;">123 Royal Road, City</p>
-                                        <p class="pv-time" style="font-family:'Montserrat',sans-serif; font-size:0.6rem; opacity:0.8; margin-top: 0.3rem;">7:00 PM</p>
-                                    </div>
-                                </div>
-
-                                <!-- GALLERY SECTION -->
-                                <div class="pv-gallery-container" style="{{ isset($invitation) && $invitation->galleries->count() > 0 ? 'display:block;' : 'display:none;' }} margin-bottom:2rem;">
-                                    <p style="font-family:'Pinyon Script',cursive; font-size:1.8rem; color:#5A6D5C; margin-bottom:0.2rem;">Memories</p>
-                                    <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:0.6rem; color:#D4AF37; margin-bottom: 1.5rem;">Captured moments</p>
-                                    <div class="pv-gallery-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem;">
-                                        <!-- Images injected via JS -->
-                                        @if(isset($invitation) && $invitation->galleries->count() > 0)
-                                            @foreach($invitation->galleries as $gallery)
-                                                <div style="aspect-ratio: 1; border-radius: 4px; overflow: hidden;">
-                                                    <img src="{{ $gallery->image_url }}" style="width: 100%; height: 100%; object-fit: cover;">
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <!-- RSVP SECTION -->
-                                <div style="background:#fff; padding: 3rem 1rem 1rem;">
-                                    <p style="font-family:'Pinyon Script',cursive; font-size:2rem; color:#5A6D5C; margin-bottom:0.2rem;">RSVP</p>
-                                    <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:0.6rem; color:#D4AF37; margin-bottom: 2rem;">We look forward to celebrating with you</p>
-                                    
-                                    <p style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#2C3531; margin-bottom: 1.5rem;">
-                                        Please confirm your attendance
-                                    </p>
-
-                                    <div style="background:rgba(212, 175, 55, 0.1); padding: 0.8rem 1.5rem; display:inline-block; border-radius:4px;">
-                                        <p class="pv-rsvp" style="font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:#2C3531; margin:0;">Contact: Your Contact</p>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.65rem; color: #888; padding-bottom: 1rem;">
-                                    <p style="margin-bottom: 0.2rem;">Created with love using <span style="color: #B89047; font-weight: 600;">Velvet Vows</span></p>
-                                    <p style="font-size: 0.55rem; opacity: 0.7;">Design your own beautiful digital invitation</p>
-                                </div>
-                            </div>
-                        </div>
-                    @else
-                        <img src="{{ $template['image'] }}" alt="{{ $template['name'] }} preview">
-                    @endif
+                    <iframe id="preview-iframe" src="{{ route('wedding.live.preview', ['template' => $template['id'], 'slug' => isset($invitation) ? $invitation->slug : '']) }}" style="width: 375px; height: 793px; transform: scale(0.78933); transform-origin: top left; border: none; overflow-y: auto; overflow-x: hidden; background: transparent;"></iframe>
                 </div>
             </div>
         </div>
@@ -693,30 +554,33 @@
             }
         }
 
-        // Live preview sync
-        const updateField = (inputId, targetClasses, prefix = '', suffix = '') => {
+        // Live preview sync to iframe
+        const getIframeTargets = (dataPreviewAttr) => {
+            const iframe = document.getElementById('preview-iframe');
+            if(!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return [];
+            return iframe.contentWindow.document.querySelectorAll(`[data-preview="${dataPreviewAttr}"]`);
+        };
+
+        const updateField = (inputId, dataPreviewAttr, prefix = '', suffix = '') => {
             const inp = document.getElementById(inputId);
             if (!inp) return;
             inp.addEventListener('input', (e) => {
                 const val = e.target.value.trim();
-                const targets = document.querySelectorAll(targetClasses);
+                const targets = getIframeTargets(dataPreviewAttr);
                 targets.forEach(t => {
+                    if(!t.getAttribute('data-default')) t.setAttribute('data-default', t.textContent);
                     if (val) t.textContent = prefix + val + suffix;
                     else t.textContent = t.getAttribute('data-default') || '...';
                 });
             });
-            // Init data-default
-            document.querySelectorAll(targetClasses).forEach(t => {
-                if(!t.getAttribute('data-default')) t.setAttribute('data-default', t.textContent);
-            });
         };
 
-        const updateInitial = (inputId, targetClasses) => {
+        const updateInitial = (inputId, dataPreviewAttr) => {
             const inp = document.getElementById(inputId);
             if (!inp) return;
             inp.addEventListener('input', (e) => {
                 const val = e.target.value.trim();
-                const targets = document.querySelectorAll(targetClasses);
+                const targets = getIframeTargets(dataPreviewAttr);
                 targets.forEach(t => {
                     if (val) t.textContent = val.charAt(0).toUpperCase();
                     else t.textContent = '·';
@@ -724,18 +588,32 @@
             });
         };
 
-        updateField('inp-bride', '.pv-bride');
-        updateField('inp-groom', '.pv-groom');
-        updateInitial('inp-bride', '.pv-bride-ini');
-        updateInitial('inp-groom', '.pv-groom-ini');
-        updateField('inp-date', '.pv-date');
-        updateField('inp-time', '.pv-time', '', ' onwards');
-        updateField('inp-venue', '.pv-venue');
-        updateField('inp-addr', '.pv-addr');
-        updateField('inp-rsvp', '.pv-rsvp', 'RSVP: ');
+        updateField('inp-bride', 'bride_name');
+        updateField('inp-groom', 'groom_name');
+        updateInitial('inp-bride', 'bride_name_initial');
+        updateInitial('inp-groom', 'groom_name_initial');
+        
+        // Date formatting handled by standard text update for now (or standard formatting in preview)
+        // Since we are taking "YYYY-MM-DD", we can format it nicely
+        const dateInp = document.getElementById('inp-date');
+        if (dateInp) {
+            dateInp.addEventListener('input', (e) => {
+                const val = e.target.value;
+                if (!val) return;
+                const dateObj = new Date(val);
+                const formatted = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const targets = getIframeTargets('wedding_date');
+                targets.forEach(t => t.textContent = formatted);
+            });
+        }
+
+        updateField('inp-time', 'time');
+        updateField('inp-venue', 'venue_name');
+        updateField('inp-addr', 'venue_address');
+        updateField('inp-rsvp', 'rsvp_contact');
 
         // Image File Previewer
-        const updateImageUrl = (inputId, targetClasses, isBg = false) => {
+        const updateImageUrl = (inputId, targetSelector) => {
             const inp = document.getElementById(inputId);
             if (!inp) return;
             inp.addEventListener('change', (e) => {
@@ -743,21 +621,29 @@
                 if (!file) return;
                 
                 const objectUrl = URL.createObjectURL(file);
-                const targets = document.querySelectorAll(targetClasses);
-                targets.forEach(t => {
-                    if (isBg) t.style.backgroundImage = `url('${objectUrl}')`;
-                    else t.src = objectUrl;
-                });
+                const iframe = document.getElementById('preview-iframe');
+                if(!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return;
+                
+                const target = iframe.contentWindow.document.querySelector(targetSelector);
+                if (target) {
+                    if (target.tagName === 'IMG') target.src = objectUrl;
+                    else target.style.backgroundImage = `url('${objectUrl}')`;
+                }
             });
         };
 
         // Live preview for gallery
         const updateGalleryPreview = () => {
             const galleryInputs = document.querySelectorAll('input[name="gallery_images[]"]');
-            const grid = document.querySelector('.pv-gallery-grid');
-            const container = document.querySelector('.pv-gallery-container');
-            if (!grid || !container) return;
-
+            const iframe = document.getElementById('preview-iframe');
+            if(!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return;
+            
+            const grid = iframe.contentWindow.document.querySelector('.gallery-grid');
+            if (!grid) return; // Some templates don't have gallery
+            
+            // Note: In premium-vintage, it's called .gallery-grid, but we need to ensure visibility
+            // The section containing it might be hidden if no images existed on load.
+            // But we can just inject into grid.
             grid.innerHTML = '';
             let hasImages = false;
 
@@ -766,21 +652,23 @@
                     hasImages = true;
                     const objectUrl = URL.createObjectURL(inp.files[0]);
                     const div = document.createElement('div');
-                    div.style.aspectRatio = '1';
-                    div.style.borderRadius = '4px';
-                    div.style.overflow = 'hidden';
+                    div.className = 'gallery-item';
                     const img = document.createElement('img');
                     img.src = objectUrl;
+                    img.className = 'gallery-img';
                     img.style.width = '100%';
                     img.style.height = '100%';
                     img.style.objectFit = 'cover';
                     div.appendChild(img);
                     grid.appendChild(div);
                 }
-            });
+            }); // Close forEach
 
-            if (hasImages) container.style.display = 'block';
-            else container.style.display = 'none';
+            // Show the section if images exist
+            const section = grid.closest('.gallery-section');
+            if (section) {
+                section.style.display = hasImages ? '' : 'none';
+            }
         };
 
         document.getElementById('gallery-container').addEventListener('change', (e) => {
@@ -789,9 +677,10 @@
             }
         });
 
-        updateImageUrl('inp-main-img', '.pv-main-img-src', false);
-        updateImageUrl('inp-bride-img', '.pv-bride-img-src', false);
-        updateImageUrl('inp-groom-img', '.pv-groom-img-src', false);
+        // The image URLs are now updated using: updateImageUrl(inputId, targetSelector)
+        updateImageUrl('inp-main-img', '.pv-main-img-src');
+        updateImageUrl('inp-bride-img', '.pv-bride-img-src');
+        updateImageUrl('inp-groom-img', '.pv-groom-img-src');
 
         // trigger input to sync initial values if any
         ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp', 'inp-main-img', 'inp-bride-img', 'inp-groom-img'].forEach(id => {

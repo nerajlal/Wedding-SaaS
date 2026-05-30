@@ -142,6 +142,13 @@
                     <div class="inv-card theme-{{ $inv->template }}">
                         <div class="inv-card-visual">
                             <div class="inv-theme-badge">{{ ucwords(str_replace('-', ' ', $inv->template)) }}</div>
+                            <form action="{{ route('wedding.destroy', $inv->slug) }}" method="POST" style="position: absolute; top: 1rem; right: 1rem; z-index: 10;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="background: rgba(220,53,69,0.9); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s;" onclick="return confirm('Are you sure you want to delete this invitation?');" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
                             <div class="inv-names">{{ $inv->bride_name }} & {{ $inv->groom_name }}</div>
                         </div>
                         <div class="inv-card-body">
@@ -159,7 +166,7 @@
                                     <i class="bi bi-pencil"></i> 
                                 </a>
                                 @if($inv->is_paid)
-                                    <a href="{{ route('wedding.public.show', $inv->slug) }}" target="_blank" class="btn-card-action btn-view">
+                                    <a href="{{ route('wedding.published.show', ['slug' => $inv->slug]) }}" class="btn-card-action btn-view">
                                         <i class="bi bi-eye"></i> View
                                     </a>
                                     <button onclick="navigator.clipboard.writeText('{{ url('/invite/'.$inv->slug) }}'); alert('Link copied!');" class="btn-card-action btn-share">

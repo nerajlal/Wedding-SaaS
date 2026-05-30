@@ -98,49 +98,49 @@
                 @if(!empty($photo))
                     <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;border:2px solid #B89047;margin:0 auto 1rem;"><img src="{{ $photo }}" style="width:100%;height:100%;object-fit:cover"></div>
                 @endif
-                <p class="inv-royal-names">{{ $details['bride_name'] }}</p>
+                <p class="inv-royal-names" data-preview="bride_name">{{ $details['bride_name'] }}</p>
                 <p class="inv-royal-weds">&amp;</p>
-                <p class="inv-royal-names">{{ $details['groom_name'] }}</p>
+                <p class="inv-royal-names" data-preview="groom_name">{{ $details['groom_name'] }}</p>
                 <div class="inv-royal-divider"></div>
-                <p class="inv-royal-detail">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('l · j F Y') }}</p>
-                <p class="inv-royal-detail" style="margin-top:.3rem">{{ $details['time'] }} onwards</p>
+                <p class="inv-royal-detail" data-preview="wedding_date">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('l · j F Y') }}</p>
+                <p class="inv-royal-detail" style="margin-top:.3rem"><span data-preview="time">{{ $details['time'] }}</span> onwards</p>
                 <div class="inv-royal-divider"></div>
-                <p class="inv-royal-venue">{{ $details['venue_name'] }}</p>
-                <p class="inv-royal-addr">{{ $details['venue_address'] }}</p>
-                <p class="inv-royal-rsvp">
+                <p class="inv-royal-venue" data-preview="venue_name">{{ $details['venue_name'] }}</p>
+                <p class="inv-royal-addr" data-preview="venue_address">{{ $details['venue_address'] }}</p>
+                <p class="inv-royal-rsvp" data-preview="rsvp_contact">
                     @if(isset($details['rsvp_deadline']))
                         RSVP by {{ \Carbon\Carbon::parse($details['rsvp_deadline'])->format('j F') }} &bull; {{ $details['rsvp_contact'] }}
                     @else
                         RSVP: {{ $details['rsvp_contact'] }}
                     @endif
                 </p>
-                <p class="inv-royal-msg">✦ {{ $details['personal_message'] ?? 'With joy in our hearts, we welcome you' }} ✦</p>
+                <p class="inv-royal-msg" data-preview="personal_message">✦ {{ $details['personal_message'] ?? 'With joy in our hearts, we welcome you' }} ✦</p>
             </div>
 
         @elseif($template === 'golden-minimalist')
             <div class="inv-minimalist">
-                <p class="inv-min-mono">{{ substr($details['bride_name'],0,1) }} &amp; {{ substr($details['groom_name'],0,1) }}</p>
+                <p class="inv-min-mono"><span data-preview="bride_name_initial">{{ substr($details['bride_name'],0,1) }}</span> &amp; <span data-preview="groom_name_initial">{{ substr($details['groom_name'],0,1) }}</span></p>
                 @if(!empty($photo))
                     <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;border:2px solid #B89047;margin:0 auto 1rem;"><img src="{{ $photo }}" style="width:100%;height:100%;object-fit:cover"></div>
                 @endif
                 <p class="inv-min-sub">Join Us To Celebrate The Wedding Of</p>
-                <p class="inv-min-names">{{ $details['bride_name'] }}</p>
+                <p class="inv-min-names" data-preview="bride_name">{{ $details['bride_name'] }}</p>
                 <p class="inv-min-amp">&amp;</p>
-                <p class="inv-min-names">{{ $details['groom_name'] }}</p>
+                <p class="inv-min-names" data-preview="groom_name">{{ $details['groom_name'] }}</p>
                 <div class="inv-min-row">
                     <div class="inv-min-col">
                         <div class="inv-min-col-label">Date</div>
-                        <div class="inv-min-col-val">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('M j, Y') }}</div>
+                        <div class="inv-min-col-val" data-preview="wedding_date">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('M j, Y') }}</div>
                     </div>
                     <div style="width:1px;background:#e0e0e0;align-self:stretch"></div>
                     <div class="inv-min-col">
                         <div class="inv-min-col-label">Time</div>
-                        <div class="inv-min-col-val">{{ $details['time'] }}</div>
+                        <div class="inv-min-col-val" data-preview="time">{{ $details['time'] }}</div>
                     </div>
                 </div>
-                <p class="inv-min-venue">{{ $details['venue_name'] }}</p>
-                <p class="inv-min-addr">{{ $details['venue_address'] }}</p>
-                <p class="inv-min-rsvp">RSVP: {{ $details['rsvp_contact'] }}</p>
+                <p class="inv-min-venue" data-preview="venue_name">{{ $details['venue_name'] }}</p>
+                <p class="inv-min-addr" data-preview="venue_address">{{ $details['venue_address'] }}</p>
+                <p class="inv-min-rsvp" data-preview="rsvp_contact">RSVP: {{ $details['rsvp_contact'] }}</p>
                 @if($details['personal_message'] ?? false)
                     <p style="font-size:.9rem;color:#999;font-style:italic;margin-top:1rem">"{{ $details['personal_message'] }}"</p>
                 @endif
@@ -153,18 +153,18 @@
                     <div style="width:100px;height:100px;border-radius:50%;overflow:hidden;border:2px solid rgba(232,197,90,.6);margin:0 auto 1rem;"><img src="{{ $photo }}" style="width:100%;height:100%;object-fit:cover"></div>
                 @endif
                 <p class="inv-cel-sub">Under the starlit sky, join the wedding of</p>
-                <p class="inv-cel-names">{{ $details['bride_name'] }}</p>
+                <p class="inv-cel-names" data-preview="bride_name">{{ $details['bride_name'] }}</p>
                 <p class="inv-cel-amp">&amp;</p>
-                <p class="inv-cel-names">{{ $details['groom_name'] }}</p>
+                <p class="inv-cel-names" data-preview="groom_name">{{ $details['groom_name'] }}</p>
                 <div class="inv-cel-divider"></div>
-                <p class="inv-cel-date">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('l · F j, Y') }}</p>
-                <p class="inv-cel-time">at {{ $details['time'] }} onwards</p>
+                <p class="inv-cel-date" data-preview="wedding_date">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('l · F j, Y') }}</p>
+                <p class="inv-cel-time">at <span data-preview="time">{{ $details['time'] }}</span> onwards</p>
                 <div class="inv-cel-venue-box">
                     <p class="inv-cel-venue-label">Celestial Venue</p>
-                    <p class="inv-cel-venue-name">{{ $details['venue_name'] }}</p>
-                    <p class="inv-cel-venue-addr">{{ $details['venue_address'] }}</p>
+                    <p class="inv-cel-venue-name" data-preview="venue_name">{{ $details['venue_name'] }}</p>
+                    <p class="inv-cel-venue-addr" data-preview="venue_address">{{ $details['venue_address'] }}</p>
                 </div>
-                <p class="inv-cel-rsvp">RSVP: {{ $details['rsvp_contact'] }}</p>
+                <p class="inv-cel-rsvp" data-preview="rsvp_contact">RSVP: {{ $details['rsvp_contact'] }}</p>
                 @if($details['personal_message'] ?? false)
                     <p class="inv-cel-msg">"{{ $details['personal_message'] }}"</p>
                 @endif

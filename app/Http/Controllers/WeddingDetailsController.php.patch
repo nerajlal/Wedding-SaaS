@@ -1,0 +1,15 @@
+--- app/Http/Controllers/WeddingDetailsController.php
++++ app/Http/Controllers/WeddingDetailsController.php
+@@ -321,6 +321,13 @@
+         return redirect()->route('my.cards')->with('success', 'Invitation updated successfully!');
+     }
+ 
++    public function destroy($slug)
++    {
++        $invitation = \App\Models\Invitation::where('slug', $slug)->where('user_id', auth()->id())->firstOrFail();
++        $invitation->delete();
++        return redirect()->route('my.cards')->with('success', 'Invitation deleted successfully!');
++    }
++
+     /**
+      * Show the legacy 3-step creation wizard form.

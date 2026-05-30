@@ -248,7 +248,7 @@
                                 <a href="mailto:?subject={{ urlencode('Wedding Invitation') }}&body={{ urlencode('We invite you to join us on our special day! View details here: '.$publicUrl) }}" class="btn-share em">
                                     <i class="bi bi-envelope-fill"></i> Email Invite
                                 </a>
-                                <a href="{{ route('wedding.details.create') }}" class="btn-share" style="color:var(--gold-dark)">
+                                <a href="{{ route('wedding.edit', $slug) }}" class="btn-share" style="color:var(--gold-dark)">
                                     <i class="bi bi-pencil-square"></i> Edit Details
                                 </a>
                             </div>
@@ -258,14 +258,14 @@
 
             </div>
             
-            <div class="actions-bar">
+            <!-- <div class="actions-bar">
                 <a href="{{ route('my.cards') }}" class="btn-edit">
                     <i class="bi bi-arrow-left"></i> Back to Dashboard
                 </a>
                 <div style="font-size:.85rem; color:var(--text-muted); font-weight:600;">
                     ✦ velvetvows.com ✦
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 
