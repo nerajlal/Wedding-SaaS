@@ -3,13 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
+// Named 'login' so Laravel's auth middleware redirects here (to home, where modal lives)
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('login');
 
+// Old /signin route redirects back to home
 Route::get('/signin', function () {
-    return view('signin');
-})->name('login'); // Name this route 'login' as auth middleware redirects here by default
+    return redirect('/');
+});
 
 Route::post('/signin', [LoginController::class, 'login'])->name('signin.process');
 

@@ -6,34 +6,42 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
     /**
-     * Handle the email-based login flow.
+     * Handle the email + password login flow.
      */
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email'
+            'email'    => 'required|email',
+            'password' => 'required|string',
         ]);
 
-        $email = $request->input('email');
+        $email    = $request->input('email');
+        $password = $request->input('password');
 
-        // Find the user by email or create a new one
-        $user = User::firstOrCreate(
-            ['email' => $email],
-            [
-                'name' => explode('@', $email)[0], // Use part of email as name
-                'password' => bcrypt(Str::random(16)), // Use a random password to prevent non-nullable database constraints
-            ]
-        );
+        // ── Hardcoded admin credentials (temporary) ──────────────────────────
+        // TODO: Remove this block and integrate proper auth later.
+        if ($email === 'admin@gmail.com' && $password === 'password') {
+            $user = User::firstOrCreate(
+                ['email' => $email],
+                [
+                    'name'     => 'Admin',
+                    'password' => bcrypt('password'),
+                ]
+            );
+            Auth::login($user, true);
+            return redirect()->intended(route('wedding.details.create'));
+        }
+        // ─────────────────────────────────────────────────────────────────────
 
-        // Log the user in
-        Auth::login($user, true); // true for "remember me"
-
-        // Redirect to the intended page or wedding details
-        return redirect()->intended(route('wedding.details.create'));
+        // Return to home page with an error — modal will auto-open via @if($errors->any())
+        return redirect('/')->withErrors([
+            'email' => 'Invalid email or password. Please try again.',
+        ])->withInput($request->only('email'));
     }
 }

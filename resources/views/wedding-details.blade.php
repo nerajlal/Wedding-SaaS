@@ -3,338 +3,475 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Velvet Vows - Wedding Details (Step 1)</title>
-    <!-- Use Tailwind CSS CDN for quick setup if assets aren't built yet. -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <!-- Flatpickr (beautiful calendar date picker) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>Velvet Vows — Your Wedding Details</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <style>
+        :root {
+            --gold-dark:     #8C6D3B;
+            --gold-primary:  #B89047;
+            --gold-light:    #DFCA9B;
+            --cream-base:    #FFFDF9;
+            --cream-dark:    #F7F3EB;
+            --text-dark:     #2A241E;
+            --text-muted:    #7A7065;
+            --border-gold:   rgba(184,144,71,0.18);
+            --font-display:  'Outfit', sans-serif;
+            --font-body:     'Inter', sans-serif;
+            --font-serif:    'Cormorant Garamond', serif;
+            --ease:          cubic-bezier(0.16,1,0.3,1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            background-color: #FFFFFF; /* Matches the sign-in page background */
+            font-family: var(--font-body);
+            background: var(--cream-dark);
+            min-height: 100vh;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        /* Flatpickr Custom Theme Styling to match Velvet Vows */
+
+        /* Decorative background */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background:
+                radial-gradient(circle at 80% 10%, rgba(184,144,71,0.07) 0%, transparent 55%),
+                radial-gradient(circle at 15% 90%, rgba(184,144,71,0.05) 0%, transparent 45%);
+            pointer-events: none; z-index: 0;
+        }
+
+        /* ── Step header bar ─────────────────────────────────── */
+        .step-header {
+            width: 100%; position: sticky; top: 0; z-index: 100;
+            background: rgba(255,253,249,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 1rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+            animation: fadeDown .5s var(--ease) both;
+        }
+        @keyframes fadeDown {
+            from { opacity:0; transform:translateY(-12px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .step-brand {
+            font-family: var(--font-display);
+            font-weight: 800; font-size: 1.1rem;
+            color: var(--text-dark);
+            display: flex; align-items: center; gap: .5rem;
+            text-decoration: none;
+        }
+        .step-brand span { color: var(--gold-primary); }
+        .step-brand-icon {
+            width: 32px; height: 32px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: .85rem;
+        }
+        .step-info {
+            display: flex; align-items: center; gap: .75rem;
+        }
+        .step-label {
+            font-size: .78rem; font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: .8px;
+        }
+        .step-pills {
+            display: flex; gap: .35rem;
+        }
+        .step-pill {
+            width: 28px; height: 5px; border-radius: 99px;
+            background: rgba(184,144,71,0.15);
+        }
+        .step-pill.active { background: var(--gold-primary); }
+
+        /* ── Main card ───────────────────────────────────────── */
+        .main-card {
+            position: relative; z-index: 1;
+            width: 100%; max-width: 560px;
+            background: var(--cream-base);
+            border: 1.5px solid var(--border-gold);
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(140,109,59,0.08);
+            margin: 2rem 1rem 4rem;
+            overflow: hidden;
+            animation: riseUp .7s var(--ease) .1s both;
+        }
+        @keyframes riseUp {
+            from { opacity:0; transform:translateY(28px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+        .card-top {
+            padding: 2.2rem 2.4rem 1.8rem;
+            border-bottom: 1px solid var(--border-gold);
+        }
+        .card-top h1 {
+            font-family: var(--font-display);
+            font-size: 1.55rem; font-weight: 800;
+            color: var(--text-dark); letter-spacing: -.3px;
+            margin-bottom: .3rem;
+        }
+        .card-top h1 span { color: var(--gold-primary); }
+        .card-top p {
+            font-size: .9rem; color: var(--text-muted);
+            font-family: var(--font-serif); font-style: italic;
+        }
+        .card-body { padding: 2rem 2.4rem 2.4rem; }
+
+        /* ── Form field styles ───────────────────────────────── */
+        .field-section-title {
+            font-size: .72rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: var(--gold-dark);
+            margin: 1.6rem 0 1rem;
+            display: flex; align-items: center; gap: .5rem;
+        }
+        .field-section-title::after {
+            content: ''; flex: 1;
+            height: 1px; background: var(--border-gold);
+        }
+        .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .field-full { margin-bottom: 1rem; }
+        .field-group { position: relative; }
+        .field-label {
+            display: block;
+            font-size: .76rem; font-weight: 700;
+            color: var(--gold-dark);
+            text-transform: uppercase; letter-spacing: .7px;
+            margin-bottom: .4rem;
+        }
+        .optional-tag {
+            font-size: .67rem; font-weight: 400;
+            text-transform: none; letter-spacing: 0;
+            color: var(--text-muted); font-style: italic;
+        }
+        .field-input {
+            width: 100%;
+            padding: .82rem 1rem .82rem 2.75rem;
+            border: 1.5px solid var(--border-gold);
+            border-radius: 12px;
+            background: #fff;
+            font-family: var(--font-body);
+            font-size: .94rem; color: var(--text-dark);
+            outline: none;
+            transition: all .28s var(--ease);
+        }
+        .field-input.no-icon { padding-left: 1rem; }
+        .field-input::placeholder { color: var(--text-muted); opacity: .6; }
+        .field-input:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 4px rgba(184,144,71,0.09);
+        }
+        .field-input-icon {
+            position: absolute;
+            left: .9rem; bottom: 0;
+            height: 46px; /* match input height */
+            display: flex; align-items: center;
+            color: var(--gold-light); font-size: .95rem;
+            transition: color .25s; pointer-events: none;
+        }
+        .field-group:focus-within .field-input-icon { color: var(--gold-primary); }
+        textarea.field-input { padding-left: 1rem; resize: none; }
+        select.field-input { padding-left: 1rem; appearance: none; cursor: pointer; }
+        .select-wrapper { position: relative; }
+        .select-caret {
+            position: absolute; right: .9rem; top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-light); font-size: .8rem;
+            pointer-events: none;
+        }
+
+        /* ── Photo dropzone ──────────────────────────────────── */
+        .photo-dropzone {
+            border: 2px dashed rgba(184,144,71,0.28);
+            border-radius: 14px;
+            background: rgba(184,144,71,0.03);
+            padding: 1.6rem 1rem;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: .5rem;
+            cursor: pointer;
+            transition: all .28s var(--ease);
+        }
+        .photo-dropzone:hover {
+            background: rgba(184,144,71,0.07);
+            border-color: var(--gold-primary);
+        }
+        .photo-dropzone.drag-over {
+            background: rgba(184,144,71,0.1);
+            border-color: var(--gold-primary);
+        }
+        .dropzone-icon {
+            width: 40px; height: 40px; border-radius: 12px;
+            background: rgba(184,144,71,0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold-primary); font-size: 1.1rem;
+        }
+        .dropzone-text { font-size: .85rem; color: var(--gold-dark); font-weight: 600; }
+        .dropzone-hint { font-size: .74rem; color: var(--text-muted); }
+
+        /* ── Error alert ──────────────────────────────────────── */
+        .error-alert {
+            display: flex; gap: .6rem;
+            padding: .9rem 1.1rem;
+            background: rgba(184,144,71,0.06);
+            border: 1px solid rgba(184,144,71,0.22);
+            border-radius: 12px;
+            margin-bottom: 1.4rem;
+        }
+        .error-alert-icon { color: var(--gold-dark); font-size: 1.05rem; margin-top: .05rem; }
+        .error-alert ul { margin: .3rem 0 0 .5rem; padding: 0; list-style: disc inside; }
+        .error-alert li { font-size: .84rem; color: var(--gold-dark); font-weight: 500; }
+
+        /* ── Submit button ───────────────────────────────────── */
+        .btn-continue {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+            border: none; border-radius: 99px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-weight: 700; font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(184,144,71,0.24);
+            display: flex; align-items: center; justify-content: center;
+            gap: .5rem;
+            transition: all .3s var(--ease);
+            margin-top: 1.6rem;
+        }
+        .btn-continue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(184,144,71,0.32);
+        }
+        .btn-continue:active { transform: scale(.98); }
+
+        /* ── Flatpickr reskin ────────────────────────────────── */
         .flatpickr-calendar {
-            background: #FDF9F1 !important;
-            border: 2px solid #D4AF37 !important;
-            box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.2) !important;
-            font-family: 'Lato', sans-serif;
-            border-radius: 1rem !important;
-        }
-        .flatpickr-day.selected, 
-        .flatpickr-day.startRange, 
-        .flatpickr-day.endRange, 
-        .flatpickr-day.selected.inRange, 
-        .flatpickr-day.startRange.inRange, 
-        .flatpickr-day.endRange.inRange, 
-        .flatpickr-day.selected:focus, 
-        .flatpickr-day.startRange:focus, 
-        .flatpickr-day.endRange:focus, 
-        .flatpickr-day.selected:hover, 
-        .flatpickr-day.startRange:hover, 
-        .flatpickr-day.endRange:hover, 
-        .flatpickr-day.prevMonthDay.selected, 
-        .flatpickr-day.nextMonthDay.selected {
-            background: #C59B27 !important;
-            border-color: #C59B27 !important;
-            color: #fff !important;
-        }
-        .flatpickr-day:hover {
-            background: #F5E6A3 !important;
+            background: var(--cream-base) !important;
+            border: 1.5px solid var(--border-gold) !important;
+            box-shadow: 0 12px 30px rgba(140,109,59,0.12) !important;
+            border-radius: 16px !important;
+            font-family: var(--font-body);
         }
         .flatpickr-months .flatpickr-month {
-            background: #1A1A1A !important;
-            color: #C59B27 !important;
-            border-top-left-radius: 0.8rem;
-            border-top-right-radius: 0.8rem;
+            background: var(--text-dark) !important;
+            color: var(--gold-primary) !important;
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
         }
-        .flatpickr-current-month .flatpickr-monthDropdown-months {
-            background: #1A1A1A !important;
-            color: #C59B27 !important;
+        .flatpickr-current-month .flatpickr-monthDropdown-months,
+        .flatpickr-monthDropdown-month { background: var(--text-dark) !important; color: var(--gold-primary) !important; }
+        .flatpickr-current-month input.cur-year { color: var(--gold-primary) !important; }
+        .flatpickr-months .flatpickr-prev-month,
+        .flatpickr-months .flatpickr-next-month { color: var(--gold-primary) !important; fill: var(--gold-primary) !important; }
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+            background: var(--gold-primary) !important;
+            border-color: var(--gold-primary) !important; color: #fff !important;
         }
-        .flatpickr-monthDropdown-month {
-            background: #1A1A1A !important;
-            color: #C59B27 !important;
-        }
-        .flatpickr-current-month input.cur-year {
-            color: #C59B27 !important;
-        }
-        .flatpickr-months .flatpickr-prev-month, .flatpickr-months .flatpickr-next-month {
-            color: #C59B27 !important;
-            fill: #C59B27 !important;
-        }
-        .flatpickr-months .flatpickr-prev-month:hover, .flatpickr-months .flatpickr-next-month:hover {
-            color: #fff !important;
-        }
-        span.flatpickr-weekday {
-            color: #857B72 !important;
-            font-weight: bold;
-        }
-        
-        .form-label {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            font-weight: 700;
-            color: #C59B27;
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-        .form-input {
-            font-family: 'Lato', sans-serif;
-            width: 100%;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            color: #4b5563;
-            outline: none;
-            transition: border-color 0.2s ease;
-            background-color: #fff;
-        }
-        .form-input:focus {
-            border-color: #C59B27;
-        }
-        /* Custom styling for the optional tag */
-        .optional-tag {
-            color: #9ca3af;
-            text-transform: lowercase;
-            font-family: 'Lato', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 0;
-            font-weight: 400;
+        .flatpickr-day:hover { background: rgba(184,144,71,0.12) !important; }
+        span.flatpickr-weekday { color: var(--text-muted) !important; font-weight: 700; }
+
+        /* ── Responsive ──────────────────────────────────────── */
+        @media (max-width: 520px) {
+            .main-card { margin: 1rem .75rem 3rem; border-radius: 20px; }
+            .card-top { padding: 1.6rem 1.4rem 1.2rem; }
+            .card-body { padding: 1.4rem 1.4rem 1.8rem; }
+            .field-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 antialiased">
+<body>
 
-    <!-- Device Frame / Main Container -->
-    <div class="w-full max-w-[420px] bg-[#FDF9F1] rounded-[2.5rem] shadow-2xl overflow-hidden relative border-8 border-[#1A1A1A]">
-        
-        <!-- Header Section -->
-        <div class="bg-[#1A1A1A] pt-10 pb-4 px-6 text-center">
-            <h1 class="font-['Playfair_Display'] text-[1.4rem] font-bold text-[#C59B27] tracking-wide mb-1">Your Wedding Details</h1>
-            <p class="font-['Lato'] text-[#857B72] text-xs mb-4">Step 1 of 3</p>
-            
-            <!-- Progress Bar -->
-            <div class="flex gap-2 w-full max-w-[280px] mx-auto">
-                <div class="h-1 flex-1 bg-[#C59B27] rounded-full"></div>
-                <div class="h-1 flex-1 bg-[#3A3324] rounded-full"></div>
-                <div class="h-1 flex-1 bg-[#3A3324] rounded-full"></div>
+    <!-- Step Header -->
+    <header class="step-header">
+        <a class="step-brand" href="{{ url('/') }}">
+            <div class="step-brand-icon"><i class="bi bi-heart-fill"></i></div>
+            <span>Velvet</span>&nbsp;Vows
+        </a>
+        <div class="step-info">
+            <span class="step-label">Step 1 of 3</span>
+            <div class="step-pills">
+                <div class="step-pill active"></div>
+                <div class="step-pill"></div>
+                <div class="step-pill"></div>
             </div>
         </div>
+    </header>
 
-        <!-- Form Section -->
-        <form action="{{ route('wedding.details.store') }}" method="POST" enctype="multipart/form-data" class="p-6 pb-28 space-y-5">
-            @csrf
-            
+    <!-- Main Card -->
+    <div class="main-card">
+        <div class="card-top">
+            <h1>Your <span>Wedding</span> Details</h1>
+            <p>Fill in the details below and we'll build your invitation instantly</p>
+        </div>
+
+        <div class="card-body">
+            <!-- Error block -->
             @if ($errors->any())
-                <div class="bg-red-50 border-2 border-red-200 p-4 rounded-xl">
-                    <div class="flex gap-2">
-                        <span class="text-red-500 font-bold">⚠️</span>
-                        <div>
-                            <p class="text-xs font-bold text-red-800 uppercase tracking-wider">Please fill in all required fields:</p>
-                            <ul class="mt-1 list-disc list-inside text-[0.7rem] text-red-700 font-medium space-y-0.5">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                <div class="error-alert">
+                    <i class="bi bi-exclamation-circle-fill error-alert-icon"></i>
+                    <div>
+                        <strong style="font-size:.84rem;color:var(--gold-dark)">Please fix the following:</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             @endif
-            
-            <div class="grid grid-cols-2 gap-4">
-                <!-- Bride's Name -->
-                <div>
-                    <label class="form-label">Bride's Name</label>
-                    <input type="text" name="bride_name" class="form-input border-[#C59B27]" value="{{ old('bride_name') }}" placeholder="Enter name..." autocomplete="new-password" required>
-                </div>
-                <!-- Groom's Name -->
-                <div>
-                    <label class="form-label">Groom's Name</label>
-                    <input type="text" name="groom_name" class="form-input" value="{{ old('groom_name') }}" placeholder="Enter name..." autocomplete="new-password" required>
-                </div>
-            </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <!-- Wedding Date -->
-                <div>
-                    <label class="form-label">Wedding Date</label>
-                    <input type="text" name="wedding_date" class="form-input datepicker" value="{{ old('wedding_date') }}" placeholder="Pick date..." required>
+            <form action="{{ route('wedding.details.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                @csrf
+
+                <!-- Couple Names -->
+                <div class="field-section-title">Couple Names</div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label class="field-label">Bride's Name</label>
+                        <div style="position:relative">
+                            <i class="bi bi-person-heart field-input-icon"></i>
+                            <input type="text" name="bride_name" class="field-input" value="{{ old('bride_name') }}" placeholder="Enter name…" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Groom's Name</label>
+                        <div style="position:relative">
+                            <i class="bi bi-person-heart field-input-icon"></i>
+                            <input type="text" name="groom_name" class="field-input" value="{{ old('groom_name') }}" placeholder="Enter name…" autocomplete="off" required>
+                        </div>
+                    </div>
                 </div>
-                <!-- Time -->
-                <div>
-                    <label class="form-label">Time</label>
-                    <input type="text" name="time" class="form-input timepicker" value="{{ old('time') }}" placeholder="7:00 PM" required>
+
+                <!-- Date & Time -->
+                <div class="field-section-title">Date &amp; Time</div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label class="field-label">Wedding Date</label>
+                        <div style="position:relative">
+                            <i class="bi bi-calendar-heart field-input-icon"></i>
+                            <input type="text" name="wedding_date" class="field-input datepicker" value="{{ old('wedding_date') }}" placeholder="Pick a date…" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">Start Time</label>
+                        <div style="position:relative">
+                            <i class="bi bi-clock field-input-icon"></i>
+                            <input type="text" name="time" class="field-input timepicker" value="{{ old('time') }}" placeholder="7:00 PM" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Venue Name -->
-            <div>
-                <label class="form-label">Venue Name</label>
-                <input type="text" name="venue_name" class="form-input" value="{{ old('venue_name') }}" placeholder="Enter venue name..." autocomplete="new-password" required>
-            </div>
-
-            <!-- Venue Address -->
-            <div>
-                <label class="form-label">Venue Address</label>
-                <textarea name="venue_address" rows="2" class="form-input resize-none" placeholder="Street / Area...&#10;City, State" required>{{ old('venue_address') }}</textarea>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <!-- RSVP Deadline -->
-                <div>
-                    <label class="form-label">RSVP Deadline <span class="optional-tag">(optional)</span></label>
-                    <input type="text" name="rsvp_deadline" class="form-input datepicker" value="{{ old('rsvp_deadline') }}" placeholder="Pick date...">
+                <!-- Venue -->
+                <div class="field-section-title">Venue</div>
+                <div class="field-full">
+                    <div class="field-group">
+                        <label class="field-label">Venue Name</label>
+                        <div style="position:relative">
+                            <i class="bi bi-geo-alt field-input-icon"></i>
+                            <input type="text" name="venue_name" class="field-input" value="{{ old('venue_name') }}" placeholder="Enter venue name…" autocomplete="off" required>
+                        </div>
+                    </div>
                 </div>
-                <!-- RSVP Contact -->
-                <div>
-                    <label class="form-label">RSVP Contact</label>
-                    <input type="text" name="rsvp_contact" class="form-input" value="{{ old('rsvp_contact') }}" placeholder="Enter contact..." autocomplete="new-password" required>
+                <div class="field-full">
+                    <div class="field-group">
+                        <label class="field-label">Venue Address</label>
+                        <textarea name="venue_address" rows="2" class="field-input" placeholder="Street / Area…&#10;City, State" required>{{ old('venue_address') }}</textarea>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Dress Code -->
-            <div>
-                <label class="form-label">Dress Code <span class="optional-tag">(optional)</span></label>
-                <select name="dress_code" class="form-input appearance-none bg-no-repeat" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-position: right 1rem top 50%; background-size: 0.65rem auto;">
-                    <option value="formal">Formal</option>
-                    <option value="casual">Casual</option>
-                    <option value="black_tie">Black Tie</option>
-                </select>
-            </div>
-
-            <!-- Personal Message -->
-            <div>
-                <label class="form-label">Personal Message <span class="optional-tag">(optional &middot; 200 chars)</span></label>
-                <textarea name="personal_message" rows="3" class="form-input resize-none"></textarea>
-            </div>
-
-            <!-- Couple's Photo -->
-            <div>
-                <label class="form-label">Couple's Photo <span class="optional-tag">(optional)</span></label>
-                <div id="photo-dropzone" onclick="document.getElementById('photo-input').click()" class="mt-1 border-2 border-dashed border-[#E4D1A6] rounded-xl bg-[#FCF6E8] flex justify-center items-center py-6 cursor-pointer hover:bg-[#F9F0D9] transition">
-                    <span id="photo-placeholder-text" class="text-[#C59B27] font-medium text-sm flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                        <span>Drag photo here or tap to upload</span>
-                    </span>
-                    <input type="file" id="photo-input" name="couples_photo" accept="image/*" class="hidden" onchange="updatePhotoPlaceholder(this)">
+                <!-- RSVP & Dress Code -->
+                <div class="field-section-title">RSVP &amp; Details</div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label class="field-label">RSVP Deadline <span class="optional-tag">(optional)</span></label>
+                        <div style="position:relative">
+                            <i class="bi bi-calendar-check field-input-icon"></i>
+                            <input type="text" name="rsvp_deadline" class="field-input datepicker" value="{{ old('rsvp_deadline') }}" placeholder="Pick date…">
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">RSVP Contact</label>
+                        <div style="position:relative">
+                            <i class="bi bi-telephone field-input-icon"></i>
+                            <input type="text" name="rsvp_contact" class="field-input" value="{{ old('rsvp_contact') }}" placeholder="Phone / email…" autocomplete="off" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Sticky Bottom Continue Button Container -->
-            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#FDF9F1] via-[#FDF9F1] to-transparent z-50">
-                <button type="submit" class="w-full bg-black text-white font-bold py-4 px-4 rounded-xl shadow-lg hover:bg-gray-800 transition duration-200">
-                    CONTINUE
+                <div class="field-full">
+                    <label class="field-label">Dress Code <span class="optional-tag">(optional)</span></label>
+                    <div class="select-wrapper">
+                        <select name="dress_code" class="field-input">
+                            <option value="formal">Formal</option>
+                            <option value="casual">Casual</option>
+                            <option value="black_tie">Black Tie</option>
+                        </select>
+                        <i class="bi bi-chevron-down select-caret"></i>
+                    </div>
+                </div>
+
+                <!-- Personal message -->
+                <div class="field-section-title">Personal Message <span class="optional-tag">(optional · 200 chars)</span></div>
+                <div class="field-full">
+                    <textarea name="personal_message" rows="3" class="field-input" placeholder="A warm note from the couple…" maxlength="200">{{ old('personal_message') }}</textarea>
+                </div>
+
+                <!-- Photo upload -->
+                <div class="field-section-title">Couple's Photo <span class="optional-tag">(optional)</span></div>
+                <div class="photo-dropzone" id="photo-dropzone" onclick="document.getElementById('photo-input').click()">
+                    <div class="dropzone-icon" id="dropzone-icon"><i class="bi bi-image"></i></div>
+                    <span class="dropzone-text" id="dropzone-text">Tap to upload a photo</span>
+                    <span class="dropzone-hint">PNG, JPG up to 5MB</span>
+                    <input type="file" id="photo-input" name="couples_photo" accept="image/*" class="hidden" style="display:none" onchange="updateDropzone(this)">
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-continue">
+                    <i class="bi bi-arrow-right-circle-fill"></i>
+                    Continue to Templates
                 </button>
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
 
     <script>
-        function updatePhotoPlaceholder(input) {
-            const placeholder = document.getElementById('photo-placeholder-text');
-            if (input.files && input.files[0]) {
-                const fileName = input.files[0].name;
-                placeholder.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span class="text-emerald-700 font-semibold truncate max-w-[250px]">${fileName}</span>
-                `;
-            } else {
-                placeholder.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span>Drag photo here or tap to upload</span>
-                `;
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr('.datepicker', { altInput: true, altFormat: 'F j, Y', dateFormat: 'Y-m-d', minDate: 'today' });
+            flatpickr('.timepicker', { enableTime: true, noCalendar: true, dateFormat: 'h:i K', defaultDate: '19:00' });
 
-        // Prevent autocomplete suggestions from appearing
-        function disableAutocomplete() {
-            const nameFields = document.querySelectorAll('input[name="bride_name"], input[name="groom_name"], input[name="rsvp_contact"], input[name="venue_name"]');
-            nameFields.forEach(field => {
-                field.addEventListener('focus', function() {
-                    this.setAttribute('autocomplete', 'off');
-                });
-                field.addEventListener('input', function() {
-                    this.setAttribute('autocomplete', 'off');
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            disableAutocomplete();
-            // Initialize beautiful date picker
-            flatpickr(".datepicker", {
-                altInput: true,
-                altFormat: "F j, Y",
-                dateFormat: "Y-m-d",
-                minDate: "today",
-            });
-
-            // Initialize beautiful time picker
-            flatpickr(".timepicker", {
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "h:i K",
-                defaultDate: "19:00"
-            });
-
-            // Drag and Drop functionality
             const dropzone = document.getElementById('photo-dropzone');
             const fileInput = document.getElementById('photo-input');
-
-            if (dropzone && fileInput) {
-                // Prevent default drag behaviors
-                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                    dropzone.addEventListener(eventName, preventDefaults, false);
-                });
-
-                // Highlight drop zone when item is dragged over it
-                ['dragenter', 'dragover'].forEach(eventName => {
-                    dropzone.addEventListener(eventName, highlight, false);
-                });
-
-                ['dragleave', 'drop'].forEach(eventName => {
-                    dropzone.addEventListener(eventName, unhighlight, false);
-                });
-
-                // Handle dropped files
-                dropzone.addEventListener('drop', handleDrop, false);
-
-                function preventDefaults(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-
-                function highlight(e) {
-                    dropzone.classList.add('bg-[#F5E6A3]', 'border-[#C59B27]');
-                }
-
-                function unhighlight(e) {
-                    dropzone.classList.remove('bg-[#F5E6A3]', 'border-[#C59B27]');
-                }
-
-                function handleDrop(e) {
-                    const dt = e.dataTransfer;
-                    const files = dt.files;
-                    if (files && files.length > 0) {
-                        fileInput.files = files;
-                        updatePhotoPlaceholder(fileInput);
-                    }
-                }
-            }
+            ['dragenter','dragover'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.add('drag-over'); }));
+            ['dragleave','drop'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove('drag-over'); }));
+            dropzone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) { fileInput.files = e.dataTransfer.files; updateDropzone(fileInput); } });
         });
+
+        function updateDropzone(input) {
+            const text = document.getElementById('dropzone-text');
+            const icon = document.getElementById('dropzone-icon');
+            if (input.files && input.files[0]) {
+                text.textContent = input.files[0].name;
+                icon.innerHTML = '<i class="bi bi-check-circle-fill" style="color:var(--gold-primary)"></i>';
+            } else {
+                text.textContent = 'Tap to upload a photo';
+                icon.innerHTML = '<i class="bi bi-image"></i>';
+            }
+        }
     </script>
 </body>
 </html>

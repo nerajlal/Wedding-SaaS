@@ -1006,10 +1006,10 @@
                 </ul>
 
                 <div class="nav-actions">
-                    <a href="{{ url('/signin') }}" class="btn-premium-outline">Login</a>
-                    <a href="{{ url('/signin') }}" class="btn-premium-solid">
+                    <button onclick="openSigninModal()" class="btn-premium-outline">Login</button>
+                    <button onclick="openSigninModal()" class="btn-premium-solid">
                         Create Card <i class="bi bi-arrow-right-short fs-5"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1033,9 +1033,9 @@
                     </p>
 
                     <div class="hero-ctas">
-                        <a href="{{ url('/signin') }}" class="btn-premium-solid py-3 px-5 fs-6">
+                        <button onclick="openSigninModal()" class="btn-premium-solid py-3 px-5 fs-6">
                             Start Creating <i class="bi bi-arrow-right-short fs-4"></i>
-                        </a>
+                        </button>
                         <div class="cta-note ms-lg-3">
                             <i class="bi bi-clock-history text-warning fs-5"></i> Ready in 5 minutes • Share with one tap
                         </div>
@@ -1154,7 +1154,7 @@
 
             <div class="category-grid">
                 <!-- Wedding -->
-                <a href="{{ url('/signin') }}" class="category-card-compact">
+                <a href="javascript:void(0)" onclick="openSigninModal()" class="category-card-compact">
                     <div class="compact-thumb" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=150&q=80');"></div>
                     <div class="compact-info">
                         <h3>Wedding</h3>
@@ -1472,9 +1472,9 @@
                 <p class="lead opacity-75 mb-4 text-muted">
                     Zero coding. Handcrafted design layouts. Share with the world in less than five minutes.
                 </p>
-                <a href="{{ url('/signin') }}" class="btn-premium-solid btn-lg px-5 py-3 fs-6">
+                <button onclick="openSigninModal()" class="btn-premium-solid btn-lg px-5 py-3 fs-6">
                     Get Started Free <i class="bi bi-arrow-right-short fs-4"></i>
-                </a>
+                </button>
             </div>
         </div>
     </div>
@@ -1496,10 +1496,10 @@
 
                 <div class="col-6 col-md-4 col-lg-2 ms-lg-auto">
                     <h3 class="footer-links-title">Occasions</h3>
-                    <a href="{{ url('/signin') }}" class="footer-link-item">Weddings</a>
-                    <a href="{{ url('/signin') }}" class="footer-link-item">Birthdays</a>
-                    <a href="{{ url('/signin') }}" class="footer-link-item">Baptism</a>
-                    <a href="{{ url('/signin') }}" class="footer-link-item">Housewarmings</a>
+                    <a href="javascript:void(0)" onclick="openSigninModal()" class="footer-link-item">Weddings</a>
+                    <a href="javascript:void(0)" class="footer-link-item" style="opacity:.45;cursor:default">Birthdays</a>
+                    <a href="javascript:void(0)" class="footer-link-item" style="opacity:.45;cursor:default">Baptism</a>
+                    <a href="javascript:void(0)" class="footer-link-item" style="opacity:.45;cursor:default">Housewarmings</a>
                 </div>
 
                 <div class="col-6 col-md-4 col-lg-2">
@@ -1532,6 +1532,391 @@
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ══════════════════════════════════════════
+         SIGN-IN MODAL (Inline, matches gold theme)
+         ══════════════════════════════════════════ -->
+    <style>
+        /* ── Modal Overlay ─────────────────────────── */
+        .signin-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9990;
+            background: rgba(42, 36, 30, 0.48);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1),
+                        visibility 0.35s cubic-bezier(0.16,1,0.3,1);
+        }
+        .signin-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ── Modal Card ────────────────────────────── */
+        .signin-modal {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            background: #FFFDF9;
+            border: 1.5px solid rgba(184,144,71,0.18);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(140,109,59,0.16);
+            transform: translateY(32px) scale(0.97);
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .signin-overlay.open .signin-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .signin-modal-inner {
+            padding: 2.4rem 2.4rem 1.6rem;
+            position: relative;
+        }
+        .signin-modal-inner::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(184,144,71,0.09);
+            border-radius: 22px;
+            pointer-events: none;
+        }
+
+        /* Close button */
+        .signin-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(184,144,71,0.18);
+            background: transparent;
+            color: #7A7065;
+            font-size: 1.1rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .25s;
+            z-index: 2;
+        }
+        .signin-close:hover {
+            background: rgba(184,144,71,0.07);
+            color: #8C6D3B;
+        }
+
+        /* Brand inside modal */
+        .modal-brand-icon {
+            width: 46px; height: 46px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #8C6D3B, #B89047);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.2rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 6px 16px rgba(184,144,71,0.22);
+        }
+        .modal-brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: #2A241E;
+            letter-spacing: -0.4px;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        .modal-brand-name span { color: #B89047; }
+        .modal-brand-tag {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #7A7065;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 1.6rem;
+        }
+
+        /* Divider inside modal */
+        .modal-divider {
+            display: flex; align-items: center; gap: .7rem;
+            margin-bottom: 1.5rem;
+        }
+        .modal-divider::before, .modal-divider::after {
+            content: ''; flex: 1;
+            height: 1px;
+            background: rgba(184,144,71,0.18);
+        }
+        .modal-divider span {
+            font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.2px;
+            color: #8C6D3B;
+        }
+
+        /* Google button inside modal */
+        .modal-google-btn {
+            width: 100%;
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1.4rem;
+            border-radius: 99px;
+            border: 1.5px solid rgba(184,144,71,0.18);
+            background: #fff;
+            color: #2A241E;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600; font-size: 0.94rem;
+            cursor: pointer;
+            transition: all .3s cubic-bezier(0.16,1,0.3,1);
+            margin-bottom: 1.3rem;
+        }
+        .modal-google-btn:hover {
+            border-color: #B89047;
+            background: #F7F3EB;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(184,144,71,0.1);
+        }
+        .modal-g-circle {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: linear-gradient(135deg, #EA4335 0%, #FBBC05 50%, #34A853 100%);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 800; font-size: 0.85rem;
+        }
+
+        /* OR separator */
+        .modal-or {
+            display: flex; align-items: center; gap: .7rem;
+            margin-bottom: 1.3rem;
+        }
+        .modal-or::before, .modal-or::after {
+            content: ''; flex: 1;
+            height: 1px; background: rgba(184,144,71,0.15);
+        }
+        .modal-or span {
+            font-size: 0.75rem; font-weight: 600;
+            color: #7A7065; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* Form fields inside modal */
+        .modal-field-group { margin-bottom: 1rem; }
+        .modal-field-label {
+            display: block;
+            font-size: 0.78rem; font-weight: 700;
+            color: #8C6D3B;
+            text-transform: uppercase; letter-spacing: .8px;
+            margin-bottom: .4rem;
+        }
+        .modal-field-wrapper { position: relative; }
+        .modal-field-input {
+            width: 100%;
+            padding: .8rem 1rem .8rem 2.6rem;
+            border: 1.5px solid rgba(184,144,71,0.18);
+            border-radius: 12px;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.94rem;
+            color: #2A241E;
+            outline: none;
+            transition: all .28s cubic-bezier(0.16,1,0.3,1);
+        }
+        .modal-field-input::placeholder { color: #7A7065; opacity: .6; }
+        .modal-field-input:focus {
+            border-color: #B89047;
+            box-shadow: 0 0 0 4px rgba(184,144,71,0.08);
+        }
+        .modal-field-icon {
+            position: absolute; left: .9rem; top: 50%;
+            transform: translateY(-50%);
+            color: #DFCA9B; font-size: .95rem;
+            transition: color .25s;
+        }
+        .modal-field-wrapper:focus-within .modal-field-icon { color: #B89047; }
+        .modal-field-eye {
+            position: absolute; right: .9rem; top: 50%;
+            transform: translateY(-50%);
+            color: #DFCA9B; cursor: pointer; font-size: .95rem;
+            transition: color .25s;
+        }
+        .modal-field-eye:hover { color: #8C6D3B; }
+
+        /* Error alert inside modal */
+        .modal-error-alert {
+            display: flex; align-items: flex-start; gap: .55rem;
+            padding: .75rem .9rem;
+            background: rgba(184,144,71,0.06);
+            border: 1px solid rgba(184,144,71,0.22);
+            border-radius: 10px;
+            color: #8C6D3B;
+            font-size: .85rem; font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Submit button inside modal */
+        .modal-signin-btn {
+            width: 100%;
+            padding: .85rem;
+            background: linear-gradient(135deg, #8C6D3B, #B89047);
+            border: none; border-radius: 99px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700; font-size: .97rem;
+            cursor: pointer;
+            box-shadow: 0 5px 18px rgba(184,144,71,0.22);
+            display: flex; align-items: center; justify-content: center;
+            gap: .45rem;
+            margin-top: .4rem;
+            transition: all .3s cubic-bezier(0.16,1,0.3,1);
+        }
+        .modal-signin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 26px rgba(184,144,71,0.3);
+        }
+
+        /* Modal footer strip */
+        .signin-modal-footer {
+            background: #F7F3EB;
+            border-top: 1px solid rgba(184,144,71,0.08);
+            padding: .9rem 2.4rem;
+            text-align: center;
+            font-size: .74rem;
+            color: #7A7065;
+        }
+        .signin-modal-footer a { color: #8C6D3B; font-weight: 600; text-decoration: none; }
+    </style>
+
+    <!-- Sign-In Overlay Modal -->
+    <div id="signin-overlay" class="signin-overlay" onclick="handleOverlayClick(event)" role="dialog" aria-modal="true" aria-label="Sign In">
+        <div class="signin-modal">
+            <!-- Close -->
+            <button class="signin-close" onclick="closeSigninModal()" aria-label="Close sign in">
+                <i class="bi bi-x"></i>
+            </button>
+
+            <div class="signin-modal-inner">
+                <!-- Brand -->
+                <div class="modal-brand-icon"><i class="bi bi-heart-fill"></i></div>
+                <h2 class="modal-brand-name"><span>Velvet</span> Vows</h2>
+                <p class="modal-brand-tag">Sign in to begin your invitation</p>
+
+                <div class="modal-divider"><span>✦ Welcome Back ✦</span></div>
+
+                <!-- Error messages from Laravel redirect -->
+                @if ($errors->any())
+                    <div class="modal-error-alert">
+                        <i class="bi bi-exclamation-circle-fill" style="font-size:1rem;margin-top:.05rem"></i>
+                        <div>{{ $errors->first() }}</div>
+                    </div>
+                @endif
+
+                <!-- Google button (focuses email on click) -->
+                <button type="button" class="modal-google-btn" onclick="focusModalEmail()">
+                    <div class="modal-g-circle">G</div>
+                    <span>Continue with Google</span>
+                </button>
+
+                <div class="modal-or"><span>or sign in with email</span></div>
+
+                <!-- Sign-In Form -->
+                <form action="{{ route('signin.process') }}" method="POST" autocomplete="off" id="modal-signin-form">
+                    @csrf
+
+                    <div class="modal-field-group">
+                        <label for="modal-email" class="modal-field-label">Email Address</label>
+                        <div class="modal-field-wrapper">
+                            <i class="bi bi-envelope modal-field-icon"></i>
+                            <input
+                                type="email" name="email" id="modal-email"
+                                class="modal-field-input"
+                                placeholder="admin@gmail.com"
+                                value="{{ old('email') }}"
+                                autocomplete="off" required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="modal-field-group">
+                        <label for="modal-password" class="modal-field-label">Password</label>
+                        <div class="modal-field-wrapper">
+                            <i class="bi bi-lock modal-field-icon"></i>
+                            <input
+                                type="password" name="password" id="modal-password"
+                                class="modal-field-input"
+                                placeholder="Enter your password"
+                                autocomplete="new-password" required
+                                style="padding-right:2.6rem"
+                            >
+                            <i class="bi bi-eye modal-field-eye" id="modal-eye" onclick="toggleModalPwd()"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="modal-signin-btn">
+                        <i class="bi bi-arrow-right-circle-fill"></i> Sign In
+                    </button>
+                </form>
+
+                <p style="text-align:center;font-size:.72rem;color:#7A7065;margin-top:1.2rem">
+                    By continuing you agree to our
+                    <a href="#" style="color:#8C6D3B;font-weight:600;text-decoration:none">Terms</a> &amp;
+                    <a href="#" style="color:#8C6D3B;font-weight:600;text-decoration:none">Privacy</a>
+                </p>
+            </div>
+
+            <div class="signin-modal-footer">
+                <i class="bi bi-shield-lock-fill" style="color:#B89047"></i>
+                &nbsp;Secure &amp; Private &nbsp;&bull;&nbsp; No persistent account needed
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openSigninModal() {
+            document.getElementById('signin-overlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                const e = document.getElementById('modal-email');
+                if (e) e.focus();
+            }, 350);
+        }
+        function closeSigninModal() {
+            document.getElementById('signin-overlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        function handleOverlayClick(e) {
+            if (e.target === document.getElementById('signin-overlay')) closeSigninModal();
+        }
+        function focusModalEmail() {
+            const inp = document.getElementById('modal-email');
+            inp.focus();
+            inp.style.borderColor = '#B89047';
+            inp.style.boxShadow = '0 0 0 4px rgba(184,144,71,0.12)';
+            setTimeout(() => { inp.style.borderColor = ''; inp.style.boxShadow = ''; }, 1800);
+        }
+        function toggleModalPwd() {
+            const inp = document.getElementById('modal-password');
+            const eye = document.getElementById('modal-eye');
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                eye.className = 'bi bi-eye-slash modal-field-eye';
+            } else {
+                inp.type = 'password';
+                eye.className = 'bi bi-eye modal-field-eye';
+            }
+        }
+        // Auto-open modal if Laravel returned errors (after failed login)
+        @if ($errors->any())
+            document.addEventListener('DOMContentLoaded', function() {
+                openSigninModal();
+                // Scroll to top so modal is fully visible
+                window.scrollTo(0, 0);
+            });
+        @endif
+        // Close on Escape key
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSigninModal(); });
+    </script>
 
 </body>
 
