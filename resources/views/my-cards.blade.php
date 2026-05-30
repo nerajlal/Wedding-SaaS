@@ -124,9 +124,17 @@
                 <h1 class="dash-title">My Cards</h1>
                 <p class="dash-subtitle">Manage and share your created invitations</p>
             </div>
-            <a href="{{ url('/') }}#categories" class="btn-create">
-                <i class="bi bi-plus-lg"></i> Create New
-            </a>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <a href="{{ url('/') }}#categories" class="btn-create">
+                    <i class="bi bi-plus-lg"></i> Create New
+                </a>
+                <form action="{{ route('logout') }}" method="POST" style="margin:0;">
+                    @csrf
+                    <button type="submit" title="Logout" style="background: rgba(220,53,69,0.08); color: #c0392b; border: 1px solid rgba(220,53,69,0.2); border-radius: 99px; padding: 0.8rem 1.1rem; font-weight: 600; font-size: 1rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem; transition: all 0.25s;" onmouseover="this.style.background='rgba(220,53,69,0.15)'; this.style.borderColor='rgba(220,53,69,0.4)';" onmouseout="this.style.background='rgba(220,53,69,0.08)'; this.style.borderColor='rgba(220,53,69,0.2)';">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
         </div>
 
         @if($invitations->isEmpty())

@@ -51,4 +51,15 @@ class LoginController extends Controller
             'email' => 'Invalid email or password. Please try again.',
         ])->withInput($request->only('email'));
     }
+
+    /**
+     * Log the user out and redirect to home.
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
 }

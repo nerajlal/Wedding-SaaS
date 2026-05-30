@@ -15,6 +15,8 @@ Route::get('/signin', function () {
 
 Route::post('/signin', [LoginController::class, 'login'])->name('signin.process');
 
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 use App\Http\Controllers\WeddingDetailsController;
 
 use App\Http\Controllers\TemplateController;
