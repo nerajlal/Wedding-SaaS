@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class TemplateController extends Controller
 {
-    public function index()
+    private function getTemplates()
     {
-        $templates = [
+        return [
             [
                 'id' => 'royal-scroll',
                 'name' => 'Royal Scroll',
@@ -70,7 +70,23 @@ class TemplateController extends Controller
                 'image' => 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
             ],
         ];
+    }
 
+    public function index()
+    {
+        $templates = $this->getTemplates();
         return view('templates', compact('templates'));
+    }
+
+    public function show($id)
+    {
+        $templates = $this->getTemplates();
+        $template = collect($templates)->firstWhere('id', $id);
+
+        if (!$template) {
+            abort(404);
+        }
+
+        return view('template-preview', compact('template'));
     }
 }

@@ -54,7 +54,7 @@
 
         /* Gallery Grid */
         .tpl-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            display: grid; grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
         }
         .tpl-card {
@@ -122,9 +122,12 @@
         }
         .btn-submit:hover { transform: translateY(-2px); }
 
+        @media (max-width: 992px) {
+            .tpl-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 600px) {
             .page-title { font-size: 2rem; }
-            .tpl-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+            .tpl-grid { grid-template-columns: repeat(1, 1fr); gap: 1rem; }
         }
     </style>
 </head>
@@ -138,16 +141,16 @@
 
         <div class="tpl-grid">
             @foreach($templates as $tpl)
-            <div class="tpl-card" onclick="openAuthModal('{{ $tpl['id'] }}')">
+            <a href="{{ route('templates.show', $tpl['id']) }}" class="tpl-card" style="text-decoration: none;">
                 <img src="{{ $tpl['image'] }}" alt="{{ $tpl['name'] }}" class="tpl-img" loading="lazy">
                 <div class="tpl-info">
                     <div class="tpl-name">{{ $tpl['name'] }}</div>
                     <div class="tpl-hint">{{ $tpl['hint'] }}</div>
                 </div>
                 <div class="tpl-overlay">
-                    <button class="btn-use">Use this template</button>
+                    <button class="btn-use">Preview & Use</button>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
     </main>
@@ -155,12 +158,6 @@
     @include('partials.footer')
     @include('partials.popups')
 
-    <script>
-        function openAuthModal(templateId) {
-            document.getElementById('selected_template').value = templateId;
-            openSigninModal();
-        }
-    </script>
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

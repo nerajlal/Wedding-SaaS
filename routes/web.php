@@ -21,6 +21,7 @@ use App\Http\Controllers\TemplateController;
 
 // ── Theme Gallery ──────────────────────────────────────────────────────────
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+Route::get('/templates/{id}', [TemplateController::class, 'show'])->name('templates.show');
 
 // ── New bigdates-style single-page wedding wizard ──────────────────────────
 Route::get('/wedding',  [WeddingDetailsController::class, 'entryWedding'])->middleware('auth')->name('wedding.entry');

@@ -41,7 +41,8 @@ class LoginController extends Controller
                 session(['wedding_template' => $request->input('selected_template')]);
             }
 
-            return redirect()->intended(route('wedding.entry'));
+            // Redirect back to where the user came from
+            return redirect()->back();
         }
         // ─────────────────────────────────────────────────────────────────────
 
