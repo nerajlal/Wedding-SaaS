@@ -781,6 +781,50 @@
                             <div class="tpl-tile-hint">Classic and elegant</div>
                         </div>
                     </div>
+
+                    <div class="tpl-tile" id="tpl-elegant-circle" onclick="pickTpl('elegant-circle', this)">
+                        <img src="/template_thumbnails/elegant-circle.png" alt="Elegant Circle">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Elegant Circle</div>
+                            <div class="tpl-tile-hint">Beautiful curved design</div>
+                        </div>
+                    </div>
+                    <div class="tpl-tile" id="tpl-geometric-polaroid" onclick="pickTpl('geometric-polaroid', this)">
+                        <img src="/template_thumbnails/geometric-polaroid.png" alt="Geometric Polaroid">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Geometric Polaroid</div>
+                            <div class="tpl-tile-hint">Modern polaroid layout</div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-tile" id="tpl-ethereal-glass" onclick="pickTpl('ethereal-glass', this)">
+                        <img src="/template_thumbnails/ethereal-glass.png" alt="Ethereal Glass">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Ethereal Glass</div>
+                            <div class="tpl-tile-hint">Modern glassmorphism</div>
+                        </div>
+                    </div>
+                    <div class="tpl-tile" id="tpl-simple-elegance" onclick="pickTpl('simple-elegance', this)">
+                        <img src="/template_thumbnails/simple-elegance.png" alt="Simple Elegance">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Simple Elegance</div>
+                            <div class="tpl-tile-hint">Clean and minimalist</div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-tile" id="tpl-classic-romance" onclick="pickTpl('classic-romance', this)">
+                        <img src="/template_thumbnails/classic-romance.png" alt="Classic Romance">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Classic Romance</div>
+                            <div class="tpl-tile-hint">Timeless beauty</div>
+                        </div>
+                    </div>
+
                 </div>
                 <p style="text-align:center;font-size:.74rem;color:var(--muted);font-style:italic;margin-top:1rem">✦ More designs launching soon</p>
             </div>

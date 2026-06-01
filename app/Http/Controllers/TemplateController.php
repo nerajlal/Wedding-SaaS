@@ -15,6 +15,46 @@ class TemplateController extends Controller
                 'hint' => 'Classic and elegant',
                 'image' => '/template_thumbnails/premium-vintage.png',
             ],
+
+            [
+                'id' => 'elegant-circle',
+                'name' => 'Elegant Circle',
+                'hint' => 'Beautiful curved design',
+                'image' => '/template_thumbnails/elegant-circle.png',
+            ],
+            [
+                'id' => 'geometric-polaroid',
+                'name' => 'Geometric Polaroid',
+                'hint' => 'Modern polaroid layout',
+                'image' => '/template_thumbnails/geometric-polaroid.png',
+            ],
+
+            [
+                'id' => 'ethereal-glass',
+                'name' => 'Ethereal Glass',
+                'hint' => 'Modern glassmorphism',
+                'image' => '/template_thumbnails/ethereal-glass.png',
+            ],
+            [
+                'id' => 'simple-elegance',
+                'name' => 'Simple Elegance',
+                'hint' => 'Clean and minimalist',
+                'image' => '/template_thumbnails/simple-elegance.png',
+            ],
+
+            [
+                'id' => 'seaside-promise',
+                'name' => 'Seaside Promise',
+                'hint' => 'Elegant beach aesthetic',
+                'image' => '/template_thumbnails/seaside-promise.png',
+            ],
+            // New Templates
+            [
+                'id' => 'classic-romance',
+                'name' => 'Classic Romance',
+                'hint' => 'Timeless beauty',
+                'image' => '/template_thumbnails/classic-romance.png',
+            ],
         ];
     }
 
