@@ -28,48 +28,106 @@
             color: #3d2a1d;
         }
         
-        /* Heart Grid Collage - Reconstructed with a responsive SVG mask */
+        /* Heart Grid Collage */
         .heart-grid-wrapper {
             margin: 3rem auto;
-            width: 90%;
-            max-width: 320px;
-            aspect-ratio: 1;
-            position: relative;
-            /* Use a responsive SVG mask instead of path() which doesn't auto-scale */
-            clip-path: url(#heart-mask);
+            width: 95%;
+            max-width: 420px;
         }
-        
-        .heart-grid-bg-container {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .heart-grid-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* The grid overlay drawing the thin lines over the single image */
-        .heart-grid-overlay {
-            position: absolute;
-            inset: 0;
+        .heart-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(5, 1fr);
-            pointer-events: none;
-            z-index: 10;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(9, 1fr);
+            gap: 4px; /* Reduced space between boxes */
+        }
+        .heart-item {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #e5dca5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .heart-grid-line-h {
-            border-bottom: 3px solid #fef7d5; /* matching body background color and 3px thickness */
+        /* Instead of placing individual img tags, we use a shared background image */
+        .heart-item-inner {
+            width: 100%;
+            height: 100%;
+            /* 9x9 grid coordinates scaling.
+               To ensure no background warping, we must dynamically offset column gap differences.
+               Using absolute CSS percentage variables mapped to column widths.
+            */
+            background-size: 900% 900%;
+            background-repeat: no-repeat;
+            background-position: var(--bg-x) var(--bg-y);
         }
+
+        /* Define background coordinates using mathematically perfect grid percentages on a 9x9 grid:
+           x & y positions: (col_index - 1) * 100 / 8, (row_index - 1) * 100 / 8
+           col indices: 1=0%, 2=12.5%, 3=25%, 4=37.5%, 5=50%, 6=62.5%, 7=75%, 8=87.5%, 9=100%
+        */
         
-        .heart-grid-line-v {
-            border-right: 3px solid #fef7d5;
-        }
+        /* Row 1 */
+        .h-1 { grid-column: 2; grid-row: 1; --bg-x: 12.5%; --bg-y: 0%; }
+        .h-2 { grid-column: 3; grid-row: 1; --bg-x: 25%; --bg-y: 0%; }
+        .h-3 { grid-column: 7; grid-row: 1; --bg-x: 75%; --bg-y: 0%; }
+        .h-4 { grid-column: 8; grid-row: 1; --bg-x: 87.5%; --bg-y: 0%; }
+
+        /* Row 2 */
+        .h-5 { grid-column: 1; grid-row: 2; --bg-x: 0%; --bg-y: 12.5%; }
+        .h-6 { grid-column: 2; grid-row: 2; --bg-x: 12.5%; --bg-y: 12.5%; }
+        .h-7 { grid-column: 3; grid-row: 2; --bg-x: 25%; --bg-y: 12.5%; }
+        .h-8 { grid-column: 4; grid-row: 2; --bg-x: 37.5%; --bg-y: 12.5%; }
+        .h-9 { grid-column: 6; grid-row: 2; --bg-x: 62.5%; --bg-y: 12.5%; }
+        .h-10 { grid-column: 7; grid-row: 2; --bg-x: 75%; --bg-y: 12.5%; }
+        .h-11 { grid-column: 8; grid-row: 2; --bg-x: 87.5%; --bg-y: 12.5%; }
+        .h-12 { grid-column: 9; grid-row: 2; --bg-x: 100%; --bg-y: 12.5%; }
+
+        /* Row 3 */
+        .h-13 { grid-column: 1; grid-row: 3; --bg-x: 0%; --bg-y: 25%; }
+        .h-14 { grid-column: 2; grid-row: 3; --bg-x: 12.5%; --bg-y: 25%; }
+        .h-15 { grid-column: 3; grid-row: 3; --bg-x: 25%; --bg-y: 25%; }
+        .h-16 { grid-column: 4; grid-row: 3; --bg-x: 37.5%; --bg-y: 25%; }
+        .h-17 { grid-column: 5; grid-row: 3; --bg-x: 50%; --bg-y: 25%; }
+        .h-18 { grid-column: 6; grid-row: 3; --bg-x: 62.5%; --bg-y: 25%; }
+        .h-19 { grid-column: 7; grid-row: 3; --bg-x: 75%; --bg-y: 25%; }
+        .h-20 { grid-column: 8; grid-row: 3; --bg-x: 87.5%; --bg-y: 25%; }
+        .h-21 { grid-column: 9; grid-row: 3; --bg-x: 100%; --bg-y: 25%; }
+
+        /* Row 4 */
+        .h-22 { grid-column: 1; grid-row: 4; --bg-x: 0%; --bg-y: 37.5%; }
+        .h-23 { grid-column: 2; grid-row: 4; --bg-x: 12.5%; --bg-y: 37.5%; }
+        .h-24 { grid-column: 3; grid-row: 4; --bg-x: 25%; --bg-y: 37.5%; }
+        .h-25 { grid-column: 4; grid-row: 4; --bg-x: 37.5%; --bg-y: 37.5%; }
+        .h-26 { grid-column: 5; grid-row: 4; --bg-x: 50%; --bg-y: 37.5%; }
+        .h-27 { grid-column: 6; grid-row: 4; --bg-x: 62.5%; --bg-y: 37.5%; }
+        .h-28 { grid-column: 7; grid-row: 4; --bg-x: 75%; --bg-y: 37.5%; }
+        .h-29 { grid-column: 8; grid-row: 4; --bg-x: 87.5%; --bg-y: 37.5%; }
+        .h-30 { grid-column: 9; grid-row: 4; --bg-x: 100%; --bg-y: 37.5%; }
+
+        /* Row 5 */
+        .h-31 { grid-column: 2; grid-row: 5; --bg-x: 12.5%; --bg-y: 50%; }
+        .h-32 { grid-column: 3; grid-row: 5; --bg-x: 25%; --bg-y: 50%; }
+        .h-33 { grid-column: 4; grid-row: 5; --bg-x: 37.5%; --bg-y: 50%; }
+        .h-34 { grid-column: 5; grid-row: 5; --bg-x: 50%; --bg-y: 50%; }
+        .h-35 { grid-column: 6; grid-row: 5; --bg-x: 62.5%; --bg-y: 50%; }
+        .h-36 { grid-column: 7; grid-row: 5; --bg-x: 75%; --bg-y: 50%; }
+        .h-37 { grid-column: 8; grid-row: 5; --bg-x: 87.5%; --bg-y: 50%; }
+
+        /* Row 6 */
+        .h-38 { grid-column: 3; grid-row: 6; --bg-x: 25%; --bg-y: 62.5%; }
+        .h-39 { grid-column: 4; grid-row: 6; --bg-x: 37.5%; --bg-y: 62.5%; }
+        .h-40 { grid-column: 5; grid-row: 6; --bg-x: 50%; --bg-y: 62.5%; }
+        .h-41 { grid-column: 6; grid-row: 6; --bg-x: 62.5%; --bg-y: 62.5%; }
+        .h-42 { grid-column: 7; grid-row: 6; --bg-x: 75%; --bg-y: 62.5%; }
+
+        /* Row 7 */
+        .h-43 { grid-column: 4; grid-row: 7; --bg-x: 37.5%; --bg-y: 75%; }
+        .h-44 { grid-column: 5; grid-row: 7; --bg-x: 50%; --bg-y: 75%; }
+        .h-45 { grid-column: 6; grid-row: 7; --bg-x: 62.5%; --bg-y: 75%; }
+
+        /* Row 8 */
+        .h-46 { grid-column: 5; grid-row: 8; --bg-x: 50%; --bg-y: 87.5%; }
+
 
         .red-heart {
             color: #c91111;
@@ -337,63 +395,43 @@
     <div class="theme-wrapper">
         
         <!-- Heart Grid Collage -->
-        @php
-            $imgs = [];
-            if(isset($invitation) && $invitation->galleries) {
-                foreach($invitation->galleries as $g) {
-                    $imgs[] = $g->image_url;
-                }
-            }
-            
-            $mainImg = $invitation->main_image_url ?? $details['main_image_url'] ?? null;
-            if($mainImg) {
-                array_unshift($imgs, $mainImg);
-            }
-            if(isset($invitation) && $invitation->bride_image_url) {
-                $imgs[] = $invitation->bride_image_url;
-            }
-            if(isset($invitation) && $invitation->groom_image_url) {
-                $imgs[] = $invitation->groom_image_url;
-            }
-            
-            // Fallback elegant photos
-            $fallbacks = [
-                'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=400',
-                'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400',
-                'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=400',
-                'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=400',
-                'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=400'
-            ];
-            
-            $src = $mainImg ?? (count($imgs) > 0 ? $imgs[0] : $fallbacks[0]);
-        @endphp
-        
-        <!-- Responsive SVG ClipPath definition to auto-scale on mobile -->
-        <svg style="width:0; height:0; position:absolute;">
-            <defs>
-                <clipPath id="heart-mask" clipPathUnits="objectBoundingBox">
-                    <path d="M 0.5,0.9 C 0.8,0.67 1,0.47 1,0.29 C 1,0.13 0.89,0 0.75,0 C 0.65,0 0.56,0.07 0.5,0.18 C 0.44,0.07 0.35,0 0.25,0 C 0.11,0 0,0.13 0,0.29 C 0,0.47 0.2,0.67 0.5,0.9 Z" />
-                </clipPath>
-            </defs>
-        </svg>
-
-        <!-- Heart Grid Collage -->
         <div class="heart-grid-wrapper">
-            <div class="heart-grid-bg-container">
-                <img class="heart-grid-image pv-main-img-src" src="{{ $src }}" alt="Couple Background">
-            </div>
-
-            <div class="heart-grid-overlay">
-                <!-- Row 1 -->
-                <div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div></div>
-                <!-- Row 2 -->
-                <div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h"></div>
-                <!-- Row 3 -->
-                <div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h"></div>
-                <!-- Row 4 -->
-                <div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h"></div>
-                <!-- Row 5 -->
-                <div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div></div>
+            <div class="heart-grid">
+                @php
+                    $imgs = [];
+                    if(isset($invitation) && $invitation->galleries) {
+                        foreach($invitation->galleries as $g) {
+                            $imgs[] = $g->image_url;
+                        }
+                    }
+                    
+                    $mainImg = $invitation->main_image_url ?? $details['main_image_url'] ?? null;
+                    if($mainImg) {
+                        array_unshift($imgs, $mainImg);
+                    }
+                    if(isset($invitation) && $invitation->bride_image_url) {
+                        $imgs[] = $invitation->bride_image_url;
+                    }
+                    if(isset($invitation) && $invitation->groom_image_url) {
+                        $imgs[] = $invitation->groom_image_url;
+                    }
+                    
+                    // Fallback elegant photos
+                    $fallbacks = [
+                        'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=400',
+                        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400',
+                        'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=400',
+                        'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=400',
+                        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=400'
+                    ];
+                    
+                    // Use the first image (main / details main / first fallback) for every grid cell
+                    $src = $mainImg ?? (count($imgs) > 0 ? $imgs[0] : $fallbacks[0]);
+                    for($i=1; $i<=46; $i++) {
+                        $class = "h-" . $i;
+                        echo "<div class='heart-item $class'><div class='heart-item-inner pv-main-img-bg' style=\"background-image: url('$src');\"></div></div>";
+                    }
+                @endphp
             </div>
         </div>
 
