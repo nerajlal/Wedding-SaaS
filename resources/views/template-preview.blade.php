@@ -686,7 +686,7 @@
         });
 
         // The image URLs are now updated using: updateImageUrl(inputId, targetSelector)
-        updateImageUrl('inp-main-img', '.pv-main-img-src');
+        updateImageUrl('inp-main-img', '.pv-main-img-src, .pv-main-img-bg');
         updateImageUrl('inp-bride-img', '.pv-bride-img-src');
         updateImageUrl('inp-groom-img', '.pv-groom-img-src');
 
@@ -745,7 +745,7 @@
                 if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
                     const doc = iframe.contentWindow.document;
                     if (data.main_image_url) {
-                        const mainImgs = doc.querySelectorAll('.pv-main-img-src');
+                        const mainImgs = doc.querySelectorAll('.pv-main-img-src, .pv-main-img-bg');
                         mainImgs.forEach(mainImg => {
                             if (mainImg.tagName === 'IMG') mainImg.src = data.main_image_url;
                             else mainImg.style.backgroundImage = `url('${data.main_image_url}')`;

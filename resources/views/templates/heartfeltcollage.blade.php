@@ -28,46 +28,48 @@
             color: #3d2a1d;
         }
         
-        /* Heart Grid Collage */
+        /* Heart Grid Collage - Reconstructed with a responsive SVG mask */
         .heart-grid-wrapper {
             margin: 3rem auto;
             width: 90%;
-            max-width: 400px;
-        }
-        .heart-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-        }
-        .heart-item {
+            max-width: 320px;
             aspect-ratio: 1;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #e5dca5;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            /* Use a responsive SVG mask instead of path() which doesn't auto-scale */
+            clip-path: url(#heart-mask);
         }
-        .heart-item img {
+        
+        .heart-grid-bg-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .heart-grid-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        /* Define the heart shape using grid-area or specific row/col */
-        .h-1 { grid-column: 2; grid-row: 1; }
-        .h-2 { grid-column: 4; grid-row: 1; }
-        .h-3 { grid-column: 1; grid-row: 2; }
-        .h-4 { grid-column: 2; grid-row: 2; }
-        .h-5 { grid-column: 3; grid-row: 2; }
-        .h-6 { grid-column: 4; grid-row: 2; }
-        .h-7 { grid-column: 5; grid-row: 2; }
-        .h-8 { grid-column: 1; grid-row: 3; }
-        .h-9 { grid-column: 2; grid-row: 3; }
-        .h-10 { grid-column: 3; grid-row: 3; }
-        .h-11 { grid-column: 4; grid-row: 3; }
-        .h-12 { grid-column: 5; grid-row: 3; }
-        .h-13 { grid-column: 2; grid-row: 4; }
-        .h-14 { grid-column: 3; grid-row: 4; }
-        .h-15 { grid-column: 4; grid-row: 4; }
-        .h-16 { grid-column: 3; grid-row: 5; }
+
+        /* The grid overlay drawing the thin lines over the single image */
+        .heart-grid-overlay {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .heart-grid-line-h {
+            border-bottom: 3px solid #fef7d5; /* matching body background color and 3px thickness */
+        }
+        
+        .heart-grid-line-v {
+            border-right: 3px solid #fef7d5;
+        }
 
         .red-heart {
             color: #c91111;
@@ -335,43 +337,63 @@
     <div class="theme-wrapper">
         
         <!-- Heart Grid Collage -->
+        @php
+            $imgs = [];
+            if(isset($invitation) && $invitation->galleries) {
+                foreach($invitation->galleries as $g) {
+                    $imgs[] = $g->image_url;
+                }
+            }
+            
+            $mainImg = $invitation->main_image_url ?? $details['main_image_url'] ?? null;
+            if($mainImg) {
+                array_unshift($imgs, $mainImg);
+            }
+            if(isset($invitation) && $invitation->bride_image_url) {
+                $imgs[] = $invitation->bride_image_url;
+            }
+            if(isset($invitation) && $invitation->groom_image_url) {
+                $imgs[] = $invitation->groom_image_url;
+            }
+            
+            // Fallback elegant photos
+            $fallbacks = [
+                'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=400',
+                'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400',
+                'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=400',
+                'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=400',
+                'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=400'
+            ];
+            
+            $src = $mainImg ?? (count($imgs) > 0 ? $imgs[0] : $fallbacks[0]);
+        @endphp
+        
+        <!-- Responsive SVG ClipPath definition to auto-scale on mobile -->
+        <svg style="width:0; height:0; position:absolute;">
+            <defs>
+                <clipPath id="heart-mask" clipPathUnits="objectBoundingBox">
+                    <path d="M 0.5,0.9 C 0.8,0.67 1,0.47 1,0.29 C 1,0.13 0.89,0 0.75,0 C 0.65,0 0.56,0.07 0.5,0.18 C 0.44,0.07 0.35,0 0.25,0 C 0.11,0 0,0.13 0,0.29 C 0,0.47 0.2,0.67 0.5,0.9 Z" />
+                </clipPath>
+            </defs>
+        </svg>
+
+        <!-- Heart Grid Collage -->
         <div class="heart-grid-wrapper">
-            <div class="heart-grid">
-                @php
-                    $imgs = [];
-                    if(isset($invitation) && $invitation->galleries) {
-                        foreach($invitation->galleries as $g) {
-                            $imgs[] = $g->image_url;
-                        }
-                    }
-                    
-                    $mainImg = $invitation->main_image_url ?? $details['main_image_url'] ?? null;
-                    if($mainImg) {
-                        array_unshift($imgs, $mainImg);
-                    }
-                    if(isset($invitation) && $invitation->bride_image_url) {
-                        $imgs[] = $invitation->bride_image_url;
-                    }
-                    if(isset($invitation) && $invitation->groom_image_url) {
-                        $imgs[] = $invitation->groom_image_url;
-                    }
-                    
-                    // Fallback elegant photos
-                    $fallbacks = [
-                        'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=400',
-                        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400',
-                        'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=400',
-                        'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=400',
-                        'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=400'
-                    ];
-                    
-                    // Use the first image (main / details main / first fallback) for every grid cell
-                    $src = $mainImg ?? (count($imgs) > 0 ? $imgs[0] : $fallbacks[0]);
-                    for($i=1; $i<=16; $i++) {
-                        $class = "h-" . $i;
-                        echo "<div class='heart-item $class'><img class='pv-main-img-src' src='$src' alt=''></div>";
-                    }
-                @endphp
+            <div class="heart-grid-bg-container">
+                <img class="heart-grid-image pv-main-img-src" src="{{ $src }}" alt="Couple Background">
+            </div>
+
+            <div class="heart-grid-overlay">
+                <!-- Row 1 -->
+                <div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div></div>
+                <!-- Row 2 -->
+                <div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h"></div>
+                <!-- Row 3 -->
+                <div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h"></div>
+                <!-- Row 4 -->
+                <div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h heart-grid-line-v"></div><div class="heart-grid-line-h"></div>
+                <!-- Row 5 -->
+                <div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div class="heart-grid-line-v"></div><div></div>
             </div>
         </div>
 
