@@ -161,6 +161,27 @@
             object-fit: cover;
         }
     </style>
+
+    <!-- Added Beautiful Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        [data-preview="wedding_date"], 
+        [data-preview="time"], 
+        [data-preview="venue_address"], 
+        [data-preview="rsvp_contact"] {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 600 !important;
+            font-style: italic !important;
+            letter-spacing: 0.5px !important;
+        }
+        [data-preview="venue_name"] {
+            font-family: 'Alex Brush', cursive !important;
+            font-size: 1.5em !important;
+            font-weight: normal !important;
+        }
+    </style>
 </head>
 <body>
     <div class="template-wrapper">
@@ -169,20 +190,20 @@
             <!-- Left Column -->
             <div class="collage-left">
                 <div class="img-box img-main">
-                    <img class="pv-main-img-src" src="{{ $invitation->main_image_url ?? '' }}" alt="Main">
+                    <img class="pv-main-img-src" src="{{ $invitation->main_image_url ?? $details['main_image_url'] ?? 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }}" alt="Main">
                 </div>
             </div>
             <!-- Right Column -->
             <div class="collage-right">
                 <div class="img-box img-tr">
-                    <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}" alt="Bride">
+                    <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? $details['bride_image_url'] ?? 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' }}" alt="Bride">
                 </div>
                 <div class="img-box img-mr">
-                    <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}" alt="Groom">
+                    <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? $details['groom_image_url'] ?? 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' }}" alt="Groom">
                 </div>
                 <div class="img-box img-br">
                     <!-- Usually we'd use a gallery image here, but sticking to the basic hooks -->
-                    <img class="pv-main-img-src" src="{{ $invitation->main_image_url ?? '' }}" style="filter: brightness(0.8);" alt="Extra">
+                    <img class="pv-main-img-src" src="{{ $invitation->main_image_url ?? $details['main_image_url'] ?? 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }}" style="filter: brightness(0.8);" alt="Extra">
                 </div>
             </div>
         </div>

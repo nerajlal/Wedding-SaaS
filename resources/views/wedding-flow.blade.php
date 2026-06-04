@@ -816,12 +816,49 @@
                         </div>
                     </div>
 
-                    <div class="tpl-tile" id="tpl-classic-romance" onclick="pickTpl('classic-romance', this)">
-                        <img src="/template_thumbnails/classic-romance.png" alt="Classic Romance">
+                    <div class="tpl-tile" id="tpl-heartfeltcollage" onclick="pickTpl('heartfeltcollage', this)">
+                        <img src="/template_thumbnails/heartfeltcollage.png" alt="Heartfelt Collage">
                         <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
                         <div class="tpl-tile-foot">
-                            <div class="tpl-tile-name">Classic Romance</div>
-                            <div class="tpl-tile-hint">Timeless beauty</div>
+                            <div class="tpl-tile-name">Heartfelt Collage</div>
+                            <div class="tpl-tile-hint">Romantic heart design</div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="tpl-tile" id="tpl-florallovesplash" onclick="pickTpl('florallovesplash', this)">
+                        <img src="/template_thumbnails/florallovesplash.png" alt="Floral Love Splash">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Floral Love Splash</div>
+                            <div class="tpl-tile-hint">Brush stroke photo with blue details</div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-tile" id="tpl-lovelocked" onclick="pickTpl('lovelocked', this)">
+                        <img src="/template_thumbnails/lovelocked.png" alt="Love Locked Cinematic">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Love Locked Cinematic</div>
+                            <div class="tpl-tile-hint">Movie poster style with blended foreground</div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-tile" id="tpl-pinkgreyelegance" onclick="pickTpl('pinkgreyelegance', this)">
+                        <img src="/template_thumbnails/pinkgreyelegance.png" alt="Pink & Grey Elegance">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Pink & Grey Elegance</div>
+                            <div class="tpl-tile-hint">Dreamy cloud collage with greyscale background</div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-tile" id="tpl-eternalposter" onclick="pickTpl('eternalposter', this)">
+                        <img src="/template_thumbnails/eternalposter.png" alt="Eternal Poster">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Eternal Poster</div>
+                            <div class="tpl-tile-hint">Magazine style poster with sharp foreground cutout</div>
                         </div>
                     </div>
 

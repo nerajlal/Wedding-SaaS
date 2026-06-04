@@ -195,6 +195,27 @@
             transform: scale(1.05);
         }
     </style>
+
+    <!-- Added Beautiful Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        [data-preview="wedding_date"], 
+        [data-preview="time"], 
+        [data-preview="venue_address"], 
+        [data-preview="rsvp_contact"] {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 600 !important;
+            font-style: italic !important;
+            letter-spacing: 0.5px !important;
+        }
+        [data-preview="venue_name"] {
+            font-family: 'Alex Brush', cursive !important;
+            font-size: 1.5em !important;
+            font-weight: normal !important;
+        }
+    </style>
 </head>
 <body>
     <div class="template-wrapper">

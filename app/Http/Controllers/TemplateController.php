@@ -50,10 +50,34 @@ class TemplateController extends Controller
             ],
             // New Templates
             [
-                'id' => 'classic-romance',
-                'name' => 'Classic Romance',
-                'hint' => 'Timeless beauty',
-                'image' => '/template_thumbnails/classic-romance.png',
+                'id' => 'heartfeltcollage',
+                'name' => 'Heartfelt Collage',
+                'hint' => 'Romantic heart design',
+                'image' => '/template_thumbnails/heartfeltcollage.png',
+            ],
+            [
+                'id' => 'florallovesplash',
+                'name' => 'Floral Love Splash',
+                'hint' => 'Brush stroke photo with blue details',
+                'image' => '/template_thumbnails/florallovesplash.png',
+            ],
+            [
+                'id' => 'lovelocked',
+                'name' => 'Love Locked Cinematic',
+                'hint' => 'Movie poster style with blended foreground',
+                'image' => '/template_thumbnails/lovelocked.png',
+            ],
+            [
+                'id' => 'pinkgreyelegance',
+                'name' => 'Pink & Grey Elegance',
+                'hint' => 'Dreamy cloud collage with greyscale background',
+                'image' => '/template_thumbnails/pinkgreyelegance.png',
+            ],
+            [
+                'id' => 'eternalposter',
+                'name' => 'Eternal Poster',
+                'hint' => 'Magazine style poster with sharp foreground cutout',
+                'image' => '/template_thumbnails/eternalposter.png',
             ],
         ];
     }
