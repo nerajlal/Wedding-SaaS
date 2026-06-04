@@ -632,11 +632,11 @@
                 const iframe = document.getElementById('preview-iframe');
                 if(!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return;
                 
-                const target = iframe.contentWindow.document.querySelector(targetSelector);
-                if (target) {
+                const targets = iframe.contentWindow.document.querySelectorAll(targetSelector);
+                targets.forEach(target => {
                     if (target.tagName === 'IMG') target.src = objectUrl;
                     else target.style.backgroundImage = `url('${objectUrl}')`;
-                }
+                });
             });
         };
 
@@ -745,11 +745,11 @@
                 if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
                     const doc = iframe.contentWindow.document;
                     if (data.main_image_url) {
-                        const mainImg = doc.querySelector('.pv-main-img-src');
-                        if (mainImg) {
+                        const mainImgs = doc.querySelectorAll('.pv-main-img-src');
+                        mainImgs.forEach(mainImg => {
                             if (mainImg.tagName === 'IMG') mainImg.src = data.main_image_url;
                             else mainImg.style.backgroundImage = `url('${data.main_image_url}')`;
-                        }
+                        });
                     }
                     if (data.bride_image_url) {
                         const brideImg = doc.querySelector('.pv-bride-img-src');

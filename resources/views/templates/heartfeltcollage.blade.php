@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $invitation->bride_name ?? 'Bride' }} & {{ $invitation->groom_name ?? 'Groom' }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body { 
             margin: 0; 
@@ -343,8 +344,10 @@
                             $imgs[] = $g->image_url;
                         }
                     }
-                    if(isset($invitation) && $invitation->main_image_url) {
-                        array_unshift($imgs, $invitation->main_image_url);
+                    
+                    $mainImg = $invitation->main_image_url ?? $details['main_image_url'] ?? null;
+                    if($mainImg) {
+                        array_unshift($imgs, $mainImg);
                     }
                     if(isset($invitation) && $invitation->bride_image_url) {
                         $imgs[] = $invitation->bride_image_url;
@@ -362,14 +365,11 @@
                         'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80&w=400'
                     ];
                     
+                    // Use the first image (main / details main / first fallback) for every grid cell
+                    $src = $mainImg ?? (count($imgs) > 0 ? $imgs[0] : $fallbacks[0]);
                     for($i=1; $i<=16; $i++) {
-                        $src = (count($imgs) > 0) ? $imgs[($i-1) % count($imgs)] : $fallbacks[($i-1) % count($fallbacks)];
                         $class = "h-" . $i;
-                        if($i == 1) { // Apply main img src to the first grid item for live preview
-                            echo "<div class='heart-item $class'><img class='pv-main-img-src' src='$src' alt=''></div>";
-                        } else {
-                            echo "<div class='heart-item $class'><img src='$src' alt=''></div>";
-                        }
+                        echo "<div class='heart-item $class'><img class='pv-main-img-src' src='$src' alt=''></div>";
                     }
                 @endphp
             </div>
@@ -449,7 +449,7 @@
             </div>
             <h2 class="person-name" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'Rixon' }}</h2>
             <h3 class="person-role">The Groom</h3>
-            <p class="person-desc">Kindly share the groom's details, including his parents' names and address.</p>
+            <!-- <p class="person-desc">Kindly share the groom's details, including his parents' names and address.</p> -->
         </div>
 
         <!-- Bride Section -->
@@ -462,7 +462,7 @@
             </div>
             <h2 class="person-name" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'Rivona' }}</h2>
             <h3 class="person-role">The Bride</h3>
-            <p class="person-desc">Kindly share the bride's details, including her parents' names and address.</p>
+            <!-- <p class="person-desc">Kindly share the bride's details, including her parents' names and address.</p> -->
         </div>
 
         <!-- Event Details -->
@@ -470,7 +470,7 @@
         <h2 class="section-title">When & Where</h2>
         
         <div class="event-card">
-            <img src="{{ $invitation->main_image_url ?? 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800' }}" class="event-card-img" alt="Wedding Venue">
+            <!-- <img src="{{ $invitation->main_image_url ?? 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800' }}" class="event-card-img" alt="Wedding Venue"> -->
             <div class="event-card-body">
                 <h2 class="event-card-title">Wedding</h2>
                 
