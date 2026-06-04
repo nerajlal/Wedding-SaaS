@@ -79,6 +79,12 @@ class TemplateController extends Controller
                 'hint' => 'Magazine style poster with sharp foreground cutout',
                 'image' => '/template_thumbnails/eternalposter.png',
             ],
+            [
+                'id' => 'celestial-navy',
+                'name' => 'Celestial Navy',
+                'hint' => 'Midnight blue dark theme with celestial gold detailing',
+                'image' => '/template_thumbnails/celestial-navy.png',
+            ],
         ];
     }
 

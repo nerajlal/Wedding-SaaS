@@ -862,6 +862,15 @@
                         </div>
                     </div>
 
+                    <div class="tpl-tile" id="tpl-celestial-navy" onclick="pickTpl('celestial-navy', this)">
+                        <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=400&q=80" alt="Celestial Navy">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Celestial Navy</div>
+                            <div class="tpl-tile-hint">Midnight blue & gold detailing</div>
+                        </div>
+                    </div>
+
                 </div>
                 <p style="text-align:center;font-size:.74rem;color:var(--muted);font-style:italic;margin-top:1rem">✦ More designs launching soon</p>
             </div>
