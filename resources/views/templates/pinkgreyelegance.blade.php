@@ -204,6 +204,14 @@
             font-weight: 600;
         }
 
+        /* Gallery */
+        .gallery-item {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            border-radius: 8px;
+            width: 100%;
+        }
+
     </style>
 
     <!-- Added Beautiful Fonts -->
@@ -244,7 +252,8 @@
         
         <div class="top-names-container">
             <div class="top-names">
-                <span style="font-size: inherit; letter-spacing: inherit;" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'Deepal' }}</span> 
+                <span style="font-size: inherit; letter-spacing: inherit;" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'Deepal' }}</span>
+ 
                 <span>&amp;</span> 
                 <span style="font-size: inherit; letter-spacing: inherit;" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'Jyoti' }}</span>
             </div>
@@ -272,6 +281,31 @@
             <div class="cloud-overlay cloud-2"></div>
         </div>
 
+        <!-- The Couple Section -->
+        <div style="position: relative; z-index: 10; padding: 2rem 1rem; text-align: center; background: #fbfbfb;">
+            <div style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 3px; color: #c95c6f; font-weight: 600; margin-bottom: 1.5rem;">The Couple</div>
+            
+            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+                <!-- Bride -->
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 160px; border: 2px solid #c95c6f; border-radius: 12px; overflow: hidden; margin-bottom: 0.8rem; background: #f5f5f5; box-shadow: 0 4px 12px rgba(201,92,111,0.1);">
+                        <img src="{{ $brideImgUrl ?? 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80' }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #333;" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'Bride' }}</div>
+                    <div style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #c95c6f; margin-top: 0.4rem;">Bride</div>
+                </div>
+
+                <!-- Groom -->
+                <div style="text-align: center;">
+                    <div style="width: 120px; height: 160px; border: 2px solid #c95c6f; border-radius: 12px; overflow: hidden; margin-bottom: 0.8rem; background: #f5f5f5; box-shadow: 0 4px 12px rgba(201,92,111,0.1);">
+                        <img src="{{ $groomImgUrl ?? 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400&q=80' }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: #333;" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'Groom' }}</div>
+                    <div style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #c95c6f; margin-top: 0.4rem;">Groom</div>
+                </div>
+            </div>
+        </div>
+
         <div class="details-section">
             <div class="detail-item" style="margin-bottom: 2rem;">
                 <div class="detail-val" style="font-size: 1.8rem; color: #c95c6f;">
@@ -291,13 +325,57 @@
                 <div class="detail-label">The Venue</div>
                 <div class="detail-val" data-preview="venue_name">{{ $invitation->venue_name ?? $details['venue_name'] ?? 'The Grand Palace' }}</div>
                 <div class="detail-desc" data-preview="venue_address">{{ $invitation->venue_address ?? $details['venue_address'] ?? '123 Royal Road, City' }}</div>
+                @php
+                    $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                    $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                @endphp
+                <div style="margin-top: 1.5rem; width: 100%; max-width: 440px; margin-left: auto; margin-right: auto;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.8rem; padding: 1rem 1.2rem; border-radius: 18px; border: 1px solid rgba(201, 92, 111, 0.2); background: rgba(201, 92, 111, 0.05); text-align: left;">
+                        <div style="flex:1 1 180px; min-width: 180px;">
+                            <p style="font-family:'Playfair Display',serif; font-weight:700; font-size:0.85rem; letter-spacing:1px; text-transform:uppercase; color:#c95c6f; margin:0 0 0.3rem;">Venue directions</p>
+                            <p style="font-family:'Montserrat',sans-serif; font-size:0.75rem; color:#777; line-height:1.4; margin:0;">Open the location in Maps to find the venue with ease.</p>
+                        </div>
+                        <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.7rem 1.1rem; border-radius:8px; background: #c95c6f; color: #fff; text-decoration:none; font-family:'Inter', sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(201,92,111,0.15);">
+                            View on map
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
             <div class="rsvp-box">
                 RSVP to <span data-preview="rsvp_contact">{{ $invitation->rsvp_contact ?? $details['rsvp_contact'] ?? 'Your Contact' }}</span>
             </div>
 
-            <!-- VELVET VOWS FOOTER -->
+        <!-- Gallery -->
+        @php
+            $hasGalleries = isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0;
+            $showGallery = $hasGalleries || !isset($invitation);
+        @endphp
+        <div class="gallery-section" style="{{ $showGallery ? 'margin-top: 2rem; padding: 0 2rem; position: relative; z-index: 5;' : 'display:none;' }}">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #555; text-transform: uppercase; letter-spacing: 2px;">Captured Moments</h3>
+            <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                @if($hasGalleries)
+                    @foreach($invitation->galleries as $gallery)
+                        <div class="gallery-item">
+                            <img src="{{ $gallery->image_url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    @endforeach
+                @else
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        <!-- VELVET VOWS FOOTER -->
             <div style="margin-top: 3rem; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.6rem; color: #999;">
                 <p style="margin: 0; letter-spacing: 1px;">DESIGNED ON VELVET VOWS</p>
             </div>

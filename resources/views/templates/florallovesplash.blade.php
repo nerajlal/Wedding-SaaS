@@ -204,6 +204,14 @@
             border-radius: 12px;
             text-align: center;
         }
+        
+        /* Gallery */
+        .gallery-item {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            border-radius: 8px;
+            width: 100%;
+        }
     </style>
 
     <!-- Added Beautiful Fonts -->
@@ -244,6 +252,7 @@
             <div class="brush-img-container">
                 <img src="{{ $img1 }}" alt="" class="brush-img pv-main-img-src">
             </div>
+
         </div>
 
         <div class="names-section">
@@ -276,6 +285,22 @@
             <div class="detail-label">The Venue</div>
             <div class="detail-val" data-preview="venue_name">{{ $invitation->venue_name ?? $details['venue_name'] ?? 'The Grand Palace' }}</div>
             <p data-preview="venue_address">{{ $invitation->venue_address ?? $details['venue_address'] ?? '123 Royal Road, City' }}</p>
+                @php
+                    $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                    $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                @endphp
+                <div style="margin-top: 1.5rem; width: 100%; max-width: 440px; margin-left: auto; margin-right: auto;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.8rem; padding: 1rem 1.2rem; border-radius: 18px; border: 1px solid rgba(0, 107, 153, 0.2); background: rgba(0, 107, 153, 0.05); text-align: left;">
+                        <div style="flex:1 1 180px; min-width: 180px;">
+                            <p style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; color:#006b99; margin:0 0 0.3rem;">Venue directions</p>
+                            <p style="font-family:'Montserrat',sans-serif; font-size:0.75rem; color:#666; line-height:1.4; margin:0;">Open the location in Maps to find the venue with ease.</p>
+                        </div>
+                        <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.7rem 1.1rem; border-radius:8px; background: #006b99; color: #fff; text-decoration:none; font-family:'Inter', sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(0,107,153,0.15);">
+                            View on map
+                        </a>
+                    </div>
+                </div>
+
             
             <div class="detail-label">When</div>
             <div class="detail-val">{{ $dateObj->format('l, F jS, Y') }}</div>
@@ -289,6 +314,34 @@
             </div>
         </div>
         
+        <!-- Gallery -->
+        @php
+            $hasGalleries = isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0;
+            $showGallery = $hasGalleries || !isset($invitation);
+        @endphp
+        <div class="gallery-section" style="{{ $showGallery ? 'margin-top: 2rem; padding: 0 2rem;' : 'display:none;' }}">
+            <div class="detail-label" style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: #006b99; margin-bottom: 1rem; text-transform: uppercase;">Memories</div>
+            <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                @if($hasGalleries)
+                    @foreach($invitation->galleries as $gallery)
+                        <div class="gallery-item">
+                            <img src="{{ $gallery->image_url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    @endforeach
+                @else
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                @endif
+            </div>
+        </div>
+
         <!-- VELVET VOWS FOOTER -->
         <div style="margin-top: 3rem; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; color: #aaa; padding-bottom: 2rem;">
             <p style="margin-bottom: 0.3rem; margin-top:0;">Created with love using <span style="color: #006b99; font-weight: 600;">Velvet Vows</span></p>

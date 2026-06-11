@@ -3,117 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhonePe Checkout — Velvet Vows</title>
+    <title>Complete Payment — Velvet Vows</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --phonepe-purple: #5F259F;
-            --phonepe-light: #F2E8FB;
-            --phonepe-green: #14B870;
-            --cream-2: #F7F3EB;
-            --text: #1E1812;
-            --muted: #7A7065;
-            --ease: cubic-bezier(0.16,1,0.3,1);
-            --body: 'Inter', sans-serif;
-            --display: 'Outfit', sans-serif;
+            --gold:        #B89047;
+            --gold-dk:     #8C6D3B;
+            --cream:       #FFFDF9;
+            --cream-2:     #F7F3EB;
+            --text:        #1E1812;
+            --muted:       #7A7065;
+            --border:      rgba(184,144,71,0.18);
+            --ease:        cubic-bezier(0.16,1,0.3,1);
+            --display:     'Outfit', sans-serif;
+            --body:        'Inter', sans-serif;
         }
+        
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body { 
             font-family: var(--body); 
-            background: #F8F9FA;
+            background: var(--cream-2);
             color: var(--text);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         
-        .checkout-wrapper {
+        .payment-wrapper {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 1rem;
+            padding: 3rem 1rem;
         }
 
-        .phonepe-container {
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(95, 37, 159, 0.1);
-            border: 1px solid rgba(95, 37, 159, 0.1);
+        .payment-container {
+            background: var(--cream);
+            border-radius: 24px;
+            border: 1.5px solid var(--border);
+            box-shadow: 0 20px 60px rgba(184,144,71,0.08);
             width: 100%;
-            max-width: 900px;
-            display: flex;
-            overflow: hidden;
-            flex-direction: row;
-        }
-
-        /* LEFT SIDE */
-        .pp-left {
-            width: 40%;
-            background: linear-gradient(135deg, var(--phonepe-purple) 0%, #481a7a 100%);
-            padding: 3rem;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        .pp-left::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 60%);
-        }
-        
-        .pp-brand { position: relative; z-index: 1; margin-bottom: auto; }
-        .pp-brand img { height: 35px; opacity: 0.9; margin-bottom: 2rem; filter: brightness(0) invert(1); }
-        .pp-merchant { font-family: var(--display); font-size: 1.5rem; font-weight: 700; margin-bottom: .2rem; }
-        .pp-desc { font-size: .9rem; color: rgba(255,255,255,0.7); }
-
-        .pp-amount-box { position: relative; z-index: 1; margin-top: 3rem; }
-        .pp-amount-label { font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: .2rem; }
-        .pp-amount-val { font-size: 2.5rem; font-weight: 800; font-family: var(--display); letter-spacing: -1px; }
-        
-        .pp-timer { display: inline-flex; align-items: center; gap: .5rem; background: rgba(255,255,255,0.15); padding: .5rem 1rem; border-radius: 99px; font-size: .85rem; margin-top: 2rem; font-weight: 600; width: max-content; }
-
-        /* RIGHT SIDE */
-        .pp-right {
-            width: 60%;
+            max-width: 700px;
             padding: 3.5rem;
-            background: #fff;
+        }
+
+        /* Header */
+        .payment-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 2rem;
+        }
+        
+        .payment-header h1 {
+            font-family: var(--display);
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .payment-header h1 span {
+            color: var(--gold);
+        }
+        
+        .payment-header p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: rgba(184,144,71,0.04);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .summary-item {
             display: flex;
             flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .summary-label {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold-dk);
+            font-weight: 700;
+        }
+
+        .summary-value {
+            font-size: 1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .summary-amount {
+            text-align: right;
+        }
+
+        .summary-price {
+            font-family: var(--display);
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold-dk);
+            letter-spacing: -1px;
+        }
+
+        .summary-duration {
+            font-size: 0.75rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            margin-bottom: 2.5rem;
+        }
+
+        .methods-title {
+            font-family: var(--display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .payment-option {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            align-items: center;
+        }
+
+        .payment-option:hover {
+            border-color: var(--gold);
+            background: rgba(184,144,71,0.02);
+        }
+
+        .payment-option input[type="radio"] {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--gold);
+        }
+
+        .option-details h3 {
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .option-details p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .qr-wrapper {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 2px dashed var(--border);
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        .pp-qr-section { text-align: center; }
-        .pp-qr-wrapper {
-            background: #fff; padding: 1rem; border-radius: 16px; border: 1px solid #eaeaea; display: inline-block; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        .qr-wrapper img {
+            width: 160px;
+            height: 160px;
         }
-        .pp-qr-wrapper img { width: 180px; height: 180px; }
-        .pp-qr-text { font-weight: 600; color: var(--text); font-size: 1.1rem; margin-bottom: .3rem; }
-        .pp-qr-sub { font-size: .9rem; color: var(--muted); margin-bottom: 2rem; }
 
-        .pp-divider { display: flex; align-items: center; text-align: center; color: #aaa; font-size: .85rem; margin: 2rem 0; }
-        .pp-divider::before, .pp-divider::after { content: ''; flex: 1; border-bottom: 1px solid #eaeaea; }
-        .pp-divider:not(:empty)::before { margin-right: 1em; }
-        .pp-divider:not(:empty)::after { margin-left: 1em; }
-
-        .pp-form-group { text-align: left; margin-bottom: 1rem; }
-        .pp-input-wrapper { display: flex; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: all .2s; }
-        .pp-input-wrapper:focus-within { border-color: var(--phonepe-purple); box-shadow: 0 0 0 3px var(--phonepe-light); }
-        .pp-input { border: none; padding: .8rem 1rem; flex: 1; outline: none; font-size: .95rem; }
-        .pp-input-suffix { background: #f8f9fa; padding: .8rem 1rem; color: #555; font-weight: 500; border-left: 1px solid #ddd; }
-
-        .btn-pp {
-            width: 100%; background: var(--phonepe-purple); color: #fff; border: none; padding: .9rem; border-radius: 8px; font-weight: 600; font-size: 1rem; margin-top: .5rem; transition: all .2s;
+        .qr-text {
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--text);
         }
-        .btn-pp:hover { background: #481a7a; }
 
-        @media (max-width: 768px) {
-            .phonepe-container { flex-direction: column; }
-            .pp-left, .pp-right { width: 100%; padding: 2rem; }
-            .pp-left { border-radius: 20px 20px 0 0; }
+        .qr-sub {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* Form Section */
+        .form-section {
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold-dk);
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-family: var(--body);
+            font-size: 0.95rem;
+            color: var(--text);
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(184,144,71,0.1);
+        }
+
+        /* Divider */
+        .divider-or {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin: 2rem 0;
+            font-weight: 600;
+        }
+
+        .divider-or::before,
+        .divider-or::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .divider-or::before {
+            margin-right: 1rem;
+        }
+
+        .divider-or::after {
+            margin-left: 1rem;
+        }
+
+        /* Button */
+        .btn-payment {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, var(--gold-dk), var(--gold));
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: var(--display);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            box-shadow: 0 8px 24px rgba(184,144,71,0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-payment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(184,144,71,0.35);
+        }
+
+        .btn-payment:active {
+            transform: translateY(0);
+        }
+
+        .btn-payment:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .btn-spinner {
+            display: none;
+            margin-right: 0.6rem;
+        }
+
+        /* Timer */
+        .timer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(184,144,71,0.12);
+            color: var(--gold-dk);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .payment-container {
+                padding: 2rem;
+            }
+
+            .payment-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .order-summary {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .summary-amount {
+                text-align: left;
+            }
+
+            .summary-price {
+                font-size: 2rem;
+            }
+
+            .payment-option {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .payment-option input[type="radio"] {
+                order: -1;
+            }
+
+            .qr-wrapper img {
+                width: 140px;
+                height: 140px;
+            }
         }
     </style>
 </head>
@@ -121,62 +376,122 @@
 
     @include('partials.header')
 
-    <div class="checkout-wrapper">
-        <div class="phonepe-container">
-            <!-- Left Side -->
-            <div class="pp-left">
-                <div class="pp-brand">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/PhonePe_Logo.svg/1024px-PhonePe_Logo.svg.png" alt="PhonePe">
-                    <div class="pp-merchant">Velvet Vows</div>
-                    <div class="pp-desc">Premium Wedding Invitation (Lifetime Access)</div>
-                </div>
-                
-                <div class="pp-amount-box">
-                    <div class="pp-amount-label">Amount to pay</div>
-                    <div class="pp-amount-val">₹999</div>
-                </div>
+    <div class="payment-wrapper">
+        <div class="payment-container">
+            
+            <!-- Header -->
+            <div class="payment-header">
+                <h1>Complete Your <span>Purchase</span></h1>
+                <p>Secure payment to unlock your premium invitation</p>
+            </div>
 
-                <div class="pp-timer">
-                    <i class="bi bi-clock-history"></i> <span id="timer">04:59</span>
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="summary-item">
+                    <div class="summary-label"><i class="bi bi-gift me-2"></i> Package</div>
+                    <div class="summary-value">Premium Invitation (Lifetime)</div>
+                </div>
+                <div class="summary-item summary-amount">
+                    <div class="summary-label">Amount</div>
+                    <div class="summary-price">₹999</div>
+                    <div class="summary-duration">One-time payment</div>
                 </div>
             </div>
 
-            <!-- Right Side -->
-            <div class="pp-right">
-                
-                <div class="pp-qr-section">
-                    <div class="pp-qr-wrapper">
-                        <!-- Dummy QR Code -->
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=velvetvows@ybl&pn=VelvetVows&am=999.00&cu=INR" alt="QR Code">
-                    </div>
-                    <div class="pp-qr-text">Scan & Pay</div>
-                    <div class="pp-qr-sub">Scan QR code using PhonePe or any UPI app</div>
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <div class="methods-title">
+                    <i class="bi bi-wallet2"></i> Select Payment Method
                 </div>
 
-                <div class="pp-divider">OR</div>
-
-                <form action="{{ route('wedding.payment.process') }}" method="POST">
-                    @csrf
-                    <div class="pp-form-group">
-                        <div class="pp-input-wrapper">
-                            <input type="text" class="pp-input" placeholder="Enter UPI ID (e.g. 9876543210)" required>
-                            <div class="pp-input-suffix">@ybl</div>
-                        </div>
+                <!-- QR Code Option -->
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="qr" checked>
+                    <div class="option-details">
+                        <h3>Scan & Pay</h3>
+                        <p>Use any UPI app to scan and pay instantly</p>
                     </div>
-                    <button type="submit" class="btn-pp" onclick="this.innerHTML = '<span class=\'spinner-border spinner-border-sm me-2\'></span> Requesting...'; this.style.pointerEvents = 'none';">
-                        Verify & Pay
-                    </button>
-                </form>
+                </label>
 
+                <!-- Manual UPI Option -->
+                <label class="payment-option">
+                    <input type="radio" name="paymentMethod" value="upi">
+                    <div class="option-details">
+                        <h3>Enter UPI ID</h3>
+                        <p>Pay directly from your UPI account</p>
+                    </div>
+                </label>
             </div>
+
+            <!-- QR Section -->
+            <div class="qr-section" id="qrSection">
+                <div class="qr-wrapper">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=velvetvows@ybl&pn=VelvetVows&am=999.00&cu=INR" alt="QR Code">
+                </div>
+                <div class="qr-text">Scan with PhonePe, Google Pay, or any UPI App</div>
+                <div class="qr-sub">Payment will be verified automatically</div>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider-or">OR</div>
+
+            <!-- Form Section -->
+            <form action="{{ route('wedding.payment.process') }}" method="POST" class="form-section">
+                @csrf
+                <div class="form-group" id="upiFormGroup" style="display: none;">
+                    <label class="form-label" for="upiId">UPI ID</label>
+                    <input type="text" id="upiId" name="upi_id" class="form-input" placeholder="9876543210@ybl" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+" title="Enter valid UPI ID">
+                </div>
+
+                <button type="submit" class="btn-payment">
+                    <span class="btn-spinner"></span>
+                    <span>Proceed to Payment</span>
+                </button>
+            </form>
+
+            <!-- Timer -->
+            <div style="text-align: center;">
+                <div class="timer-badge">
+                    <i class="bi bi-clock-history"></i> 
+                    <span>Session expires in <span id="timer">04:59</span></span>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    @include('partials.popups')
     @include('partials.footer')
+    @include('partials.popups')
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Toggle between payment methods
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const qrSection = document.getElementById('qrSection');
+                const upiFormGroup = document.getElementById('upiFormGroup');
+                
+                if (this.value === 'qr') {
+                    qrSection.style.display = 'block';
+                    upiFormGroup.style.display = 'none';
+                } else {
+                    qrSection.style.display = 'none';
+                    upiFormGroup.style.display = 'block';
+                }
+            });
+        });
+
+        // Handle form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const btn = this.querySelector('.btn-payment');
+            const spinner = btn.querySelector('.btn-spinner');
+            const text = btn.querySelector('span:last-child');
+            
+            spinner.style.display = 'inline-block';
+            text.textContent = 'Processing...';
+            btn.disabled = true;
+        });
+
         // Simple countdown timer
         let time = 299; // 4:59
         const timerEl = document.getElementById('timer');
@@ -190,3 +505,4 @@
     </script>
 </body>
 </html>
+

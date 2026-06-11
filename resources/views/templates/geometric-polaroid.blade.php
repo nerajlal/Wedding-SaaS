@@ -228,11 +228,11 @@
         
         <!-- Top Photos -->
         <div class="polaroid polaroid-1">
-            <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}" alt="Bride">
+            <img class="pv-bride-img-src" src="{{ !empty($invitation->bride_image_url) ? $invitation->bride_image_url : (!empty($details['bride_image_url']) ? $details['bride_image_url'] : 'https://images.unsplash.com/photo-1541250848049-b4f7141fca3f?auto=format&fit=crop&w=400&q=80') }}">
         </div>
+
         
         <div class="polaroid polaroid-2">
-            <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}" alt="Groom">
         </div>
         
         <!-- Center Text Box -->
@@ -266,6 +266,22 @@
                 <div data-preview="venue_address" style="font-size: 0.85rem; color: #666; margin-top: 4px;">
                     {{ $invitation->venue_address ?? $details['venue_address'] ?? '123 Wedding Lane, Love City' }}
                 </div>
+                @php
+                    $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                    $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                @endphp
+                <div style="margin-top: 1.5rem; width: 100%; max-width: 440px; margin-left: auto; margin-right: auto;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.8rem; padding: 1rem 1.2rem; border-radius: 12px; border: 1px solid rgba(51, 51, 51, 0.2); background: rgba(51, 51, 51, 0.04); text-align: left;">
+                        <div style="flex:1 1 180px; min-width: 180px;">
+                            <p style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; color:#333; margin:0 0 0.3rem;">Venue directions</p>
+                            <p style="font-family:'Montserrat',sans-serif; font-size:0.75rem; color:#666; line-height:1.4; margin:0;">Open the location in Maps to find the venue with ease.</p>
+                        </div>
+                        <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.7rem 1.1rem; border-radius:8px; background: #333; color: #fff; text-decoration:none; font-family:'Inter', sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                            View on map
+                        </a>
+                    </div>
+                </div>
+
             </div>
             
             <span class="detail-label">Message</span>

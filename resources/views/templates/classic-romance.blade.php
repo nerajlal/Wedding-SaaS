@@ -49,6 +49,7 @@
             <img class="hero-img pv-main-img-src" src="{{ $invitation->main_image_url ?? '' }}" alt="Hero Image">
         </div>
 
+
         <div class="content">
             <p>You are joyfully invited to the wedding of</p>
             
@@ -68,6 +69,22 @@
                 <strong>Where</strong>
                 <span data-preview="venue_name">{{ $invitation->venue_name ?? $details['venue_name'] ?? 'The Grand Venue' }}</span><br>
                 <span data-preview="venue_address">{{ $invitation->venue_address ?? $details['venue_address'] ?? '123 Wedding Lane' }}</span>
+                @php
+                    $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                    $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                @endphp
+                <div style="margin-top: 1.5rem; width: 100%; max-width: 480px; margin-left: auto; margin-right: auto;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.8rem; padding: 1.2rem; border-radius: 12px; border: 1px solid rgba(196, 164, 124, 0.25); background: rgba(196, 164, 124, 0.05); text-align: left;">
+                        <div style="flex:1 1 200px; min-width: 200px;">
+                            <p style="font-family:'Georgia',serif; font-style:italic; font-size:1.1rem; color:#c4a47c; margin:0 0 0.3rem; font-weight: bold;">Venue directions</p>
+                            <p style="font-family:'Georgia',serif; font-size:0.85rem; color:#666; line-height:1.4; margin:0;">Open the location in Maps to find the venue with ease.</p>
+                        </div>
+                        <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.7rem 1.2rem; border-radius:8px; background: #c4a47c; color: #fff; text-decoration:none; font-family:'Inter', sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                            View on map
+                        </a>
+                    </div>
+                </div>
+
                 
                 <strong>RSVP</strong>
                 <span data-preview="rsvp_contact">{{ $invitation->rsvp_contact ?? $details['rsvp_contact'] ?? 'rsvp@example.com' }}</span>

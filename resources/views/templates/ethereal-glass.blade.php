@@ -223,6 +223,7 @@
         <!-- Hero Section -->
         <div class="glass-card">
             <div class="section-label">We Are Getting Married</div>
+
             <div class="hero-names" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'Sophia' }}</div>
             <div class="hero-and">&</div>
             <div class="hero-names" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'Alexander' }}</div>
@@ -251,6 +252,22 @@
                 <div style="font-size: 1.1rem; font-weight: 500; margin-bottom: 5px;" data-preview="time">{{ $invitation->time ?? $details['time'] ?? '4:00 PM' }}</div>
                 <div style="font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 10px;" data-preview="venue_name">{{ $invitation->venue_name ?? $details['venue_name'] ?? 'The Glasshouse Conservatory' }}</div>
                 <div style="color: var(--text-accent); font-size: 0.9rem;" data-preview="venue_address">{{ $invitation->venue_address ?? $details['venue_address'] ?? '123 Botanical Gardens, NY' }}</div>
+                @php
+                    $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                    $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                @endphp
+                <div style="margin-top: 1.5rem; width: 100%; max-width: 460px; margin-left: auto; margin-right: auto;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.8rem; padding: 1rem 1.2rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.6); background: rgba(255, 255, 255, 0.35); backdrop-filter: blur(8px); text-align: left; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.03);">
+                        <div style="flex:1 1 200px; min-width: 200px;">
+                            <p style="font-family:var(--font-sans); font-weight:600; font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-accent); margin:0 0 0.3rem;">Venue directions</p>
+                            <p style="font-family:var(--font-sans); font-size:0.78rem; color:var(--text-main); line-height:1.4; margin:0; opacity:0.95;">Open the location in Maps to find the venue with ease.</p>
+                        </div>
+                        <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.75rem 1.1rem; border-radius:12px; background: var(--text-main); color: #fff; text-decoration:none; font-family:'Inter', sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; box-shadow:0 6px 16px rgba(0,0,0,0.1);">
+                            View on map
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
         
@@ -261,14 +278,17 @@
                 {!! nl2br(e($invitation->personal_message ?? $details['personal_message'] ?? "Every love story is beautiful, but ours is my favorite. We cannot wait to celebrate the beginning of our forever with all of our favorite people.")) !!}
             </div>
             
-            <div style="display: flex; gap: 20px; margin-top: 40px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 200px;">
-                    <img class="img-avatar pv-bride-img-src" src="{{ $invitation->bride_image_url ?? 'https://images.unsplash.com/photo-1541250848049-b4f7141fca3f?auto=format&fit=crop&w=400&q=80' }}" alt="Bride">
+            <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 40px; align-items: center; justify-content: center;">
+                <!-- Bride -->
+                <div style="text-align: center;">
+                    <img class="img-avatar pv-bride-img-src" src="{{ !empty($invitation->bride_image_url) ? $invitation->bride_image_url : (!empty($details['bride_image_url']) ? $details['bride_image_url'] : 'https://images.unsplash.com/photo-1541250848049-b4f7141fca3f?auto=format&fit=crop&w=400&q=80') }}">
                     <div class="role-name" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'Sophia' }}</div>
                     <div class="section-label" style="margin-top: 5px;">The Bride</div>
                 </div>
-                <div style="flex: 1; min-width: 200px;">
-                    <img class="img-avatar pv-groom-img-src" src="{{ $invitation->groom_image_url ?? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80' }}" alt="Groom">
+                
+                <!-- Groom -->
+                <div style="text-align: center;">
+                    <img class="img-avatar pv-groom-img-src" src="{{ !empty($invitation->groom_image_url) ? $invitation->groom_image_url : '' }}" style="display: {{ !empty($invitation->groom_image_url) || !empty($details['groom_image_url']) ? 'block' : 'none' }};">
                     <div class="role-name" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'Alexander' }}</div>
                     <div class="section-label" style="margin-top: 5px;">The Groom</div>
                 </div>
@@ -276,10 +296,14 @@
         </div>
         
         <!-- Gallery Section -->
-        <div class="glass-card" style="{{ (isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0) ? '' : 'display:none;' }}">
+        @php
+            $hasGalleries = isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0;
+            $showGallery = $hasGalleries || !isset($invitation);
+        @endphp
+        <div class="glass-card gallery-section" style="{{ $showGallery ? '' : 'display:none;' }}">
             <div class="section-label">Moments</div>
             <div class="gallery-grid">
-                @if(isset($invitation) && $invitation->galleries)
+                @if($hasGalleries)
                     @foreach($invitation->galleries as $gallery)
                         <div class="gallery-item">
                             <img src="{{ $gallery->image_url }}" alt="Gallery Image">

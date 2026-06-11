@@ -29,29 +29,33 @@ class WeddingDetailsController extends Controller
     public function storeAll(Request $request)
     {
         $validated = $request->validate([
-            'bride_name'       => 'required|string|max:255',
-            'groom_name'       => 'required|string|max:255',
-            'wedding_date'     => 'required|string',
-            'time'             => 'required|string',
-            'venue_name'       => 'required|string|max:255',
-            'venue_address'    => 'required|string',
-            'rsvp_contact'     => 'required|string',
-            'rsvp_deadline'    => 'nullable|string',
-            'dress_code'       => 'nullable|string',
-            'personal_message' => 'nullable|string|max:200',
-            'template'         => 'required|string',
-            'couples_photo'    => 'nullable|image|max:5120',
-            'main_image'       => 'nullable|image|max:5120',
-            'groom_image'      => 'nullable|image|max:5120',
-            'bride_image'      => 'nullable|image|max:5120',
-            'gallery_images'   => 'nullable|array',
-            'gallery_images.*' => 'nullable|image|max:5120',
+            'bride_name'            => 'required|string|max:255',
+            'groom_name'            => 'required|string|max:255',
+            'wedding_date'          => 'required|string',
+            'time'                  => 'required|string',
+            'venue_name'            => 'required|string|max:255',
+            'venue_address'         => 'required|string',
+            'rsvp_contact'          => 'required|string',
+            'rsvp_deadline'         => 'nullable|string',
+            'dress_code'            => 'nullable|string',
+            'personal_message'      => 'nullable|string|max:200',
+            'expected_guest_count'  => 'nullable|integer|min:1',
+            'guest_notes'           => 'nullable|string|max:1000',
+            'template'              => 'required|string',
+            'couples_photo'         => 'nullable|image|max:5120',
+            'main_image'            => 'nullable|image|max:5120',
+            'groom_image'           => 'nullable|image|max:5120',
+            'bride_image'           => 'nullable|image|max:5120',
+            'accent_image'          => 'nullable|image|max:5120',
+            'gallery_images'        => 'nullable|array',
+            'gallery_images.*'      => 'nullable|image|max:5120',
+            'location_url'          => 'nullable|url|max:500',
         ]);
 
         $template = $validated['template'];
         unset($validated['template']);
         unset($validated['gallery_urls']);
-        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['gallery_images'], $validated['couples_photo']);
+        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['accent_image'], $validated['gallery_images'], $validated['couples_photo']);
 
         $photoBase64 = null;
         if ($request->hasFile('couples_photo')) {
@@ -69,6 +73,7 @@ class WeddingDetailsController extends Controller
         $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : ($request->input('existing_main_image_url') ?: null);
         $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : ($request->input('existing_groom_image_url') ?: null);
         $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : ($request->input('existing_bride_image_url') ?: null);
+        $accentImageUrl = $request->hasFile('accent_image') ? '/storage/' . $request->file('accent_image')->store('invitations', 'public') : ($request->input('existing_accent_image_url') ?: null);
 
         $invitation = \App\Models\Invitation::create(array_merge($validated, [
             'slug' => $slug,
@@ -78,6 +83,7 @@ class WeddingDetailsController extends Controller
             'main_image_url' => $mainImageUrl,
             'groom_image_url' => $groomImageUrl,
             'bride_image_url' => $brideImageUrl,
+            'accent_image_url' => $accentImageUrl,
         ]));
 
         if ($request->hasFile('gallery_images')) {
@@ -122,21 +128,34 @@ class WeddingDetailsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'bride_name' => 'required|string|max:255',
-            'groom_name' => 'required|string|max:255',
-            'wedding_date' => 'required|string',
-            'time' => 'required|string',
-            'venue_name' => 'required|string|max:255',
-            'venue_address' => 'required|string',
-            'rsvp_deadline' => 'nullable|string',
-            'rsvp_contact' => 'required|string',
-            'dress_code' => 'nullable|string',
-            'personal_message' => 'nullable|string|max:200',
-            'couples_photo' => 'nullable|image|max:5120',
+            'bride_name'            => 'required|string|max:255',
+            'groom_name'            => 'required|string|max:255',
+            'wedding_date'          => 'required|string',
+            'time'                  => 'required|string',
+            'venue_name'            => 'required|string|max:255',
+            'venue_address'         => 'required|string',
+            'rsvp_deadline'         => 'nullable|string',
+            'rsvp_contact'          => 'required|string',
+            'dress_code'            => 'nullable|string',
+            'personal_message'      => 'nullable|string|max:200',
+            'expected_guest_count'  => 'nullable|integer|min:1',
+            'guest_notes'           => 'nullable|string|max:1000',
+            'location_url'          => 'nullable|url|max:500',
+            'couples_photo'         => 'nullable|image|max:5120',
+            'bride_image' => 'nullable|image|max:5120',
+            'groom_image' => 'nullable|image|max:5120',
         ]);
 
-        // Save text details in session
-        session(['wedding_details' => $validated]);
+        $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : null;
+        $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : null;
+
+        $details = array_merge($validated, [
+            'bride_image_url' => $brideImageUrl,
+            'groom_image_url' => $groomImageUrl,
+        ]);
+
+        // Save details in session
+        session(['wedding_details' => $details]);
 
         // Handle photo upload (convert to Base64 data URL for easy portable rendering)
         if ($request->hasFile('couples_photo')) {
@@ -209,7 +228,7 @@ class WeddingDetailsController extends Controller
             return redirect()->route('wedding.details.create');
         }
 
-        $invitation = \App\Models\Invitation::where('slug', $slug)->firstOrFail();
+        $invitation = \App\Models\Invitation::with('galleries')->where('slug', $slug)->firstOrFail();
 
         $details = $invitation->toArray();
         $template = $invitation->template;
@@ -223,7 +242,7 @@ class WeddingDetailsController extends Controller
      */
     public function showPublicInvitation($slug)
     {
-        $invitation = \App\Models\Invitation::where('slug', $slug)->first();
+        $invitation = \App\Models\Invitation::with('galleries')->where('slug', $slug)->first();
 
         if ($invitation) {
             $details = $invitation->toArray();
@@ -278,15 +297,27 @@ class WeddingDetailsController extends Controller
             'venue_name' => 'The Grand Palace',
             'venue_address' => '123 Royal Road, City',
             'rsvp_contact' => 'Your Contact',
-            'personal_message' => 'Please confirm your attendance'
+            'personal_message' => 'Please confirm your attendance',
+            'location_url' => '',
+            'main_image_url' => '',
+            'bride_image_url' => '',
+            'groom_image_url' => '',
+            'accent_image_url' => ''
         ];
         $photo = $invitation ? $invitation->photo : null;
 
-        if (view()->exists('templates.' . $template)) {
-            return view('templates.' . $template, compact('details', 'template', 'photo', 'invitation'));
+        $resolvedTemplate = $this->resolveTemplateAlias($template);
+
+        if (view()->exists('templates.' . $resolvedTemplate)) {
+            return view('templates.' . $resolvedTemplate, compact('details', 'template', 'photo', 'invitation'));
         }
 
         return view('wedding-public', compact('details', 'template', 'photo', 'invitation'));
+    }
+
+    private function resolveTemplateAlias(string $template): string
+    {
+        return $template;
     }
 
     public function destroy($slug)
@@ -322,29 +353,33 @@ class WeddingDetailsController extends Controller
         $invitation = \App\Models\Invitation::where('slug', $slug)->where('user_id', auth()->id())->firstOrFail();
 
         $validated = $request->validate([
-            'bride_name'       => 'required|string|max:255',
-            'groom_name'       => 'required|string|max:255',
-            'wedding_date'     => 'required|string',
-            'time'             => 'required|string',
-            'venue_name'       => 'required|string|max:255',
-            'venue_address'    => 'required|string',
-            'rsvp_contact'     => 'required|string',
-            'rsvp_deadline'    => 'nullable|string',
-            'dress_code'       => 'nullable|string',
-            'personal_message' => 'nullable|string|max:200',
-            'template'         => 'required|string',
-            'couples_photo'    => 'nullable|image|max:5120',
-            'main_image'       => 'nullable|image|max:5120',
-            'groom_image'      => 'nullable|image|max:5120',
-            'bride_image'      => 'nullable|image|max:5120',
-            'gallery_images'   => 'nullable|array',
-            'gallery_images.*' => 'nullable|image|max:5120',
+            'bride_name'            => 'required|string|max:255',
+            'groom_name'            => 'required|string|max:255',
+            'wedding_date'          => 'required|string',
+            'time'                  => 'required|string',
+            'venue_name'            => 'required|string|max:255',
+            'venue_address'         => 'required|string',
+            'rsvp_contact'          => 'required|string',
+            'rsvp_deadline'         => 'nullable|string',
+            'dress_code'            => 'nullable|string',
+            'personal_message'      => 'nullable|string|max:200',
+            'expected_guest_count'  => 'nullable|integer|min:1',
+            'guest_notes'           => 'nullable|string|max:1000',
+            'template'              => 'required|string',
+            'couples_photo'         => 'nullable|image|max:5120',
+            'main_image'            => 'nullable|image|max:5120',
+            'groom_image'           => 'nullable|image|max:5120',
+            'bride_image'           => 'nullable|image|max:5120',
+            'accent_image'          => 'nullable|image|max:5120',
+            'gallery_images'        => 'nullable|array',
+            'gallery_images.*'      => 'nullable|image|max:5120',
+            'location_url'          => 'nullable|url|max:500',
         ]);
 
         $template = $validated['template'];
         unset($validated['template']);
         unset($validated['gallery_urls']);
-        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['gallery_images'], $validated['couples_photo']);
+        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['accent_image'], $validated['gallery_images'], $validated['couples_photo']);
 
         $photoBase64 = $invitation->photo;
         if ($request->hasFile('couples_photo')) {
@@ -358,6 +393,7 @@ class WeddingDetailsController extends Controller
         $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : $invitation->main_image_url;
         $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : $invitation->groom_image_url;
         $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : $invitation->bride_image_url;
+        $accentImageUrl = $request->hasFile('accent_image') ? '/storage/' . $request->file('accent_image')->store('invitations', 'public') : $invitation->accent_image_url;
 
         $invitation->update(array_merge($validated, [
             'template' => $template,
@@ -365,6 +401,7 @@ class WeddingDetailsController extends Controller
             'main_image_url' => $mainImageUrl,
             'groom_image_url' => $groomImageUrl,
             'bride_image_url' => $brideImageUrl,
+            'accent_image_url' => $accentImageUrl,
         ]));
 
         if ($request->has('delete_galleries')) {
@@ -387,7 +424,14 @@ class WeddingDetailsController extends Controller
             }
         }
 
-        session(['wedding_details'  => $validated]);
+        $sessionDetails = array_merge($validated, [
+            'main_image_url' => $mainImageUrl,
+            'groom_image_url' => $groomImageUrl,
+            'bride_image_url' => $brideImageUrl,
+            'accent_image_url' => $accentImageUrl,
+        ]);
+
+        session(['wedding_details'  => $sessionDetails]);
         session(['wedding_template' => $template]);
         session(['wedding_slug'     => $invitation->slug]);
 

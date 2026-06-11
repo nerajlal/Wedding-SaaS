@@ -50,14 +50,38 @@
             font-size: 1.5em !important;
             font-weight: normal !important;
         }
+        
+        /* Groom photo placeholder handling */
+        .pv-groom-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            background-color: #f7f5f0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            transition: opacity 0.3s;
+            border-radius: 50px 50px 0 0;
+            border: 1px dashed rgba(90, 109, 92, 0.4);
+            box-sizing: border-box;
+        }
+        .pv-groom-img-src[src]:not([src=""]) ~ .pv-groom-placeholder {
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
     <div class="inv-premium-vintage">
-        <!-- Hero Section (40% height) -->
-        <div style="background-color:#5A6D5C; height:40vh; min-height: 350px; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#F0EAD6; padding:1rem; position:relative; z-index:1;">
-            <img class="hero-img pv-main-img-src" src="{{ $invitation->main_image_url ?? $photo ?? '' }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+        <!-- Hero Section (20% height) -->
+        <div style="background-color:#5A6D5C; height:20vh; min-height: 180px; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#F0EAD6; padding:1rem; position:relative; z-index:1;">
+            <img class="hero-img pv-main-img-src" src="{{ $invitation->main_image_url ?? $photo ?? 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80' }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2;">
             <div style="position:absolute; inset:0; background:rgba(44,53,49,0.5); z-index:-1;"></div>
+
             
             <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; font-size:0.6rem; letter-spacing:2px; margin-bottom:0.8rem;">We are getting married</p>
             
@@ -79,7 +103,7 @@
             <div style="display:flex; justify-content:center; gap:2rem; margin-bottom:2.5rem;">
                 <div style="display:flex; flex-direction:column; align-items:center;">
                     <div style="width:100px; height:130px; border-radius:50px 50px 0 0; background-color:#eee; border:1px solid rgba(90, 109, 92, 0.2); padding: 3px; position:relative; overflow:hidden; margin-bottom: 0.8rem;">
-                        <img class="person-img pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; border-radius: 50px 50px 0 0; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                        <img class="person-img pv-bride-img-src" src="{{ !empty($invitation->bride_image_url) ? $invitation->bride_image_url : (!empty($details['bride_image_url']) ? $details['bride_image_url'] : 'https://images.unsplash.com/photo-1541250848049-b4f7141fca3f?auto=format&fit=crop&w=400&q=80') }}" style="width:100%; height:100%; object-fit:cover; border-radius: 50px 50px 0 0; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
                     </div>
                     <p data-preview="bride_name" style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:#2C3531; font-weight:600; margin:0;">
                         {{ $invitation->bride_name ?? $details['bride_name'] ?? 'Bride' }}
@@ -87,8 +111,12 @@
                 </div>
                 
                 <div style="display:flex; flex-direction:column; align-items:center;">
+                    @php
+                        $groomImg = !empty($invitation->groom_image_url) ? $invitation->groom_image_url : (!empty($details['groom_image_url']) ? $details['groom_image_url'] : '');
+                    @endphp
                     <div style="width:100px; height:130px; border-radius:50px 50px 0 0; background-color:#eee; border:1px solid rgba(90, 109, 92, 0.2); padding: 3px; position:relative; overflow:hidden; margin-bottom: 0.8rem;">
-                        <img class="person-img pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}" style="width:100%; height:100%; object-fit:cover; border-radius: 50px 50px 0 0; opacity:0; transition:opacity 0.3s;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                        <img class="person-img pv-groom-img-src" src="{{ $groomImg }}" style="width:100%; height:100%; object-fit:cover; border-radius: 50px 50px 0 0; opacity:{{ $groomImg ? 1 : 0 }}; transition:opacity 0.3s; position: absolute; inset: 0;" onload="this.style.opacity=1" onerror="this.style.opacity=0">
+                        <div class="pv-groom-placeholder"></div>
                     </div>
                     <p data-preview="groom_name" style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:#2C3531; font-weight:600; margin:0;">
                         {{ $invitation->groom_name ?? $details['groom_name'] ?? 'Groom' }}
@@ -103,12 +131,27 @@
                     <p style="font-family:'Pinyon Script',cursive; font-size:1.3rem; color:#D4AF37; margin-bottom:0.5rem; margin-top:0;">The Venue</p>
                     <p data-preview="venue_name" style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; margin-bottom:0.5rem; margin-top:0;">{{ $invitation->venue_name ?? $details['venue_name'] ?? 'The Grand Palace' }}</p>
                     <p data-preview="venue_address" style="font-family:'Montserrat',sans-serif; font-size:0.8rem; opacity:0.9; margin-bottom:0.8rem; margin-top:0;">{{ $invitation->venue_address ?? $details['venue_address'] ?? '123 Royal Road, City' }}</p>
+                    @php
+                        $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                        $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                    @endphp
                     <p style="font-family:'Montserrat',sans-serif; font-size:0.8rem; opacity:0.9; margin: 0;">At <span data-preview="time">{{ $invitation->time ?? $details['time'] ?? '7:00 PM' }}</span></p>
+                    <div style="margin-top: 0.85rem; width: 100%; max-width: 420px; margin-left: auto; margin-right: auto;">
+                        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.65rem; padding: 0.9rem 1rem; border-radius: 20px; border: 1px solid rgba(240,234,214,0.18); background: rgba(240,234,214,0.14); backdrop-filter: blur(5px);">
+                            <div style="flex:1 1 200px; min-width: 200px; text-align:left;">
+                                <p style="font-family:'Pinyon Script',cursive; font-size:0.92rem; letter-spacing:0.12em; text-transform:none; color:#E8D8B7; margin:0 0 0.3rem; opacity:0.92;">Venue directions</p>
+                                <p style="font-family:'Cormorant Garamond',serif; font-size:1rem; color:#F0EAD6; opacity:0.96; line-height:1.5; margin:0; font-style:italic; letter-spacing:0.03em;">Open the location in Maps to find the venue with ease.</p>
+                            </div>
+                            <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.8rem 1rem; border-radius:999px; background: rgba(212,175,55,0.96); color: #172012; text-decoration:none; font-family:'Pinyon Script',cursive; font-size:1rem; font-weight:600; letter-spacing:0.04em; box-shadow:0 12px 24px rgba(0,0,0,0.14); border:1px solid rgba(255,255,255,0.35);">
+                                View on map
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- GALLERY SECTION -->
-            <div class="gallery-section" style="{{ (isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0) ? 'display:block;' : 'display:none;' }} margin: 3rem auto; max-width: 800px;">
+            <div class="gallery-section" style="{{ (isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0) ? 'display:block; margin: 3rem auto; max-width: 800px;' : 'display:none;' }}">
                 <p style="font-family:'Pinyon Script',cursive; font-size:2.2rem; color:#5A6D5C; margin-bottom:0.5rem; margin-top:0;">Memories</p>
                 <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:2px; font-size:0.7rem; color:#D4AF37; margin-bottom: 2rem; margin-top:0;">Captured moments</p>
                 

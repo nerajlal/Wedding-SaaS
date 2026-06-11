@@ -107,6 +107,13 @@
                 <div class="inv-royal-divider"></div>
                 <p class="inv-royal-venue" data-preview="venue_name">{{ $details['venue_name'] }}</p>
                 <p class="inv-royal-addr" data-preview="venue_address">{{ $details['venue_address'] }}</p>
+                @if(!empty($details['location_url']))
+                    <div style="margin-top: 1rem; width: 100%; text-align: center;">
+                        <a href="{{ $details['location_url'] }}" target="_blank" style="display: inline-block; padding: 0.6rem 1.2rem; background: #B89047; color: #fff; text-decoration: none; border-radius: 8px; font-size: 0.85rem; font-family: 'Inter', sans-serif; letter-spacing: 1px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: opacity 0.3s;">
+                            📍 View on Map
+                        </a>
+                    </div>
+                @endif
                 <p class="inv-royal-rsvp" data-preview="rsvp_contact">
                     @if(isset($details['rsvp_deadline']))
                         RSVP by {{ \Carbon\Carbon::parse($details['rsvp_deadline'])->format('j F') }} &bull; {{ $details['rsvp_contact'] }}
@@ -140,6 +147,13 @@
                 </div>
                 <p class="inv-min-venue" data-preview="venue_name">{{ $details['venue_name'] }}</p>
                 <p class="inv-min-addr" data-preview="venue_address">{{ $details['venue_address'] }}</p>
+                @if(!empty($details['location_url']))
+                    <div style="margin-top: 1rem; width: 100%; text-align: center;">
+                        <a href="{{ $details['location_url'] }}" target="_blank" style="display: inline-block; padding: 0.6rem 1.2rem; background: #B89047; color: #fff; text-decoration: none; border-radius: 8px; font-size: 0.85rem; font-family: 'Inter', sans-serif; letter-spacing: 1px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: opacity 0.3s;">
+                            📍 View on Map
+                        </a>
+                    </div>
+                @endif
                 <p class="inv-min-rsvp" data-preview="rsvp_contact">RSVP: {{ $details['rsvp_contact'] }}</p>
                 @if($details['personal_message'] ?? false)
                     <p style="font-size:.9rem;color:#999;font-style:italic;margin-top:1rem">"{{ $details['personal_message'] }}"</p>
@@ -163,6 +177,13 @@
                     <p class="inv-cel-venue-label">Celestial Venue</p>
                     <p class="inv-cel-venue-name" data-preview="venue_name">{{ $details['venue_name'] }}</p>
                     <p class="inv-cel-venue-addr" data-preview="venue_address">{{ $details['venue_address'] }}</p>
+                    @if(!empty($details['location_url']))
+                        <div style="margin-top: 1rem; width: 100%; text-align: center;">
+                            <a href="{{ $details['location_url'] }}" target="_blank" style="display: inline-block; padding: 0.6rem 1.2rem; background: #E8C55A; color: #0A1628; text-decoration: none; border-radius: 8px; font-size: 0.85rem; font-family: 'Inter', sans-serif; letter-spacing: 1px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: opacity 0.3s;">
+                                📍 View on Map
+                            </a>
+                        </div>
+                    @endif
                 </div>
                 <p class="inv-cel-rsvp" data-preview="rsvp_contact">RSVP: {{ $details['rsvp_contact'] }}</p>
                 @if($details['personal_message'] ?? false)

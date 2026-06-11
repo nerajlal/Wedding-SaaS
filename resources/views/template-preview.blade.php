@@ -454,6 +454,11 @@
                             <input type="text" name="rsvp_contact" id="inp-rsvp" class="modal-field-input" style="padding-left:1rem;" placeholder="Phone or Email" required value="{{ $invitation->rsvp_contact ?? '' }}">
                         </div>
 
+                        <div class="modal-field-group">
+                            <label class="modal-field-label">Location Map URL (Optional)</label>
+                            <input type="url" name="location_url" id="inp-location" class="modal-field-input" style="padding-left:1rem;" placeholder="https://maps.google.com/..." value="{{ $invitation->location_url ?? '' }}">
+                        </div>
+
                         <!-- Image URLs -->
                         <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Theme Images ✦</span></div>
 
@@ -620,23 +625,77 @@
         updateField('inp-addr', 'venue_address');
         updateField('inp-rsvp', 'rsvp_contact');
 
+        const getPreviewDocument = () => {
+            const iframe = document.getElementById('preview-iframe');
+            return iframe && iframe.contentWindow ? iframe.contentWindow.document : null;
+        };
+
+        const waitForIframe = (callback) => {
+            const iframe = document.getElementById('preview-iframe');
+            if (!iframe) return;
+            const doc = getPreviewDocument();
+            if (doc && doc.readyState === 'complete') {
+                callback();
+                return;
+            }
+            iframe.addEventListener('load', function onLoad() {
+                iframe.removeEventListener('load', onLoad);
+                callback();
+            });
+        };
+
+        // Live update for Location Map URL: updates map link(s) inside the iframe
+        const locationInput = document.getElementById('inp-location');
+        const updateLocationLinks = (val) => {
+            const doc = getPreviewDocument();
+            if(!doc) return;
+            const links = doc.querySelectorAll('.pv-location-url');
+            links.forEach(a => {
+                if (val) {
+                    a.href = val;
+                    a.style.display = '';
+                } else {
+                    a.removeAttribute('href');
+                    a.style.display = 'none';
+                }
+            });
+        };
+
+        if (locationInput) {
+            locationInput.addEventListener('input', (e) => {
+                const value = e.target.value.trim();
+                updateLocationLinks(value);
+                waitForIframe(() => updateLocationLinks(value));
+            });
+            updateLocationLinks(locationInput.value.trim());
+            waitForIframe(() => updateLocationLinks(locationInput.value.trim()));
+        }
+
         // Image File Previewer
         const updateImageUrl = (inputId, targetSelector) => {
             const inp = document.getElementById(inputId);
             if (!inp) return;
-            inp.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                
-                const objectUrl = URL.createObjectURL(file);
-                const iframe = document.getElementById('preview-iframe');
-                if(!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return;
-                
-                const targets = iframe.contentWindow.document.querySelectorAll(targetSelector);
+
+            const updateTargets = (objectUrl) => {
+                const doc = getPreviewDocument();
+                if (!doc) return false;
+                const targets = doc.querySelectorAll(targetSelector);
+                if (!targets.length) return false;
                 targets.forEach(target => {
                     if (target.tagName === 'IMG') target.src = objectUrl;
                     else target.style.backgroundImage = `url('${objectUrl}')`;
                 });
+                return true;
+            };
+
+            inp.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const objectUrl = URL.createObjectURL(file);
+                if (!updateTargets(objectUrl)) {
+                    waitForIframe(() => updateTargets(objectUrl));
+                }
             });
         };
 
@@ -689,9 +748,10 @@
         updateImageUrl('inp-main-img', '.pv-main-img-src, .pv-main-img-bg');
         updateImageUrl('inp-bride-img', '.pv-bride-img-src');
         updateImageUrl('inp-groom-img', '.pv-groom-img-src');
+        updateImageUrl('inp-accent-img', '.pv-accent-img-src');
 
         // trigger input to sync initial values if any
-        ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp', 'inp-main-img', 'inp-bride-img', 'inp-groom-img'].forEach(id => {
+        ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp', 'inp-main-img', 'inp-bride-img', 'inp-groom-img', 'inp-accent-img'].forEach(id => {
             const el = document.getElementById(id);
             if (el && el.value) el.dispatchEvent(new Event('input'));
         });
@@ -724,7 +784,8 @@
                     'inp-time': data.time,
                     'inp-venue': data.venue_name,
                     'inp-addr': data.venue_address,
-                    'inp-rsvp': data.rsvp_contact
+                    'inp-rsvp': data.rsvp_contact,
+                    'inp-location': data.location_url
                 };
                 
                 for (const [id, val] of Object.entries(fields)) {
@@ -739,6 +800,7 @@
                 if (data.main_image_url) document.getElementById('existing-main-image-url').value = data.main_image_url;
                 if (data.bride_image_url) document.getElementById('existing-bride-image-url').value = data.bride_image_url;
                 if (data.groom_image_url) document.getElementById('existing-groom-image-url').value = data.groom_image_url;
+                if (data.accent_image_url) document.getElementById('existing-accent-image-url').value = data.accent_image_url;
 
                 // Live preview images in iframe
                 const iframe = document.getElementById('preview-iframe');
@@ -752,18 +814,25 @@
                         });
                     }
                     if (data.bride_image_url) {
-                        const brideImg = doc.querySelector('.pv-bride-img-src');
-                        if (brideImg) {
+                        const brideImgs = doc.querySelectorAll('.pv-bride-img-src');
+                        brideImgs.forEach(brideImg => {
                             if (brideImg.tagName === 'IMG') brideImg.src = data.bride_image_url;
                             else brideImg.style.backgroundImage = `url('${data.bride_image_url}')`;
-                        }
+                        });
                     }
                     if (data.groom_image_url) {
-                        const groomImg = doc.querySelector('.pv-groom-img-src');
-                        if (groomImg) {
+                        const groomImgs = doc.querySelectorAll('.pv-groom-img-src');
+                        groomImgs.forEach(groomImg => {
                             if (groomImg.tagName === 'IMG') groomImg.src = data.groom_image_url;
                             else groomImg.style.backgroundImage = `url('${data.groom_image_url}')`;
-                        }
+                        });
+                    }
+                    if (data.accent_image_url) {
+                        const accentImgs = doc.querySelectorAll('.pv-accent-img-src');
+                        accentImgs.forEach(accentImg => {
+                            if (accentImg.tagName === 'IMG') accentImg.src = data.accent_image_url;
+                            else accentImg.style.backgroundImage = `url('${data.accent_image_url}')`;
+                        });
                     }
                     
                     // Handle Gallery if any

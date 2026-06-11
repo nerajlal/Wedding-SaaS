@@ -713,6 +713,13 @@
                     <label class="f-label">Full Address *</label>
                     <textarea name="venue_address" class="f-in no-pad" rows="2" placeholder="Street · City · State" required></textarea>
                 </div>
+                <div class="f-full">
+                    <label class="f-label">Location Map URL <span class="opt">(optional)</span></label>
+                    <div class="f-wrap">
+                        <i class="bi bi-link-45deg f-ico"></i>
+                        <input type="url" name="location_url" class="f-in" placeholder="https://maps.google.com/..." autocomplete="off">
+                    </div>
+                </div>
 
                 <div class="f-section">RSVP &amp; Details</div>
                 <div class="f-grid-2">
@@ -747,6 +754,22 @@
                 <div class="f-full">
                     <label class="f-label">Personal Message <span class="opt">(optional · 200 chars)</span></label>
                     <textarea name="personal_message" class="f-in no-pad" rows="2" maxlength="200" placeholder="A warm note from the couple…"></textarea>
+                </div>
+
+                <!-- Guest & Notes Section -->
+                <div class="f-section">Guest &amp; Logistics</div>
+                <div class="f-grid-2">
+                    <div>
+                        <label class="f-label">Expected Guest Count <span class="opt">(optional)</span></label>
+                        <div class="f-wrap">
+                            <i class="bi bi-people f-ico"></i>
+                            <input type="number" name="expected_guest_count" class="f-in" placeholder="e.g. 150" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="f-full">
+                    <label class="f-label">Special Guest Notes <span class="opt">(optional)</span></label>
+                    <textarea name="guest_notes" class="f-in no-pad" rows="2" placeholder="Dietary restrictions, accessibility needs, special arrangements…"></textarea>
                 </div>
             </div>
         </div>
@@ -863,11 +886,29 @@
                     </div>
 
                     <div class="tpl-tile" id="tpl-celestial-navy" onclick="pickTpl('celestial-navy', this)">
-                        <img src="https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=400&q=80" alt="Celestial Navy">
+                        <img src="{{ asset('template_thumbnails/celestial-navy.png') }}" alt="Celestial Navy">
                         <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
                         <div class="tpl-tile-foot">
                             <div class="tpl-tile-name">Celestial Navy</div>
                             <div class="tpl-tile-hint">Midnight blue & gold detailing</div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-tile" id="tpl-gatsby-luxury" onclick="pickTpl('gatsby-luxury', this)">
+                        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=400&q=80" alt="Gatsby Luxury">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Gatsby Luxury</div>
+                            <div class="tpl-tile-hint">Art Deco obsidian & metallic gold</div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-tile" id="tpl-enchanted-forest" onclick="pickTpl('enchanted-forest', this)">
+                        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=400&q=80" alt="Enchanted Forest">
+                        <div class="tpl-check-badge"><i class="bi bi-check-lg"></i></div>
+                        <div class="tpl-tile-foot">
+                            <div class="tpl-tile-name">Enchanted Forest</div>
+                            <div class="tpl-tile-hint">Deep emerald & foliage gold</div>
                         </div>
                     </div>
 
@@ -896,13 +937,40 @@
                 <p>A picture worth a thousand invitations</p>
             </div>
             <div class="fs-card-body">
-                <div class="dropzone" id="dz" onclick="document.getElementById('photo-inp').click()">
+                <div class="dropzone" id="dz" onclick="document.getElementById('photo-inp').click()" style="margin-bottom: 1.5rem;">
                     <img src="" alt="" class="dz-prev" id="dz-prev">
                     <div class="dz-icon" id="dz-icon"><i class="bi bi-image-fill"></i></div>
                     <p class="dz-text" id="dz-text">Tap to upload your couple photo</p>
                     <p class="dz-hint">PNG, JPG — up to 5MB</p>
                     <input type="file" id="photo-inp" name="couples_photo" accept="image/*" style="display:none" onchange="handleDrop(this)">
                 </div>
+
+                <div class="f-section" style="margin-top: 0; text-align: center; justify-content: center;">Bride's Photo</div>
+                <div class="dropzone" id="bride-dz" onclick="document.getElementById('bride-photo-inp').click()" style="margin-bottom: 1.5rem;">
+                    <img src="" alt="" class="dz-prev" id="bride-dz-prev">
+                    <div class="dz-icon" id="bride-dz-icon"><i class="bi bi-person-fill"></i></div>
+                    <p class="dz-text" id="bride-dz-text">Tap to upload bride's photo</p>
+                    <p class="dz-hint">PNG, JPG — up to 5MB</p>
+                    <input type="file" id="bride-photo-inp" name="bride_image" accept="image/*" style="display:none" onchange="handleBrideDrop(this)">
+                </div>
+
+                <div class="f-section" style="margin-top: 0; text-align: center; justify-content: center;">Groom's Photo</div>
+                <div class="dropzone" id="groom-dz" onclick="document.getElementById('groom-photo-inp').click()" style="margin-bottom: 1.5rem;">
+                    <img src="" alt="" class="dz-prev" id="groom-dz-prev">
+                    <div class="dz-icon" id="groom-dz-icon"><i class="bi bi-person-fill"></i></div>
+                    <p class="dz-text" id="groom-dz-text">Tap to upload groom's photo</p>
+                    <p class="dz-hint">PNG, JPG — up to 5MB</p>
+                    <input type="file" id="groom-photo-inp" name="groom_image" accept="image/*" style="display:none" onchange="handleGroomDrop(this)">
+                </div>
+
+                <div class="f-section" style="margin-top: 0; text-align: center; justify-content: center;">Gallery Photos</div>
+                <div class="dropzone" id="gallery-dz" onclick="document.getElementById('gallery-inp').click()">
+                    <div class="dz-icon" id="gallery-dz-icon"><i class="bi bi-images"></i></div>
+                    <p class="dz-text" id="gallery-dz-text">Tap to upload gallery photos (Multiple)</p>
+                    <p class="dz-hint">PNG, JPG — up to 5MB each</p>
+                    <input type="file" id="gallery-inp" name="gallery_images[]" accept="image/*" multiple style="display:none" onchange="handleGalleryDrop(this)">
+                </div>
+                
                 <p class="skip-txt" onclick="goNext(4)">Skip for now &rarr;</p>
             </div>
         </div>
@@ -1062,6 +1130,70 @@ const dz = document.getElementById('dz');
     if (ev === 'drop' && e.dataTransfer.files[0]) {
         document.getElementById('photo-inp').files = e.dataTransfer.files;
         handleDrop(document.getElementById('photo-inp'));
+    }
+}));
+
+function handleBrideDrop(inp) {
+    if (!inp.files || !inp.files[0]) return;
+    const r = new FileReader();
+    r.onload = e => {
+        const prev = document.getElementById('bride-dz-prev');
+        prev.src = e.target.result; prev.style.display = 'block';
+        document.getElementById('bride-dz-icon').style.display = 'none';
+        document.getElementById('bride-dz-text').textContent = inp.files[0].name;
+        document.getElementById('bride-dz').classList.add('drag');
+    };
+    r.readAsDataURL(inp.files[0]);
+}
+const brideDz = document.getElementById('bride-dz');
+if (brideDz) {
+    ['dragenter','dragover'].forEach(ev => brideDz.addEventListener(ev, e => { e.preventDefault(); brideDz.classList.add('drag'); }));
+    ['dragleave','drop'].forEach(ev => brideDz.addEventListener(ev, e => {
+        e.preventDefault(); brideDz.classList.remove('drag');
+        if (ev === 'drop' && e.dataTransfer.files[0]) {
+            document.getElementById('bride-photo-inp').files = e.dataTransfer.files;
+            handleBrideDrop(document.getElementById('bride-photo-inp'));
+        }
+    }));
+}
+
+function handleGroomDrop(inp) {
+    if (!inp.files || !inp.files[0]) return;
+    const r = new FileReader();
+    r.onload = e => {
+        const prev = document.getElementById('groom-dz-prev');
+        prev.src = e.target.result; prev.style.display = 'block';
+        document.getElementById('groom-dz-icon').style.display = 'none';
+        document.getElementById('groom-dz-text').textContent = inp.files[0].name;
+        document.getElementById('groom-dz').classList.add('drag');
+    };
+    r.readAsDataURL(inp.files[0]);
+}
+const groomDz = document.getElementById('groom-dz');
+if (groomDz) {
+    ['dragenter','dragover'].forEach(ev => groomDz.addEventListener(ev, e => { e.preventDefault(); groomDz.classList.add('drag'); }));
+    ['dragleave','drop'].forEach(ev => groomDz.addEventListener(ev, e => {
+        e.preventDefault(); groomDz.classList.remove('drag');
+        if (ev === 'drop' && e.dataTransfer.files[0]) {
+            document.getElementById('groom-photo-inp').files = e.dataTransfer.files;
+            handleGroomDrop(document.getElementById('groom-photo-inp'));
+        }
+    }));
+}
+
+function handleGalleryDrop(inp) {
+    if (!inp.files || inp.files.length === 0) return;
+    document.getElementById('gallery-dz-icon').style.display = 'none';
+    document.getElementById('gallery-dz-text').textContent = inp.files.length + ' photo(s) selected';
+    document.getElementById('gallery-dz').classList.add('drag');
+}
+const gdz = document.getElementById('gallery-dz');
+['dragenter','dragover'].forEach(ev => gdz.addEventListener(ev, e => { e.preventDefault(); gdz.classList.add('drag'); }));
+['dragleave','drop'].forEach(ev => gdz.addEventListener(ev, e => {
+    e.preventDefault(); gdz.classList.remove('drag');
+    if (ev === 'drop' && e.dataTransfer.files.length > 0) {
+        document.getElementById('gallery-inp').files = e.dataTransfer.files;
+        handleGalleryDrop(document.getElementById('gallery-inp'));
     }
 }));
 

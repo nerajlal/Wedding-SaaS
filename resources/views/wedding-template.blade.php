@@ -297,6 +297,68 @@
                         </div>
 
                     </div>{{-- /tpl-row --}}
+
+                    <div class="tpl-row" style="margin-top: 1rem;">
+                        {{-- Celestial Navy --}}
+                        <div class="template-card-wrapper" id="card-celestial-navy" onclick="selectTemplate('celestial-navy')">
+                            <span class="selected-badge">✓ Selected</span>
+                            <div class="tpl-celestial">
+                                @if(!empty($photo))
+                                    <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;border:1.5px solid #E8C55A;margin:0 auto .5rem;"><img src="{{ $photo }}" alt="Couple" style="width:100%;height:100%;object-fit:cover"></div>
+                                @endif
+                                <p class="tpl-cel-stars" style="color: #FFD700">✧ ⋆ ✧</p>
+                                <p class="tpl-cel-names">{{ $details['bride_name'] }}</p>
+                                <p class="tpl-cel-amp" style="color: #FFD700">&amp;</p>
+                                <p class="tpl-cel-names">{{ $details['groom_name'] }}</p>
+                                <p class="tpl-cel-date">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('j F Y') }}</p>
+                            </div>
+                            <div class="tpl-label" style="background:#051024;border-top:1px solid rgba(255,215,0,.15)">
+                                <span class="tpl-label-name" style="color:#FFD700">Celestial Navy</span>
+                                <span class="tpl-label-hint" style="color:rgba(255,255,255,.45)">Midnight blue, gold</span>
+                            </div>
+                        </div>
+
+                        {{-- Gatsby Luxury --}}
+                        <div class="template-card-wrapper" id="card-gatsby-luxury" onclick="selectTemplate('gatsby-luxury')">
+                            <span class="selected-badge">✓ Selected</span>
+                            <div class="tpl-celestial" style="background: #111; border: 1px solid #c5a880;">
+                                @if(!empty($photo))
+                                    <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;border:1.5px solid #D4AF37;margin:0 auto .5rem;"><img src="{{ $photo }}" alt="Couple" style="width:100%;height:100%;object-fit:cover"></div>
+                                @endif
+                                <p class="tpl-cel-stars" style="color: #D4AF37">⚜ ✦ ⚜</p>
+                                <p class="tpl-cel-names" style="color: #FFFDF9; font-family: 'Playfair Display', serif;">{{ $details['bride_name'] }}</p>
+                                <p class="tpl-cel-amp" style="color: #D4AF37">&amp;</p>
+                                <p class="tpl-cel-names" style="color: #FFFDF9; font-family: 'Playfair Display', serif;">{{ $details['groom_name'] }}</p>
+                                <p class="tpl-cel-date" style="color: #D4AF37; letter-spacing: 2px;">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('j F Y') }}</p>
+                            </div>
+                            <div class="tpl-label" style="background:#1a1a1a;border-top:1px solid rgba(212,175,55,.15)">
+                                <span class="tpl-label-name" style="color:#D4AF37">Gatsby Luxury</span>
+                                <span class="tpl-label-hint" style="color:rgba(255,255,255,.45)">Obsidian, metallic gold</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tpl-row" style="margin-top: 1rem;">
+                        {{-- Enchanted Forest --}}
+                        <div class="template-card-wrapper" id="card-enchanted-forest" onclick="selectTemplate('enchanted-forest')">
+                            <span class="selected-badge">✓ Selected</span>
+                            <div class="tpl-celestial" style="background: #0B2418; border: 1px solid #cbb89d;">
+                                @if(!empty($photo))
+                                    <div style="width:52px;height:52px;border-radius:50%;overflow:hidden;border:1.5px solid #dcd1af;margin:0 auto .5rem;"><img src="{{ $photo }}" alt="Couple" style="width:100%;height:100%;object-fit:cover"></div>
+                                @endif
+                                <p class="tpl-cel-stars" style="color: #AA7C11">🍃 ✦ 🍃</p>
+                                <p class="tpl-cel-names" style="color: #FFFDF9; font-family: 'Playfair Display', serif;">{{ $details['bride_name'] }}</p>
+                                <p class="tpl-cel-amp" style="color: #AA7C11">&amp;</p>
+                                <p class="tpl-cel-names" style="color: #FFFDF9; font-family: 'Playfair Display', serif;">{{ $details['groom_name'] }}</p>
+                                <p class="tpl-cel-date" style="color: #dcd1af; letter-spacing: 2px;">{{ \Carbon\Carbon::parse($details['wedding_date'])->format('j F Y') }}</p>
+                            </div>
+                            <div class="tpl-label" style="background:#05170f;border-top:1px solid rgba(220,209,175,.15)">
+                                <span class="tpl-label-name" style="color:#dcd1af">Enchanted Forest</span>
+                                <span class="tpl-label-hint" style="color:rgba(255,255,255,.45)">Deep emerald, botanical gold</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>{{-- /templates-grid --}}
 
                 <p class="tpl-hint">Tap a template to select it</p>
@@ -311,10 +373,10 @@
     <script>
         function selectTemplate(name) {
             document.getElementById('selected-template').value = name;
-            const ids = ['royal-scroll', 'golden-minimalist', 'garden-celestial'];
+            const ids = ['royal-scroll', 'golden-minimalist', 'garden-celestial', 'celestial-navy', 'gatsby-luxury', 'enchanted-forest'];
             ids.forEach(id => {
                 const el = document.getElementById('card-' + id);
-                el.classList.toggle('selected', id === name);
+                if (el) el.classList.toggle('selected', id === name);
             });
         }
         document.addEventListener('DOMContentLoaded', () => selectTemplate('royal-scroll'));

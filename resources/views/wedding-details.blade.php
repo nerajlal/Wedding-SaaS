@@ -394,6 +394,15 @@
                         <textarea name="venue_address" rows="2" class="field-input" placeholder="Street / Area…&#10;City, State" required>{{ old('venue_address') }}</textarea>
                     </div>
                 </div>
+                <div class="field-full">
+                    <div class="field-group">
+                        <label class="field-label">Location Map URL <span class="optional-tag">(optional)</span></label>
+                        <div style="position:relative">
+                            <i class="bi bi-link-45deg field-input-icon"></i>
+                            <input type="url" name="location_url" class="field-input" value="{{ old('location_url') }}" placeholder="https://maps.google.com/..." autocomplete="off">
+                        </div>
+                    </div>
+                </div>
 
                 <!-- RSVP & Dress Code -->
                 <div class="field-section-title">RSVP &amp; Details</div>
@@ -440,6 +449,33 @@
                     <input type="file" id="photo-input" name="couples_photo" accept="image/*" class="hidden" style="display:none" onchange="updateDropzone(this)">
                 </div>
 
+                <!-- Bride's Photo upload -->
+                <div class="field-section-title">Bride's Photo <span class="optional-tag">(optional)</span></div>
+                <div class="photo-dropzone" id="bride-dropzone" onclick="document.getElementById('bride-input').click()">
+                    <div class="dropzone-icon" id="bride-icon"><i class="bi bi-image"></i></div>
+                    <span class="dropzone-text" id="bride-text">Tap to upload Bride's photo</span>
+                    <span class="dropzone-hint">PNG, JPG up to 5MB</span>
+                    <input type="file" id="bride-input" name="bride_image" accept="image/*" class="hidden" style="display:none" onchange="updateBrideDropzone(this)">
+                </div>
+
+                <!-- Groom's Photo upload -->
+                <div class="field-section-title">Groom's Photo <span class="optional-tag">(optional)</span></div>
+                <div class="photo-dropzone" id="groom-dropzone" onclick="document.getElementById('groom-input').click()">
+                    <div class="dropzone-icon" id="groom-icon"><i class="bi bi-image"></i></div>
+                    <span class="dropzone-text" id="groom-text">Tap to upload Groom's photo</span>
+                    <span class="dropzone-hint">PNG, JPG up to 5MB</span>
+                    <input type="file" id="groom-input" name="groom_image" accept="image/*" class="hidden" style="display:none" onchange="updateGroomDropzone(this)">
+                </div>
+
+                <!-- Gallery upload -->
+                <div class="field-section-title">Gallery Photos <span class="optional-tag">(optional)</span></div>
+                <div class="photo-dropzone" id="gallery-dropzone" onclick="document.getElementById('gallery-input').click()" style="margin-bottom: 1.5rem;">
+                    <div class="dropzone-icon" id="gallery-icon"><i class="bi bi-images"></i></div>
+                    <span class="dropzone-text" id="gallery-text">Tap to upload gallery photos</span>
+                    <span class="dropzone-hint">PNG, JPG up to 5MB (Multiple)</span>
+                    <input type="file" id="gallery-input" name="gallery_images[]" accept="image/*" multiple class="hidden" style="display:none" onchange="updateGalleryDropzone(this)">
+                </div>
+
                 <!-- Submit -->
                 <button type="submit" class="btn-continue">
                     <i class="bi bi-arrow-right-circle-fill"></i>
@@ -459,6 +495,22 @@
             ['dragenter','dragover'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.add('drag-over'); }));
             ['dragleave','drop'].forEach(ev => dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove('drag-over'); }));
             dropzone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) { fileInput.files = e.dataTransfer.files; updateDropzone(fileInput); } });
+
+            const brideDz = document.getElementById('bride-dropzone');
+            const brideInput = document.getElementById('bride-input');
+            if (brideDz && brideInput) {
+                ['dragenter','dragover'].forEach(ev => brideDz.addEventListener(ev, e => { e.preventDefault(); brideDz.classList.add('drag-over'); }));
+                ['dragleave','drop'].forEach(ev => brideDz.addEventListener(ev, e => { e.preventDefault(); brideDz.classList.remove('drag-over'); }));
+                brideDz.addEventListener('drop', e => { if (e.dataTransfer.files[0]) { brideInput.files = e.dataTransfer.files; updateBrideDropzone(brideInput); } });
+            }
+
+            const groomDz = document.getElementById('groom-dropzone');
+            const groomInput = document.getElementById('groom-input');
+            if (groomDz && groomInput) {
+                ['dragenter','dragover'].forEach(ev => groomDz.addEventListener(ev, e => { e.preventDefault(); groomDz.classList.add('drag-over'); }));
+                ['dragleave','drop'].forEach(ev => groomDz.addEventListener(ev, e => { e.preventDefault(); groomDz.classList.remove('drag-over'); }));
+                groomDz.addEventListener('drop', e => { if (e.dataTransfer.files[0]) { groomInput.files = e.dataTransfer.files; updateGroomDropzone(groomInput); } });
+            }
         });
 
         function updateDropzone(input) {
@@ -470,6 +522,50 @@
             } else {
                 text.textContent = 'Tap to upload a photo';
                 icon.innerHTML = '<i class="bi bi-image"></i>';
+            }
+        }
+
+        function updateBrideDropzone(input) {
+            const text = document.getElementById('bride-text');
+            const icon = document.getElementById('bride-icon');
+            if (input.files && input.files[0]) {
+                text.textContent = input.files[0].name;
+                icon.innerHTML = '<i class="bi bi-check-circle-fill" style="color:var(--gold-primary)"></i>';
+            } else {
+                text.textContent = "Tap to upload Bride's photo";
+                icon.innerHTML = '<i class="bi bi-image"></i>';
+            }
+        }
+
+        document.getElementById('bride-dropzone').addEventListener('change', (e) => {
+            updateBrideDropzone(document.getElementById('bride-input'));
+        });
+
+        function updateGroomDropzone(input) {
+            const text = document.getElementById('groom-text');
+            const icon = document.getElementById('groom-icon');
+            if (input.files && input.files[0]) {
+                text.textContent = input.files[0].name;
+                icon.innerHTML = '<i class="bi bi-check-circle-fill" style="color:var(--gold-primary)"></i>';
+            } else {
+                text.textContent = "Tap to upload Groom's photo";
+                icon.innerHTML = '<i class="bi bi-image"></i>';
+            }
+        }
+
+        document.getElementById('groom-dropzone').addEventListener('change', (e) => {
+            updateGroomDropzone(document.getElementById('groom-input'));
+        });
+
+        function updateGalleryDropzone(input) {
+            const text = document.getElementById('gallery-text');
+            const icon = document.getElementById('gallery-icon');
+            if (input.files && input.files.length > 0) {
+                text.textContent = input.files.length + ' photo(s) selected';
+                icon.innerHTML = '<i class="bi bi-check-circle-fill" style="color:var(--gold-primary)"></i>';
+            } else {
+                text.textContent = 'Tap to upload gallery photos';
+                icon.innerHTML = '<i class="bi bi-images"></i>';
             }
         }
     </script>

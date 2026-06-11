@@ -17,12 +17,6 @@ class TemplateController extends Controller
             ],
 
             [
-                'id' => 'elegant-circle',
-                'name' => 'Elegant Circle',
-                'hint' => 'Beautiful curved design',
-                'image' => '/template_thumbnails/elegant-circle.png',
-            ],
-            [
                 'id' => 'geometric-polaroid',
                 'name' => 'Geometric Polaroid',
                 'hint' => 'Modern polaroid layout',
@@ -49,12 +43,6 @@ class TemplateController extends Controller
                 'image' => '/template_thumbnails/seaside-promise.png',
             ],
             // New Templates
-            [
-                'id' => 'heartfeltcollage',
-                'name' => 'Heartfelt Collage',
-                'hint' => 'Romantic heart design',
-                'image' => '/template_thumbnails/heartfeltcollage.png',
-            ],
             [
                 'id' => 'florallovesplash',
                 'name' => 'Floral Love Splash',
@@ -85,6 +73,18 @@ class TemplateController extends Controller
                 'hint' => 'Midnight blue dark theme with celestial gold detailing',
                 'image' => '/template_thumbnails/celestial-navy.png',
             ],
+            [
+                'id' => 'gatsby-luxury',
+                'name' => 'Gatsby Luxury',
+                'hint' => 'Art Deco style with obsidian & metallic gold',
+                'image' => 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=400&q=80',
+            ],
+            [
+                'id' => 'enchanted-forest',
+                'name' => 'Enchanted Forest',
+                'hint' => 'Earthy deep emerald & botanical gold',
+                'image' => 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=400&q=80',
+            ],
         ];
     }
 
@@ -97,7 +97,8 @@ class TemplateController extends Controller
     public function show($id)
     {
         $templates = $this->getTemplates();
-        $template = collect($templates)->firstWhere('id', $id);
+        $resolvedId = $this->resolveTemplateAlias($id);
+        $template = collect($templates)->firstWhere('id', $resolvedId);
 
         if (!$template) {
             abort(404);
@@ -112,5 +113,10 @@ class TemplateController extends Controller
         }
 
         return view('template-preview', compact('template', 'existingInvitation'));
+    }
+
+    private function resolveTemplateAlias(string $template): string
+    {
+        return $template;
     }
 }

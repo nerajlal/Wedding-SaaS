@@ -33,11 +33,16 @@
         .template-wrapper {
             width: 100%;
             max-width: 600px;
+            margin: 24px auto;
             background-color: var(--bg-color);
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 20px rgba(0,0,0,0.05);
             padding-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
         }
 
         /* Subtle floral background pattern */
@@ -57,6 +62,12 @@
             position: relative;
             z-index: 1;
             text-align: center;
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            padding-left: 12px;
+            padding-right: 12px;
         }
 
         /* Hero Image with Torn Paper Edge */
@@ -104,7 +115,65 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
+        }
+
+        .couple-photos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 0 auto 18px;
+            max-width: 260px;
+            width: 100%;
+        }
+
+        .couple-card {
+            background: #ffffff;
+            border: 1px solid rgba(184, 144, 71, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 14px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            min-height: 190px;
+        }
+
+        .couple-photo {
+            width: 100%;
+            aspect-ratio: 7 / 9;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .couple-meta {
+            padding: 14px 12px 16px;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .couple-photos {
+                grid-template-columns: 1fr;
+                width: calc(100% - 30px);
+            }
+        }
+
+        .couple-name {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin: 0 0 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .couple-role {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--text-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
         }
 
         .name-main {
@@ -210,6 +279,15 @@
             font-weight: 300;
         }
 
+        /* Gallery */
+        .gallery-item {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            border-radius: 12px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
         .hidden { display: none; }
     </style>
 
@@ -240,6 +318,7 @@
         <div class="hero-container">
             <img class="hero-img pv-main-img-src" src="{{ $invitation->main_image_url ?? 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80' }}" alt="Main Photo">
             <div class="torn-edge"></div>
+
         </div>
 
         <div class="content-layer">
@@ -249,6 +328,23 @@
                 <div class="name-main" data-preview="groom_name">{{ strtoupper($invitation->groom_name ?? $details['groom_name'] ?? 'SIDDARTH') }}</div>
                 <div class="ampersand">&</div>
                 <div class="name-main" data-preview="bride_name">{{ strtoupper($invitation->bride_name ?? $details['bride_name'] ?? 'ANAMIKA') }}</div>
+            </div>
+
+            <div class="couple-photos">
+                <div class="couple-card">
+                    <img class="couple-photo pv-bride-img-src" src="{{ !empty($invitation->bride_image_url) ? $invitation->bride_image_url : (!empty($details['bride_image_url']) ? $details['bride_image_url'] : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80') }}" alt="Bride Photo">
+                    <div class="couple-meta">
+                        <div class="couple-name" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'ANAMIKA' }}</div>
+                        <div class="couple-role">The Bride</div>
+                    </div>
+                </div>
+                <div class="couple-card">
+                    <img class="couple-photo pv-groom-img-src" src="{{ !empty($invitation->groom_image_url) ? $invitation->groom_image_url : (!empty($details['groom_image_url']) ? $details['groom_image_url'] : 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80') }}" alt="Groom Photo">
+                    <div class="couple-meta">
+                        <div class="couple-name" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'SIDDARTH' }}</div>
+                        <div class="couple-role">The Groom</div>
+                    </div>
+                </div>
             </div>
             
             <div class="tape-container">
@@ -269,6 +365,22 @@
                     <div class="detail-label">VENUE</div>
                     <div class="detail-value" data-preview="venue_name" style="font-weight: 500;">{{ $invitation->venue_name ?? $details['venue_name'] ?? 'Seaside Resort & Spa' }}</div>
                     <div class="detail-value" data-preview="venue_address" style="font-size: 0.95rem; margin-top: 4px;">{{ $invitation->venue_address ?? $details['venue_address'] ?? '123 Ocean Drive, Paradise Coast' }}</div>
+                @php
+                    $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                    $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                @endphp
+                <div style="margin-top: 1.5rem; width: 100%; max-width: 440px; margin-left: auto; margin-right: auto;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.8rem; padding: 1rem 1.2rem; border-radius: 18px; border: 1px solid rgba(184, 144, 71, 0.25); background: rgba(184, 144, 71, 0.05); text-align: left;">
+                        <div style="flex:1 1 180px; min-width: 180px;">
+                            <p style="font-family:var(--font-display); font-weight:500; font-size:0.85rem; letter-spacing:1px; text-transform:uppercase; color:var(--text-gold); margin:0 0 0.3rem;">Venue directions</p>
+                            <p style="font-family:var(--font-sans); font-size:0.75rem; color:#666; line-height:1.4; margin:0;">Open the location in Maps to find the venue with ease.</p>
+                        </div>
+                        <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.7rem 1.1rem; border-radius:8px; background: var(--gold, #B89047); color: #fff; text-decoration:none; font-family:'Inter', sans-serif; font-size:0.8rem; font-weight:600; letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                            View on map
+                        </a>
+                    </div>
+                </div>
+
                 </div>
                 <div class="detail-item" style="margin-top: 40px;">
                     <div class="detail-label" style="font-size: 0.85rem;">RSVP</div>
@@ -277,15 +389,43 @@
             </div>
         </div>
 
+        <!-- Gallery Section -->
+        @php
+            $hasGalleries = isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0;
+            $showGallery = $hasGalleries || !isset($invitation);
+        @endphp
+        <div class="content-layer gallery-section" style="{{ $showGallery ? 'margin-top: 50px; padding: 0 40px;' : 'display:none;' }}">
+            <div class="countdown-title" style="font-size: 1.8rem; margin-top: 0;">MEMORIES</div>
+            <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                @if($hasGalleries)
+                    @foreach($invitation->galleries as $gallery)
+                        <div class="gallery-item">
+                            <img src="{{ $gallery->image_url }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    @endforeach
+                @else
+                    <!-- Fallback placeholder images for elegant preview -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&w=400&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                @endif
+            </div>
+        </div>
+
         <!-- Hidden mandatory hooks -->
         <div class="hidden">
             <div data-preview="personal_message">{{ $invitation->personal_message ?? '' }}</div>
-            <img class="pv-bride-img-src" src="{{ $invitation->bride_image_url ?? '' }}">
-            <img class="pv-groom-img-src" src="{{ $invitation->groom_image_url ?? '' }}">
-            
-            <div class="gallery-section" style="display:none;">
-                <div class="gallery-grid"></div>
-            </div>
+            <img class="pv-bride-img-src" src="{{ !empty($invitation->bride_image_url) ? $invitation->bride_image_url : (!empty($details['bride_image_url']) ? $details['bride_image_url'] : '') }}">
+            <img class="pv-groom-img-src" src="{{ !empty($invitation->groom_image_url) ? $invitation->groom_image_url : (!empty($details['groom_image_url']) ? $details['groom_image_url'] : '') }}">
         </div>
         
     </div>

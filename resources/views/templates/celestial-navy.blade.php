@@ -446,6 +446,7 @@
 <body>
     <div class="template-wrapper">
         <div class="stars-overlay"></div>
+
         <div class="deco-frame"></div>
         <div class="deco-corner top-left"></div>
         <div class="deco-corner top-right"></div>
@@ -482,14 +483,14 @@
             <div class="couple-grid">
                 <div class="couple-card">
                     <div class="couple-avatar-wrap">
-                        <img class="couple-avatar pv-bride-img-src" src="{{ $invitation->bride_image_url ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400' }}" alt="Bride">
+                        <img class="couple-avatar pv-bride-img-src" src="{{ !empty($invitation->bride_image_url) ? $invitation->bride_image_url : (!empty($details['bride_image_url']) ? $details['bride_image_url'] : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400') }}">
                     </div>
                     <h3 class="couple-name" data-preview="bride_name">{{ $invitation->bride_name ?? $details['bride_name'] ?? 'Sophia' }}</h3>
                     <span class="couple-role">The Bride</span>
                 </div>
                 <div class="couple-card">
                     <div class="couple-avatar-wrap">
-                        <img class="couple-avatar pv-groom-img-src" src="{{ $invitation->groom_image_url ?? 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400' }}" alt="Groom">
+                        <img class="couple-avatar pv-groom-img-src" src="{{ !empty($invitation->groom_image_url) ? $invitation->groom_image_url : (!empty($details['groom_image_url']) ? $details['groom_image_url'] : 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400') }}">
                     </div>
                     <h3 class="couple-name" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'Alexander' }}</h3>
                     <span class="couple-role">The Groom</span>
@@ -501,6 +502,22 @@
                 <div class="card-icon"><i class="bi bi-geo-alt"></i></div>
                 <h3 class="venue-name" data-preview="venue_name">{{ $invitation->venue_name ?? $details['venue_name'] ?? 'St. Regis Grand Ballroom' }}</h3>
                 <p class="venue-address" data-preview="venue_address">{{ $invitation->venue_address ?? $details['venue_address'] ?? '290 Fifth Avenue, New York, NY' }}</p>
+                @php
+                    $locationUrl = $invitation->location_url ?? $details['location_url'] ?? '';
+                    $hasValidLocationUrl = !empty($locationUrl) && filter_var($locationUrl, FILTER_VALIDATE_URL);
+                @endphp
+                <div style="margin-top: 1.5rem; width: 100%; max-width: 460px; margin-left: auto; margin-right: auto;">
+                    <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.8rem; padding: 1rem 1.2rem; border-radius: 20px; border: 1px solid rgba(197, 168, 109, 0.22); background: rgba(197, 168, 109, 0.06); backdrop-filter: blur(5px); text-align: left;">
+                        <div style="flex:1 1 200px; min-width: 200px;">
+                            <p style="font-family:var(--font-sans); font-weight:600; font-size:0.85rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold-light); margin:0 0 0.3rem;">Venue directions</p>
+                            <p style="font-family:var(--font-sans); font-size:0.78rem; color:var(--text-muted); line-height:1.4; margin:0;">Open the location in Maps to find the venue with ease.</p>
+                        </div>
+                        <a class="pv-location-url" href="{{ $hasValidLocationUrl ? $locationUrl : 'javascript:void(0)' }}" target="_blank" rel="noopener noreferrer" style="display: {{ $hasValidLocationUrl ? 'inline-flex' : 'none' }}; align-items:center; justify-content:center; gap:0.45rem; padding:0.7rem 1.1rem; border-radius:999px; background: var(--gold-primary, #C5A86D); color: #fff; text-decoration:none; font-family:var(--font-sans); font-size:0.75rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; box-shadow:0 6px 16px rgba(197,168,109,0.25);">
+                            View on map
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
             <div class="info-card">
@@ -510,15 +527,33 @@
             </div>
 
             <!-- Gallery Section -->
-            <div class="gallery-section" style="{{ (isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0) ? '' : 'display:none;' }}">
+            @php
+                $hasGalleries = isset($invitation) && $invitation->galleries && $invitation->galleries->count() > 0;
+                $showGallery = $hasGalleries || !isset($invitation);
+            @endphp
+            <div class="gallery-section" style="{{ $showGallery ? '' : 'display:none;' }}">
                 <div class="detail-section-title">Memories</div>
                 <div class="gallery-grid">
-                    @if(isset($invitation) && $invitation->galleries)
+                    @if($hasGalleries)
                         @foreach($invitation->galleries as $gallery)
                             <div class="gallery-item">
                                 <img class="gallery-img" src="{{ $gallery->image_url }}" alt="Gallery Image">
                             </div>
                         @endforeach
+                    @else
+                        <!-- Fallback placeholder images for preview -->
+                        <div class="gallery-item">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                        </div>
+                        <div class="gallery-item">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                        </div>
+                        <div class="gallery-item">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                        </div>
+                        <div class="gallery-item">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                        </div>
                     @endif
                 </div>
             </div>
