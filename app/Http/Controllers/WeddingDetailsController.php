@@ -43,10 +43,11 @@ class WeddingDetailsController extends Controller
             'guest_notes'           => 'nullable|string|max:1000',
             'template'              => 'required|string',
             'couples_photo'         => 'nullable|image|max:5120',
-            'main_image'            => 'nullable|image|max:5120',
-            'groom_image'           => 'nullable|image|max:5120',
             'bride_image'           => 'nullable|image|max:5120',
-            'accent_image'          => 'nullable|image|max:5120',
+            'groom_image'           => 'nullable|image|max:5120',
+            'hero_images'           => 'nullable|array',
+            'hero_images.*'         => 'nullable|image|max:5120',
+            'hero_theme'            => 'nullable|string|in:classic,minimal',
             'gallery_images'        => 'nullable|array',
             'gallery_images.*'      => 'nullable|image|max:5120',
             'location_url'          => 'nullable|url|max:500',
@@ -55,7 +56,7 @@ class WeddingDetailsController extends Controller
         $template = $validated['template'];
         unset($validated['template']);
         unset($validated['gallery_urls']);
-        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['accent_image'], $validated['gallery_images'], $validated['couples_photo']);
+        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['accent_image'], $validated['gallery_images'], $validated['couples_photo'], $validated['hero_images']);
 
         $photoBase64 = null;
         if ($request->hasFile('couples_photo')) {
@@ -70,10 +71,27 @@ class WeddingDetailsController extends Controller
             . '-' . \Illuminate\Support\Str::slug($validated['groom_name'])
             . '-' . now()->format('YmdHis');
 
-        $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : ($request->input('existing_main_image_url') ?: null);
+        $heros = [];
+        if ($request->hasFile('hero_images')) {
+            foreach ($request->file('hero_images') as $file) {
+                if ($file) {
+                    $heros[] = '/storage/' . $file->store('invitations', 'public');
+                }
+            }
+        }
+
+        $mainImageUrl = $heros[0] ?? null;
+        $accentImageUrl = $heros[1] ?? null;
+        $heroImage3Url = $heros[2] ?? null;
+        $heroImage4Url = $heros[3] ?? null;
+        
+        $extraHeroImages = [];
+        if (count($heros) > 4) {
+            $extraHeroImages = array_slice($heros, 4);
+        }
+
         $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : ($request->input('existing_groom_image_url') ?: null);
         $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : ($request->input('existing_bride_image_url') ?: null);
-        $accentImageUrl = $request->hasFile('accent_image') ? '/storage/' . $request->file('accent_image')->store('invitations', 'public') : ($request->input('existing_accent_image_url') ?: null);
 
         $invitation = \App\Models\Invitation::create(array_merge($validated, [
             'slug' => $slug,
@@ -84,6 +102,10 @@ class WeddingDetailsController extends Controller
             'groom_image_url' => $groomImageUrl,
             'bride_image_url' => $brideImageUrl,
             'accent_image_url' => $accentImageUrl,
+            'hero_image_3_url' => $heroImage3Url,
+            'hero_image_4_url' => $heroImage4Url,
+            'extra_hero_images' => $extraHeroImages,
+            'hero_theme' => $validated['hero_theme'] ?? null,
         ]));
 
         if ($request->hasFile('gallery_images')) {
@@ -107,7 +129,18 @@ class WeddingDetailsController extends Controller
             }
         }
 
-        session(['wedding_details'  => $validated]);
+        $sessionDetails = array_merge($validated, [
+            'main_image_url' => $mainImageUrl,
+            'groom_image_url' => $groomImageUrl,
+            'bride_image_url' => $brideImageUrl,
+            'accent_image_url' => $accentImageUrl,
+            'hero_image_3_url' => $heroImage3Url,
+            'hero_image_4_url' => $heroImage4Url,
+            'extra_hero_images' => $extraHeroImages,
+            'hero_theme' => $validated['hero_theme'] ?? null,
+        ]);
+
+        session(['wedding_details'  => $sessionDetails]);
         session(['wedding_template' => $template]);
         session(['wedding_slug'     => $slug]);
 
@@ -367,10 +400,11 @@ class WeddingDetailsController extends Controller
             'guest_notes'           => 'nullable|string|max:1000',
             'template'              => 'required|string',
             'couples_photo'         => 'nullable|image|max:5120',
-            'main_image'            => 'nullable|image|max:5120',
             'groom_image'           => 'nullable|image|max:5120',
             'bride_image'           => 'nullable|image|max:5120',
-            'accent_image'          => 'nullable|image|max:5120',
+            'hero_images'           => 'nullable|array',
+            'hero_images.*'         => 'nullable|image|max:5120',
+            'hero_theme'            => 'nullable|string|in:classic,minimal',
             'gallery_images'        => 'nullable|array',
             'gallery_images.*'      => 'nullable|image|max:5120',
             'location_url'          => 'nullable|url|max:500',
@@ -379,7 +413,7 @@ class WeddingDetailsController extends Controller
         $template = $validated['template'];
         unset($validated['template']);
         unset($validated['gallery_urls']);
-        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['accent_image'], $validated['gallery_images'], $validated['couples_photo']);
+        unset($validated['main_image'], $validated['groom_image'], $validated['bride_image'], $validated['accent_image'], $validated['gallery_images'], $validated['couples_photo'], $validated['hero_images']);
 
         $photoBase64 = $invitation->photo;
         if ($request->hasFile('couples_photo')) {
@@ -390,10 +424,34 @@ class WeddingDetailsController extends Controller
             session(['wedding_photo' => $photoBase64]);
         }
 
-        $mainImageUrl = $request->hasFile('main_image') ? '/storage/' . $request->file('main_image')->store('invitations', 'public') : $invitation->main_image_url;
+        $heros = [];
+        if ($request->has('existing_hero_images')) {
+            foreach ($request->input('existing_hero_images') as $url) {
+                if ($url) {
+                    $heros[] = $url;
+                }
+            }
+        }
+        if ($request->hasFile('hero_images')) {
+            foreach ($request->file('hero_images') as $file) {
+                if ($file) {
+                    $heros[] = '/storage/' . $file->store('invitations', 'public');
+                }
+            }
+        }
+
+        $mainImageUrl = $heros[0] ?? null;
+        $accentImageUrl = $heros[1] ?? null;
+        $heroImage3Url = $heros[2] ?? null;
+        $heroImage4Url = $heros[3] ?? null;
+        
+        $extraHeroImages = [];
+        if (count($heros) > 4) {
+            $extraHeroImages = array_slice($heros, 4);
+        }
+
         $groomImageUrl = $request->hasFile('groom_image') ? '/storage/' . $request->file('groom_image')->store('invitations', 'public') : $invitation->groom_image_url;
         $brideImageUrl = $request->hasFile('bride_image') ? '/storage/' . $request->file('bride_image')->store('invitations', 'public') : $invitation->bride_image_url;
-        $accentImageUrl = $request->hasFile('accent_image') ? '/storage/' . $request->file('accent_image')->store('invitations', 'public') : $invitation->accent_image_url;
 
         $invitation->update(array_merge($validated, [
             'template' => $template,
@@ -402,6 +460,10 @@ class WeddingDetailsController extends Controller
             'groom_image_url' => $groomImageUrl,
             'bride_image_url' => $brideImageUrl,
             'accent_image_url' => $accentImageUrl,
+            'hero_image_3_url' => $heroImage3Url,
+            'hero_image_4_url' => $heroImage4Url,
+            'extra_hero_images' => $extraHeroImages,
+            'hero_theme' => $validated['hero_theme'] ?? $invitation->hero_theme,
         ]));
 
         if ($request->has('delete_galleries')) {
@@ -429,6 +491,10 @@ class WeddingDetailsController extends Controller
             'groom_image_url' => $groomImageUrl,
             'bride_image_url' => $brideImageUrl,
             'accent_image_url' => $accentImageUrl,
+            'hero_image_3_url' => $heroImage3Url,
+            'hero_image_4_url' => $heroImage4Url,
+            'extra_hero_images' => $extraHeroImages,
+            'hero_theme' => $validated['hero_theme'] ?? null,
         ]);
 
         session(['wedding_details'  => $sessionDetails]);

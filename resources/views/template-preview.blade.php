@@ -423,9 +423,8 @@
                     @endif
                         @csrf
                         <input type="hidden" name="template" value="{{ $template['id'] }}">
-                        <input type="hidden" name="existing_main_image_url" id="existing-main-image-url" value="">
-                        <input type="hidden" name="existing_bride_image_url" id="existing-bride-image-url" value="">
-                        <input type="hidden" name="existing_groom_image_url" id="existing-groom-image-url" value="">
+                        <input type="hidden" name="existing_bride_image_url" id="existing-bride-image-url" value="{{ $invitation->bride_image_url ?? '' }}">
+                        <input type="hidden" name="existing_groom_image_url" id="existing-groom-image-url" value="{{ $invitation->groom_image_url ?? '' }}">
 
                         <div class="modal-field-group">
                             <label class="modal-field-label">Couple Names</label>
@@ -459,19 +458,16 @@
                             <input type="url" name="location_url" id="inp-location" class="modal-field-input" style="padding-left:1rem;" placeholder="https://maps.google.com/..." value="{{ $invitation->location_url ?? '' }}">
                         </div>
 
+                        <div class="modal-field-group">
+                            <label class="modal-field-label">Hero Style</label>
+                            <select name="hero_theme" id="inp-hero-theme" class="modal-field-input" style="padding:0.5rem 1rem; font-size:0.9rem;">
+                                <option value="classic" {{ (isset($invitation) && ($invitation->hero_theme ?? '') === 'classic') ? 'selected' : '' }}>Classic</option>
+                                <option value="minimal" {{ (isset($invitation) && ($invitation->hero_theme ?? '') === 'minimal') ? 'selected' : '' }}>Minimal</option>
+                            </select>
+                        </div>
+
                         <!-- Image URLs -->
                         <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Theme Images ✦</span></div>
-
-                        <div class="modal-field-group">
-                            <label class="modal-field-label">Main Hero Image (Upload)</label>
-                            <input type="file" name="main_image" id="inp-main-img" class="modal-field-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
-                            @if(isset($invitation) && $invitation->main_image_url)
-                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
-                                    <img src="{{ $invitation->main_image_url }}" style="width: 30px; height: 30px; border-radius: 4px; object-fit: cover;">
-                                    <p style="font-size: 0.7rem; color: #888; margin: 0;">Current: {{ basename($invitation->main_image_url) }}</p>
-                                </div>
-                            @endif
-                        </div>
 
                         <div class="modal-field-group">
                             <label class="modal-field-label">Bride Image (Upload)</label>
@@ -494,6 +490,50 @@
                                 </div>
                             @endif
                         </div>
+
+                        <!-- Hero Section Images -->
+                        <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Hero Section Images ✦</span></div>
+                        <p style="font-size: 0.75rem; color: var(--muted); text-align: center; margin-bottom: 1rem;">Upload images for the hero section collage / slideshow.</p>
+                        
+                        <div id="hero-images-container">
+                            <div class="modal-field-group hero-image-input-group" style="display:flex; gap:0.5rem; align-items:center;">
+                                <input type="file" name="hero_images[]" class="modal-field-input hero-file-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem; flex:1;">
+                            </div>
+                        </div>
+
+                        @php
+                            $existingHeros = [];
+                            if (isset($invitation)) {
+                                if ($invitation->main_image_url) $existingHeros[] = $invitation->main_image_url;
+                                if ($invitation->accent_image_url) $existingHeros[] = $invitation->accent_image_url;
+                                if ($invitation->hero_image_3_url) $existingHeros[] = $invitation->hero_image_3_url;
+                                if ($invitation->hero_image_4_url) $existingHeros[] = $invitation->hero_image_4_url;
+                                if ($invitation->extra_hero_images && is_array($invitation->extra_hero_images)) {
+                                    foreach ($invitation->extra_hero_images as $url) {
+                                        if ($url) $existingHeros[] = $url;
+                                    }
+                                }
+                            }
+                        @endphp
+
+                        <div id="existing-heros-preview-container" style="margin-bottom: 1.5rem; {{ count($existingHeros) > 0 ? '' : 'display:none;' }}">
+                            <p style="font-size: 0.75rem; color: #5A6D5C; margin-bottom: 0.5rem;">Current Hero Images (Click trash to remove):</p>
+                            <div id="existing-heros-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+                                @foreach($existingHeros as $index => $imageUrl)
+                                    <div class="existing-hero-item" style="position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #eee;">
+                                        <img src="{{ $imageUrl }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <input type="hidden" name="existing_hero_images[]" value="{{ $imageUrl }}">
+                                        <button type="button" style="position: absolute; top: 0; right: 0; background: rgba(220, 53, 69, 0.9); color: white; border: none; padding: 0.2rem 0.4rem; border-radius: 0 0 0 8px; cursor: pointer; font-size: 0.75rem;" onclick="this.parentElement.remove(); updateUnifiedHeroPreview();">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="addHeroImageInput()" style="background:none; border:1px dashed var(--gold); color:var(--gold-dk); padding:0.6rem; border-radius:12px; font-weight:600; font-size:0.85rem; width:100%; margin-bottom: 1.5rem; cursor:pointer;">
+                            <i class="bi bi-plus-circle"></i> Add more image
+                        </button>
 
                         <div class="modal-divider" style="margin: 2rem 0 1rem;"><span>✦ Photo Gallery ✦</span></div>
                         <p style="font-size: 0.75rem; color: var(--muted); text-align: center; margin-bottom: 1rem;">Upload images for your gallery.</p>
@@ -745,15 +785,102 @@
         });
 
         // The image URLs are now updated using: updateImageUrl(inputId, targetSelector)
-        updateImageUrl('inp-main-img', '.pv-main-img-src, .pv-main-img-bg');
         updateImageUrl('inp-bride-img', '.pv-bride-img-src');
         updateImageUrl('inp-groom-img', '.pv-groom-img-src');
-        updateImageUrl('inp-accent-img', '.pv-accent-img-src');
 
-        // trigger input to sync initial values if any
-        ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp', 'inp-main-img', 'inp-bride-img', 'inp-groom-img', 'inp-accent-img'].forEach(id => {
+        // Hero theme preview sync
+        const heroSelect = document.getElementById('inp-hero-theme');
+        const updateHeroTheme = (val) => {
+            const iframe = document.getElementById('preview-iframe');
+            if (!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return false;
+            const doc = iframe.contentWindow.document;
+            const container = doc.querySelector('.inv-cloud-collage');
+            if (container) {
+                container.classList.remove('hero-classic', 'hero-minimal');
+                container.classList.add('hero-' + val);
+            }
+            // Also notify elegant-circle slideshow / collage toggle
+            if (iframe.contentWindow.toggleHeroLayout) {
+                iframe.contentWindow.toggleHeroLayout(val);
+            }
+            return true;
+        };
+
+        if (heroSelect) {
+            heroSelect.addEventListener('change', (e) => {
+                const val = e.target.value;
+                if (!updateHeroTheme(val)) waitForIframe(() => updateHeroTheme(val));
+            });
+        }
+
+        // Live preview for unified hero section
+        const updateUnifiedHeroPreview = () => {
+            const iframe = document.getElementById('preview-iframe');
+            if(!iframe || !iframe.contentWindow || !iframe.contentWindow.document) return;
+            const doc = iframe.contentWindow.document;
+
+            const activeUrls = [];
+            
+            // 1. Existing kept images
+            const existingInputs = document.querySelectorAll('input[name="existing_hero_images[]"]');
+            existingInputs.forEach(inp => {
+                if (inp.value) activeUrls.push(inp.value);
+            });
+
+            // 2. Newly chosen local files
+            const newInputs = document.querySelectorAll('input[name="hero_images[]"]');
+            newInputs.forEach(inp => {
+                if (inp.files && inp.files[0]) {
+                    activeUrls.push(URL.createObjectURL(inp.files[0]));
+                }
+            });
+
+            const mainImgs = doc.querySelectorAll('.pv-main-img-src');
+            const accentImgs = doc.querySelectorAll('.pv-accent-img-src');
+            const hero3Imgs = doc.querySelectorAll('.pv-hero3-img-src');
+            const hero4Imgs = doc.querySelectorAll('.pv-hero4-img-src');
+
+            const mVal = activeUrls[0] || 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+            const aVal = activeUrls[1] || 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
+            const h3Val = activeUrls[2] || mVal;
+            const h4Val = activeUrls[3] || aVal;
+
+            mainImgs.forEach(img => img.src = mVal);
+            accentImgs.forEach(img => img.src = aVal);
+            hero3Imgs.forEach(img => img.src = h3Val);
+            hero4Imgs.forEach(img => img.src = h4Val);
+
+            if (iframe.contentWindow.updateHeroSlideshow) {
+                iframe.contentWindow.updateHeroSlideshow(activeUrls);
+            }
+            
+            const existingPreviewContainer = document.getElementById('existing-heros-preview-container');
+            if (existingPreviewContainer) {
+                existingPreviewContainer.style.display = (existingInputs.length > 0) ? '' : 'none';
+            }
+        };
+
+        const heroContainer = document.getElementById('hero-images-container');
+        if (heroContainer) {
+            heroContainer.addEventListener('change', (e) => {
+                if (e.target.name === 'hero_images[]') {
+                    updateUnifiedHeroPreview();
+                }
+            });
+        }
+
+        // trigger input/change to sync initial values if any
+        ['inp-bride', 'inp-groom', 'inp-date', 'inp-time', 'inp-venue', 'inp-addr', 'inp-rsvp', 'inp-bride-img', 'inp-groom-img', 'inp-hero-theme'].forEach(id => {
             const el = document.getElementById(id);
-            if (el && el.value) el.dispatchEvent(new Event('input'));
+            if (el && el.value) {
+                el.dispatchEvent(new Event('input'));
+                el.dispatchEvent(new Event('change'));
+            }
+        });
+        
+        // Listen to iframe load event to force sync hero images
+        waitForIframe(() => {
+            updateUnifiedHeroPreview();
         });
 
         function addGalleryInput() {
@@ -766,6 +893,21 @@
             div.innerHTML = `
                 <input type="file" name="gallery_images[]" class="modal-field-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem; flex:1;">
                 <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove(); updateGalleryPreview();" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
+            `;
+            container.appendChild(div);
+        }
+
+        function addHeroImageInput() {
+            const container = document.getElementById('hero-images-container');
+            const div = document.createElement('div');
+            div.className = 'modal-field-group hero-image-input-group';
+            div.style.display = 'flex';
+            div.style.gap = '0.5rem';
+            div.style.alignItems = 'center';
+            div.style.marginTop = '0.5rem';
+            div.innerHTML = `
+                <input type="file" name="hero_images[]" class="modal-field-input hero-file-input" accept="image/*" style="padding: 0.5rem 1rem; font-size: 0.85rem; flex:1;">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick="this.parentElement.remove(); updateUnifiedHeroPreview();" style="border-radius:10px;"><i class="bi bi-trash"></i></button>
             `;
             container.appendChild(div);
         }
@@ -796,23 +938,54 @@
                     }
                 }
                 
-                // Set hidden inputs for image URLs so they are submitted
-                if (data.main_image_url) document.getElementById('existing-main-image-url').value = data.main_image_url;
-                if (data.bride_image_url) document.getElementById('existing-bride-image-url').value = data.bride_image_url;
-                if (data.groom_image_url) document.getElementById('existing-groom-image-url').value = data.groom_image_url;
-                if (data.accent_image_url) document.getElementById('existing-accent-image-url').value = data.accent_image_url;
+                // Set hidden inputs for image URLs so they are submitted (bride & groom only now, heros are unified below)
+                if (data.bride_image_url) {
+                    const el = document.getElementById('existing-bride-image-url');
+                    if (el) el.value = data.bride_image_url;
+                }
+                if (data.groom_image_url) {
+                    const el = document.getElementById('existing-groom-image-url');
+                    if (el) el.value = data.groom_image_url;
+                }
+                if (data.hero_theme) {
+                    const sel = document.getElementById('inp-hero-theme');
+                    if (sel) { sel.value = data.hero_theme; sel.dispatchEvent(new Event('change')); }
+                }
+
+                // Populate existing hero images in the sidebar
+                const existingHeros = [];
+                if (data.main_image_url) existingHeros.push(data.main_image_url);
+                if (data.accent_image_url) existingHeros.push(data.accent_image_url);
+                if (data.hero_image_3_url) existingHeros.push(data.hero_image_3_url);
+                if (data.hero_image_4_url) existingHeros.push(data.hero_image_4_url);
+                if (data.extra_hero_images && Array.isArray(data.extra_hero_images)) {
+                    data.extra_hero_images.forEach(url => {
+                        if (url) existingHeros.push(url);
+                    });
+                }
+
+                const herosGrid = document.getElementById('existing-heros-grid');
+                if (herosGrid) {
+                    herosGrid.innerHTML = '';
+                    existingHeros.forEach(url => {
+                        const div = document.createElement('div');
+                        div.className = 'existing-hero-item';
+                        div.style.cssText = 'position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #eee;';
+                        div.innerHTML = `
+                            <img src="${url}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <input type="hidden" name="existing_hero_images[]" value="${url}">
+                            <button type="button" style="position: absolute; top: 0; right: 0; background: rgba(220, 53, 69, 0.9); color: white; border: none; padding: 0.2rem 0.4rem; border-radius: 0 0 0 8px; cursor: pointer; font-size: 0.75rem;" onclick="this.parentElement.remove(); updateUnifiedHeroPreview();">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        `;
+                        herosGrid.appendChild(div);
+                    });
+                }
 
                 // Live preview images in iframe
                 const iframe = document.getElementById('preview-iframe');
                 if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
                     const doc = iframe.contentWindow.document;
-                    if (data.main_image_url) {
-                        const mainImgs = doc.querySelectorAll('.pv-main-img-src, .pv-main-img-bg');
-                        mainImgs.forEach(mainImg => {
-                            if (mainImg.tagName === 'IMG') mainImg.src = data.main_image_url;
-                            else mainImg.style.backgroundImage = `url('${data.main_image_url}')`;
-                        });
-                    }
                     if (data.bride_image_url) {
                         const brideImgs = doc.querySelectorAll('.pv-bride-img-src');
                         brideImgs.forEach(brideImg => {
@@ -827,13 +1000,9 @@
                             else groomImg.style.backgroundImage = `url('${data.groom_image_url}')`;
                         });
                     }
-                    if (data.accent_image_url) {
-                        const accentImgs = doc.querySelectorAll('.pv-accent-img-src');
-                        accentImgs.forEach(accentImg => {
-                            if (accentImg.tagName === 'IMG') accentImg.src = data.accent_image_url;
-                            else accentImg.style.backgroundImage = `url('${data.accent_image_url}')`;
-                        });
-                    }
+
+                    // Force unified hero preview sync
+                    updateUnifiedHeroPreview();
                     
                     // Handle Gallery if any
                     if (data.galleries && data.galleries.length > 0) {

@@ -15,7 +15,12 @@ class TemplateController extends Controller
                 'hint' => 'Classic and elegant',
                 'image' => '/template_thumbnails/premium-vintage.png',
             ],
-
+            [
+                'id' => 'elegant-circle',
+                'name' => 'Elegant Circle',
+                'hint' => 'Beautiful curved design',
+                'image' => '/template_thumbnails/elegant-circle.png',
+            ],
             [
                 'id' => 'geometric-polaroid',
                 'name' => 'Geometric Polaroid',
@@ -35,7 +40,12 @@ class TemplateController extends Controller
                 'hint' => 'Clean and minimalist',
                 'image' => '/template_thumbnails/simple-elegance.png',
             ],
-
+            [
+                'id' => 'heartfeltcollage',
+                'name' => 'Heartfelt Collage',
+                'hint' => 'Romantic heart grid photo collage',
+                'image' => '/template_thumbnails/heartfeltcollage.png',
+            ],
             [
                 'id' => 'seaside-promise',
                 'name' => 'Seaside Promise',

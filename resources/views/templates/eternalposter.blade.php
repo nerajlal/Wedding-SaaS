@@ -196,7 +196,8 @@
 
         .cast-profile {
             text-align: center;
-            width: 120px;
+            min-width: 120px;
+            width: auto;
         }
 
         .cast-img-wrapper {
@@ -228,6 +229,7 @@
             color: #fff;
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
+            white-space: nowrap;
         }
 
         .cast-role {
@@ -360,9 +362,6 @@
             <div class="cast-profile">
                 <div class="cast-img-wrapper">
                     <img class="pv-groom-img-src" src="{{ !empty($invitation->groom_image_url) ? $invitation->groom_image_url : (!empty($details['groom_image_url']) ? $details['groom_image_url'] : 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80') }}">
-                </div>
-                <div class="cast-img-wrapper" style="border: 2px dashed rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05);">
-                    <img class="pv-groom-img-src" src="{{ !empty($invitation->groom_image_url) ? $invitation->groom_image_url : '' }}" style="display: {{ !empty($invitation->groom_image_url) || !empty($details['groom_image_url']) ? 'block' : 'none' }};">
                 </div>
                 <div class="cast-name" data-preview="groom_name">{{ $invitation->groom_name ?? $details['groom_name'] ?? 'Varsha' }}</div>
                 <div class="cast-role">The Groom</div>

@@ -79,8 +79,6 @@
     <div class="inv-premium-vintage">
         <!-- Hero Section (20% height) -->
         <div style="background-color:#5A6D5C; height:20vh; min-height: 180px; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#F0EAD6; padding:1rem; position:relative; z-index:1;">
-            <img class="hero-img pv-main-img-src" src="{{ $invitation->main_image_url ?? $photo ?? 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80' }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2;">
-            <div style="position:absolute; inset:0; background:rgba(44,53,49,0.5); z-index:-1;"></div>
 
             
             <p style="font-family:'Montserrat',sans-serif; text-transform:uppercase; font-size:0.6rem; letter-spacing:2px; margin-bottom:0.8rem;">We are getting married</p>

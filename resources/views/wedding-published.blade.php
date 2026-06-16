@@ -322,16 +322,32 @@
 
         /* Copy Theme Details */
         function copyThemeDetails() {
+            // Helper to detect and ignore url-encoded Blade placeholders
+            function cleanSrc(src) {
+                if (!src) return 'Not set';
+                try {
+                    const decoded = decodeURIComponent(src);
+                    if (decoded.includes('{{') || decoded.includes('}}')) return 'Not set';
+                } catch (e) {
+                    // ignore decode errors
+                }
+                if (src.startsWith(window.location.origin + '/wedding/live-preview/')) return 'Not set';
+                return normalizeImageUrl(src);
+            }
+
             // Format image URLs
-            const mainImage = details.main_image_url ? details.main_image_url : 'Not set';
-            const brideImage = details.bride_image_url ? details.bride_image_url : 'Not set';
-            const groomImage = details.groom_image_url ? details.groom_image_url : 'Not set';
-            const accentImage = details.accent_image_url ? details.accent_image_url : 'Not set';
-            
+            const mainImage = cleanSrc(details.main_image_url || details.photo || details.accent_image_url || (details.galleries && details.galleries[0] ? details.galleries[0].image_url : ''));
+            const brideImage = cleanSrc(details.bride_image_url);
+            const groomImage = cleanSrc(details.groom_image_url);
+            const accentImage = cleanSrc(details.accent_image_url);
+
             // Format gallery images
             let galleryList = 'None';
             if (details.galleries && Array.isArray(details.galleries) && details.galleries.length > 0) {
-                galleryList = details.galleries.map((g, i) => `  ${i + 1}. ${g.image_url || g}`).join('\n');
+                galleryList = details.galleries.map((g, i) => {
+                    const src = (g && (g.image_url || g)) || '';
+                    return `  ${i + 1}. ${cleanSrc(src)}`;
+                }).join('\n');
             }
             
             // Format RSVP info

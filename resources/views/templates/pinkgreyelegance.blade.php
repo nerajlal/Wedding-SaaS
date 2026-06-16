@@ -135,21 +135,7 @@
             mask-image: radial-gradient(circle at 60% 50%, black 40%, transparent 75%);
         }
 
-        /* Cursive Personal Message */
-        .cursive-msg {
-            position: absolute;
-            top: 55%;
-            right: 5%;
-            width: 60%;
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.2rem;
-            color: #fff;
-            text-align: center;
-            line-height: 1.2;
-            z-index: 6;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.6);
-            transform: rotate(-3deg);
-        }
+
 
         /* Bottom Details */
         .details-section {
@@ -272,10 +258,7 @@
             <!-- Foreground Bottom Color Image -->
             <div class="collage-fg-bottom pv-groom-img-src" style="background-image: url('{{ $fgBottomImg }}');"></div>
             
-            <!-- Cursive Personal Message Overlay -->
-            <div class="cursive-msg" data-preview="personal_message">
-                {{ $invitation->personal_message ?? $details['personal_message'] ?? 'Together, for a lifetime and beyond.' }}
-            </div>
+
 
             <!-- Clouds overlaying the bottom edges -->
             <div class="cloud-overlay cloud-2"></div>
