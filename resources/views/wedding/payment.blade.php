@@ -128,100 +128,11 @@
             font-weight: 500;
         }
 
-        /* Payment Methods */
-        .payment-methods {
-            margin-bottom: 2.5rem;
-        }
 
-        .methods-title {
-            font-family: var(--display);
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .payment-option {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s var(--ease);
-            align-items: center;
-        }
-
-        .payment-option:hover {
-            border-color: var(--gold);
-            background: rgba(184,144,71,0.02);
-        }
-
-        .payment-option input[type="radio"] {
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-            accent-color: var(--gold);
-        }
-
-        .option-details h3 {
-            font-family: var(--display);
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-            color: var(--text);
-        }
-
-        .option-details p {
-            font-size: 0.85rem;
-            color: var(--muted);
-            margin: 0;
-        }
-
-        /* QR Code Section */
-        .qr-section {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .qr-wrapper {
-            background: #fff;
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 2px dashed var(--border);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-        .qr-wrapper img {
-            width: 160px;
-            height: 160px;
-        }
-
-        .qr-text {
-            font-family: var(--display);
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-            color: var(--text);
-        }
-
-        .qr-sub {
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
 
         /* Form Section */
         .form-section {
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
 
         .form-group {
@@ -254,32 +165,6 @@
             outline: none;
             border-color: var(--gold);
             box-shadow: 0 0 0 3px rgba(184,144,71,0.1);
-        }
-
-        /* Divider */
-        .divider-or {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.85rem;
-            margin: 2rem 0;
-            font-weight: 600;
-        }
-
-        .divider-or::before,
-        .divider-or::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .divider-or::before {
-            margin-right: 1rem;
-        }
-
-        .divider-or::after {
-            margin-left: 1rem;
         }
 
         /* Button */
@@ -355,20 +240,6 @@
             .summary-price {
                 font-size: 2rem;
             }
-
-            .payment-option {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .payment-option input[type="radio"] {
-                order: -1;
-            }
-
-            .qr-wrapper img {
-                width: 140px;
-                height: 140px;
-            }
         }
     </style>
 </head>
@@ -398,54 +269,39 @@
                 </div>
             </div>
 
-            <!-- Payment Methods -->
-            <div class="payment-methods">
-                <div class="methods-title">
-                    <i class="bi bi-wallet2"></i> Select Payment Method
-                </div>
-
-                <!-- QR Code Option -->
-                <label class="payment-option">
-                    <input type="radio" name="paymentMethod" value="qr" checked>
-                    <div class="option-details">
-                        <h3>Scan & Pay</h3>
-                        <p>Use any UPI app to scan and pay instantly</p>
-                    </div>
-                </label>
-
-                <!-- Manual UPI Option -->
-                <label class="payment-option">
-                    <input type="radio" name="paymentMethod" value="upi">
-                    <div class="option-details">
-                        <h3>Enter UPI ID</h3>
-                        <p>Pay directly from your UPI account</p>
-                    </div>
-                </label>
-            </div>
-
-            <!-- QR Section -->
-            <div class="qr-section" id="qrSection">
-                <div class="qr-wrapper">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=velvetvows@ybl&pn=VelvetVows&am=999.00&cu=INR" alt="QR Code">
-                </div>
-                <div class="qr-text">Scan with PhonePe, Google Pay, or any UPI App</div>
-                <div class="qr-sub">Payment will be verified automatically</div>
-            </div>
-
-            <!-- Divider -->
-            <div class="divider-or">OR</div>
-
-            <!-- Form Section -->
+            <!-- Card Details Form -->
             <form action="{{ route('wedding.payment.process') }}" method="POST" class="form-section">
                 @csrf
-                <div class="form-group" id="upiFormGroup" style="display: none;">
-                    <label class="form-label" for="upiId">UPI ID</label>
-                    <input type="text" id="upiId" name="upi_id" class="form-input" placeholder="9876543210@ybl" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+" title="Enter valid UPI ID">
+                
+
+                <!-- Form Fields -->
+                <div class="form-group">
+                    <label class="form-label" for="card_name">Cardholder Name</label>
+                    <input type="text" id="card_name" name="card_name" class="form-input" placeholder="Enter name on card" required autocomplete="cc-name">
                 </div>
 
-                <button type="submit" class="btn-payment">
+                <div class="form-group">
+                    <label class="form-label" for="card_number">Card Number</label>
+                    <div class="position-relative">
+                        <input type="text" id="card_number" name="card_number" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" required autocomplete="cc-number">
+                        <i class="bi bi-credit-card position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.15rem;"></i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <label class="form-label" for="card_expiry">Expiry Date</label>
+                        <input type="text" id="card_expiry" name="card_expiry" class="form-input" placeholder="MM/YY" maxlength="5" required autocomplete="cc-exp">
+                    </div>
+                    <div class="col-6 form-group">
+                        <label class="form-label" for="card_cvv">CVV</label>
+                        <input type="password" id="card_cvv" name="card_cvv" class="form-input" placeholder="•••" maxlength="3" required autocomplete="cc-csc">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-payment mt-3">
                     <span class="btn-spinner"></span>
-                    <span>Proceed to Payment</span>
+                    <span>Pay ₹999</span>
                 </button>
             </form>
 
@@ -465,20 +321,32 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Toggle between payment methods
-        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const qrSection = document.getElementById('qrSection');
-                const upiFormGroup = document.getElementById('upiFormGroup');
-                
-                if (this.value === 'qr') {
-                    qrSection.style.display = 'block';
-                    upiFormGroup.style.display = 'none';
-                } else {
-                    qrSection.style.display = 'none';
-                    upiFormGroup.style.display = 'block';
-                }
-            });
+        // Format Input Fields in Real-time
+        const cardNumberInput = document.getElementById('card_number');
+        const cardExpiryInput = document.getElementById('card_expiry');
+
+        cardNumberInput.addEventListener('input', function() {
+            // Remove non-digit characters
+            let val = this.value.replace(/\D/g, '');
+            // Limit to 16 digits
+            if (val.length > 16) {
+                val = val.substring(0, 16);
+            }
+            // Group by 4 digits
+            let formatted = val.match(/.{1,4}/g)?.join(' ') || '';
+            this.value = formatted;
+        });
+
+        cardExpiryInput.addEventListener('input', function() {
+            // Remove non-digit characters
+            let val = this.value.replace(/\D/g, '');
+            if (val.length > 4) {
+                val = val.substring(0, 4);
+            }
+            if (val.length >= 2) {
+                val = val.substring(0, 2) + '/' + val.substring(2, 4);
+            }
+            this.value = val;
         });
 
         // Handle form submission
@@ -495,8 +363,11 @@
         // Simple countdown timer
         let time = 299; // 4:59
         const timerEl = document.getElementById('timer');
-        setInterval(() => {
-            if (time <= 0) return;
+        const timerInterval = setInterval(() => {
+            if (time <= 0) {
+                clearInterval(timerInterval);
+                return;
+            }
             time--;
             const m = Math.floor(time / 60);
             const s = time % 60;

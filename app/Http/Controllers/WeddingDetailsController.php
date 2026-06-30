@@ -19,7 +19,7 @@ class WeddingDetailsController extends Controller
      */
     public function entryWedding()
     {
-        return view('wedding-flow');
+        return view('wedding.flow');
     }
 
     /**
@@ -152,7 +152,7 @@ class WeddingDetailsController extends Controller
      */
     public function create()
     {
-        return view('wedding-details');
+        return view('wedding.details');
     }
 
     /**
@@ -213,7 +213,7 @@ class WeddingDetailsController extends Controller
         $details = session('wedding_details');
         $photo = session('wedding_photo');
 
-        return view('wedding-template', compact('details', 'photo'));
+        return view('wedding.template', compact('details', 'photo'));
     }
 
     /**
@@ -243,7 +243,7 @@ class WeddingDetailsController extends Controller
         $photo = session('wedding_photo');
         $template = session('wedding_template');
 
-        return view('wedding-preview', compact('details', 'photo', 'template'));
+        return view('wedding.preview', compact('details', 'photo', 'template'));
     }
 
     /**
@@ -267,7 +267,7 @@ class WeddingDetailsController extends Controller
         $template = $invitation->template;
         $publicUrl = url('/invite/' . $slug);
 
-        return view('wedding-published', compact('details', 'template', 'slug', 'publicUrl'));
+        return view('wedding.published', compact('details', 'template', 'slug', 'publicUrl'));
     }
 
     /**
@@ -305,11 +305,11 @@ class WeddingDetailsController extends Controller
             }
         }
 
-        if (view()->exists('templates.' . $template)) {
-            return view('templates.' . $template, compact('details', 'template', 'photo', 'invitation'));
+        if (view()->exists('wedding.' . $template)) {
+            return view('wedding.' . $template, compact('details', 'template', 'photo', 'invitation'));
         }
 
-        return view('wedding-public', compact('details', 'template', 'photo', 'invitation'));
+        return view('wedding.public', compact('details', 'template', 'photo', 'invitation'));
     }
 
     /**
@@ -341,11 +341,11 @@ class WeddingDetailsController extends Controller
 
         $resolvedTemplate = $this->resolveTemplateAlias($template);
 
-        if (view()->exists('templates.' . $resolvedTemplate)) {
-            return view('templates.' . $resolvedTemplate, compact('details', 'template', 'photo', 'invitation'));
+        if (view()->exists('wedding.' . $resolvedTemplate)) {
+            return view('wedding.' . $resolvedTemplate, compact('details', 'template', 'photo', 'invitation'));
         }
 
-        return view('wedding-public', compact('details', 'template', 'photo', 'invitation'));
+        return view('wedding.public', compact('details', 'template', 'photo', 'invitation'));
     }
 
     private function resolveTemplateAlias(string $template): string
@@ -366,7 +366,7 @@ class WeddingDetailsController extends Controller
     public function myCards()
     {
         $invitations = \App\Models\Invitation::where('user_id', auth()->id())->latest()->get();
-        return view('my-cards', compact('invitations'));
+        return view('wedding.my-cards', compact('invitations'));
     }
 
     public function edit($slug)
@@ -378,7 +378,7 @@ class WeddingDetailsController extends Controller
             'name' => ucwords(str_replace('-', ' ', $invitation->template))
         ];
 
-        return view('template-preview', compact('template', 'invitation'));
+        return view('wedding.template-preview', compact('template', 'invitation'));
     }
 
     public function updateAll(Request $request, $slug)
@@ -513,7 +513,7 @@ class WeddingDetailsController extends Controller
      */
     public function showPayment()
     {
-        return view('payment');
+        return view('wedding.payment');
     }
 
     /**
@@ -528,7 +528,7 @@ class WeddingDetailsController extends Controller
                 $invitation->update(['is_paid' => true]);
             }
         }
-        return redirect()->route('wedding.published.show');
+        return redirect()->route('wedding.published.show')->with('success', 'Payment successful! 🎉');
     }
 
     /**

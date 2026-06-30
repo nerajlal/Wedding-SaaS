@@ -101,7 +101,7 @@ class TemplateController extends Controller
     public function index()
     {
         $templates = $this->getTemplates();
-        return view('templates', compact('templates'));
+        return view('wedding.templates', compact('templates'));
     }
 
     public function show($id)
@@ -122,7 +122,7 @@ class TemplateController extends Controller
                 ->first();
         }
 
-        return view('template-preview', compact('template', 'existingInvitation'));
+        return view('wedding.template-preview', compact('template', 'existingInvitation'));
     }
 
     private function resolveTemplateAlias(string $template): string

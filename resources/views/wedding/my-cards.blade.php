@@ -170,19 +170,19 @@
                             </div>
                             
                             <div class="inv-actions">
-                                <a href="{{ route('wedding.edit', $inv->slug) }}" class="btn-card-action btn-view" style="flex: 0.5;">
+                                <a href="{{ route('wedding.edit', $inv->slug) }}" class="btn-card-action btn-share" style="flex: 0.4;" title="Edit details">
                                     <i class="bi bi-pencil"></i> 
                                 </a>
+                                <a href="{{ route('wedding.public.show', $inv->slug) }}" target="_blank" class="btn-card-action btn-view" style="flex: 1;" title="View Live Invitation">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
                                 @if($inv->is_paid)
-                                    <a href="{{ route('wedding.published.show', ['slug' => $inv->slug]) }}" class="btn-card-action btn-view">
-                                        <i class="bi bi-eye"></i> View
+                                    <a href="{{ route('wedding.published.show', ['slug' => $inv->slug]) }}" class="btn-card-action btn-share" style="flex: 1.2;" title="Share & Stats">
+                                        <i class="bi bi-share"></i> Share Panel
                                     </a>
-                                    <button onclick="navigator.clipboard.writeText('{{ url('/invite/'.$inv->slug) }}'); alert('Link copied!');" class="btn-card-action btn-share">
-                                        <i class="bi bi-link-45deg"></i> Copy
-                                    </button>
                                 @else
-                                    <a href="{{ route('wedding.payment.initiate', $inv->slug) }}" class="btn-card-action" style="background: linear-gradient(135deg, #8C6D3B, #B89047); color: #fff; flex: 1.5; border: none; box-shadow: 0 4px 15px rgba(184,144,71,0.2);">
-                                        <i class="bi bi-lock-fill"></i> Pay ₹999 to Publish
+                                    <a href="{{ route('wedding.payment.initiate', $inv->slug) }}" class="btn-card-action" style="background: linear-gradient(135deg, #8C6D3B, #B89047); color: #fff; flex: 1.2; border: none; box-shadow: 0 4px 15px rgba(184,144,71,0.2);" title="Pay to Publish">
+                                        <i class="bi bi-lock-fill"></i> Pay
                                     </a>
                                 @endif
                             </div>

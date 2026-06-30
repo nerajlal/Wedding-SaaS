@@ -207,6 +207,16 @@
 
     <section class="pub-main">
         <div class="container-xl">
+            @if(session('success'))
+                <div class="alert alert-success d-flex align-items-center gap-3 border-0 py-3 px-4 mb-4 shadow-sm" role="alert" style="background: rgba(16, 185, 129, 0.08); border-left: 5px solid #10B981 !important; border-radius: 12px;">
+                    <i class="bi bi-check-circle-fill text-success fs-4"></i>
+                    <div>
+                        <h6 class="alert-heading mb-1 text-success" style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;">{{ session('success') }}</h6>
+                        <p class="mb-0 text-muted" style="font-size: 0.9rem;">Your premium features are unlocked and your wedding page is active.</p>
+                    </div>
+                </div>
+            @endif
+
             <div class="row g-5">
                 
                 <!-- Left Column: Links & Stats -->

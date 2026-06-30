@@ -4,7 +4,7 @@ This guide outlines the architecture and requirements for building a new theme t
 
 ## 1. Where do themes live?
 All themes are standalone Blade templates stored in:
-`resources/views/templates/[theme-name].blade.php`
+`resources/views/wedding/[theme-name].blade.php`
 
 Themes are rendered in two places:
 1. **Live Preview Editor:** Rendered inside a scaled-down iframe on the editing screen (`/wedding/live-preview/{theme}`).
@@ -126,7 +126,7 @@ Once the blade file is created, add the new theme ID (the filename without `.bla
 ## 8. Updating the UI (Theme Selection)
 To allow users to actually pick the new theme when building an invitation, you must add it to the theme selection grid.
 
-Open `resources/views/wedding-flow.blade.php`, find the `<div class="tpl-grid">` around line 775, and add a new tile block for your theme:
+Open `resources/views/wedding/flow.blade.php`, find the `<div class="tpl-grid">` around line 775, and add a new tile block for your theme:
 
 ```html
 <div class="tpl-tile" id="tpl-[your-theme-id]" onclick="pickTpl('[your-theme-id]', this)">

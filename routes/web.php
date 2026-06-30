@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 
 // Named 'login' so Laravel's auth middleware redirects here (to home, where modal lives)
 Route::get('/', function () {
-    return view('welcome');
+    return view('wedding.welcome');
 })->name('login');
 
 // Old /signin route redirects back to home
@@ -47,5 +47,5 @@ Route::put('/wedding/{slug}', [WeddingDetailsController::class, 'updateAll'])->m
 Route::delete('/wedding/{slug}', [WeddingDetailsController::class, 'destroy'])->middleware('auth')->name('wedding.destroy');
 
 Route::get('/newland', function () {
-    return view('new-landing');
+    return view('wedding.new-landing');
 });
