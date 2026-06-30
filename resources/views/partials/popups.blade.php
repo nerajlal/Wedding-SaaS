@@ -337,7 +337,7 @@
             <i class="bi bi-credit-card"></i> Free to design. Pay only when you are ready to go live!
         </div>
 
-        <button type="button" class="btn-continue" onclick="window.location.href='{{ url('/templates') }}'">
+        <button type="button" class="btn-continue" onclick="window.location.href='{{ url('/wedding') }}'">
             Continue to Themes &rarr;
         </button>
         <button class="modal-close" style="position:absolute; top: 1.5rem; right: 1.5rem; background: transparent; border: none; font-size: 1.8rem; color: #7A7065; cursor: pointer; transition: color 0.2s;" onclick="closeInfoModal()" aria-label="Close modal">
